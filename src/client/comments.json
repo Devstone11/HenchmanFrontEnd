@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1388534400000,
+        "author": "Pete Hunt",
+        "text": "Hey there!"
+    },
+    {
+        "id": 1420070400000,
+        "author": "Paul O’Shannessy",
+        "text": "React is *amazeballs*!"
+    },
+    {
+        "id": 1475266120963,
+        "author": "Devin",
+        "text": "Comment!"
+    },
+    {
+        "id": 1475510234852,
+        "author": "John",
+        "text": "react is hard!"
+    },
+    {
+        "id": 1475510274172,
+        "author": "phil",
+        "text": "test test"
+    },
+    {
+        "id": 1475510486897,
+        "author": "alpha",
+        "text": "beta parking lot"
+    }
+]
