@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {render} from 'react-dom';
-import AwesomeComponent from './AwesomeComponent.jsx';
+import UserContainer from './UserContainer.jsx';
 import urls from '../ajax/urls.js';
 
 class App extends React.Component {
@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <div>
         <p onClick={this.state.onClick}> This is the: {this.state.name}!</p>
-        <AwesomeComponent name='Child Component Prop' url={urls.getUsers}/>
+        <UserContainer name='Child Component Prop' url={urls.getUsers}/>
       </div>
     );
   }
