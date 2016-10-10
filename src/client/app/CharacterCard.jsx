@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
-import urls from '../ajax/urls.js';
 import NpcCard from './NpcCard.jsx';
+import PlayerCard from './PlayerCard.jsx';
 
 class CharacterCard extends React.Component {
 
@@ -11,14 +10,19 @@ class CharacterCard extends React.Component {
     };
   }
 
+  refresh() {
+    this.props.refresh();
+    console.log('refreshed in charCard');
+  }
+
   render() {
     if (this.props.details.npc_id) {
       return (
-        <NpcCard details={this.props.details}>This is an NPC!</NpcCard>
+        <NpcCard details={this.props.details}></NpcCard>
       )
     } else {
       return (
-        <div>This is a PC!</div>
+        <PlayerCard details={this.props.details} refresh={this.refresh.bind(this)}></PlayerCard>
       )
     }
   }

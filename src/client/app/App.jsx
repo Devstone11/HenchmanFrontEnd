@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory, hashHistory, Link } from 'react-router'
 import User from './User.jsx';
 import Campaign from './Campaign.jsx';
 import Encounter from './Encounter.jsx';
@@ -14,7 +14,7 @@ const Second = () => <div>Hello Second!</div>
 export default class App extends Component {
     render(){
       return (
-        <Router history={browserHistory}>
+        <Router history={hashHistory}>
           <Route path='/' component={Container}>
             <IndexRoute component={User} />
             <Route path='/campaign/:camp_id' component={Campaign} />

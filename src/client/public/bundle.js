@@ -129,7 +129,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        _reactRouter.Router,
-	        { history: _reactRouter.browserHistory },
+	        { history: _reactRouter.hashHistory },
 	        _react2.default.createElement(
 	          _reactRouter.Route,
 	          { path: '/', component: _Container2.default },
@@ -28498,7 +28498,8 @@
 	
 	    _this.state = {
 	      players: [],
-	      npcs: []
+	      npcs: [],
+	      bla: ''
 	    };
 	    return _this;
 	  }
@@ -28531,10 +28532,17 @@
 	      });
 	    }
 	  }, {
+	    key: 'refresh',
+	    value: function refresh() {
+	      this.setState({ bla: 'bla' });
+	      console.log('refreshed in combat');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var sceneUrl = '/campaign/' + this.props.params.camp_id + '/encounter/' + this.props.params.encounter_id + '/scene/' + this.props.params.scene_id;
 	      var sortedList = [];
+	      var combatThis = this;
 	      this.state.npcs.forEach(function (npc) {
 	        sortedList.push(npc);
 	      });
@@ -28545,7 +28553,7 @@
 	        return b.initiative - a.initiative;
 	      });
 	      var characterNodes = sortedList.map(function (character) {
-	        return _react2.default.createElement(_CharacterCard2.default, { details: character });
+	        return _react2.default.createElement(_CharacterCard2.default, { details: character, refresh: combatThis.refresh.bind(combatThis) });
 	      });
 	      return _react2.default.createElement(
 	        'div',
@@ -29135,15 +29143,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 34);
-	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 239);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
 	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 245);
 	
 	var _NpcCard2 = _interopRequireDefault(_NpcCard);
+	
+	var _PlayerCard = __webpack_require__(/*! ./PlayerCard.jsx */ 247);
+	
+	var _PlayerCard2 = _interopRequireDefault(_PlayerCard);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29166,20 +29172,18 @@
 	  }
 	
 	  _createClass(CharacterCard, [{
+	    key: 'refresh',
+	    value: function refresh() {
+	      this.props.refresh();
+	      console.log('refreshed in charCard');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.details.npc_id) {
-	        return _react2.default.createElement(
-	          _NpcCard2.default,
-	          { details: this.props.details },
-	          'This is an NPC!'
-	        );
+	        return _react2.default.createElement(_NpcCard2.default, { details: this.props.details });
 	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          'This is a PC!'
-	        );
+	        return _react2.default.createElement(_PlayerCard2.default, { details: this.props.details, refresh: this.refresh.bind(this) });
 	      }
 	    }
 	  }]);
@@ -29188,6 +29192,442 @@
 	}(_react2.default.Component);
 	
 	exports.default = CharacterCard;
+
+/***/ },
+/* 247 */
+/*!***************************************!*\
+  !*** ./src/client/app/PlayerCard.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 239);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PlayerCard = function (_React$Component) {
+	  _inherits(PlayerCard, _React$Component);
+	
+	  function PlayerCard(props) {
+	    var _this$state;
+	
+	    _classCallCheck(this, PlayerCard);
+	
+	    var _this = _possibleConstructorReturn(this, (PlayerCard.__proto__ || Object.getPrototypeOf(PlayerCard)).call(this, props));
+	
+	    _this.state = (_this$state = {
+	      showDetails: false,
+	      showForm: false,
+	      name: _this.props.details.name,
+	      class: _this.props.details.class,
+	      race: _this.props.details.race,
+	      armor_class: _this.props.details.armor_class,
+	      initiative: _this.props.details.initiative,
+	      fortitude: _this.props.details.fortitude,
+	      reflex: _this.props.details.reflex,
+	      will: _this.props.details.will,
+	      speed: _this.props.details.speed,
+	      current_effects: _this.props.details.current_effects,
+	      current_hit_points: _this.props.details.current_hit_points,
+	      max_hit_points: _this.props.details.max_hit_points
+	    }, _defineProperty(_this$state, 'max_hit_points', _this.props.details.max_hit_points), _defineProperty(_this$state, 'passive_insight', _this.props.details.passive_insight), _defineProperty(_this$state, 'passive_perception', _this.props.details.passive_perception), _defineProperty(_this$state, 'xp', _this.props.details.xp), _defineProperty(_this$state, 'level', _this.props.details.level), _defineProperty(_this$state, 'active', _this.props.details.active), _this$state);
+	    return _this;
+	  }
+	
+	  _createClass(PlayerCard, [{
+	    key: 'showDetails',
+	    value: function showDetails() {
+	      this.setState({ showForm: false, showDetails: !this.state.showDetails });
+	    }
+	  }, {
+	    key: 'showForm',
+	    value: function showForm() {
+	      this.setState({ showForm: !this.state.showForm });
+	    }
+	  }, {
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleClassChange',
+	    value: function handleClassChange(e) {
+	      this.setState({ class: e.target.value });
+	    }
+	  }, {
+	    key: 'handleRaceChange',
+	    value: function handleRaceChange(e) {
+	      this.setState({ race: e.target.value });
+	    }
+	  }, {
+	    key: 'handleArmorClassChange',
+	    value: function handleArmorClassChange(e) {
+	      this.setState({ armor_class: e.target.value });
+	    }
+	  }, {
+	    key: 'handleInitiativeChange',
+	    value: function handleInitiativeChange(e) {
+	      this.setState({ initiative: e.target.value });
+	    }
+	  }, {
+	    key: 'handleFortitudeChange',
+	    value: function handleFortitudeChange(e) {
+	      this.setState({ fortitude: e.target.value });
+	    }
+	  }, {
+	    key: 'handleReflexChange',
+	    value: function handleReflexChange(e) {
+	      this.setState({ reflex: e.target.value });
+	    }
+	  }, {
+	    key: 'handleWillChange',
+	    value: function handleWillChange(e) {
+	      this.setState({ will: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSpeedChange',
+	    value: function handleSpeedChange(e) {
+	      this.setState({ speed: e.target.value });
+	    }
+	  }, {
+	    key: 'handleCurrentEffectsChange',
+	    value: function handleCurrentEffectsChange(e) {
+	      this.setState({ current_effects: e.target.value });
+	    }
+	  }, {
+	    key: 'handleCurrentHitPointsChange',
+	    value: function handleCurrentHitPointsChange(e) {
+	      this.setState({ current_hit_points: e.target.value });
+	    }
+	  }, {
+	    key: 'handleMaxHitPointsChange',
+	    value: function handleMaxHitPointsChange(e) {
+	      this.setState({ max_hit_points: e.target.value });
+	    }
+	  }, {
+	    key: 'handlePassiveInsightChange',
+	    value: function handlePassiveInsightChange(e) {
+	      this.setState({ passive_insight: e.target.value });
+	    }
+	  }, {
+	    key: 'handlePassivePerceptionChange',
+	    value: function handlePassivePerceptionChange(e) {
+	      this.setState({ passive_perception: e.target.value });
+	    }
+	  }, {
+	    key: 'handleXPChange',
+	    value: function handleXPChange(e) {
+	      this.setState({ xp: e.target.value });
+	    }
+	  }, {
+	    key: 'handleLevelChange',
+	    value: function handleLevelChange(e) {
+	      this.setState({ level: e.target.value });
+	    }
+	  }, {
+	    key: 'handleActiveChange',
+	    value: function handleActiveChange(e) {
+	      this.setState({ active: e.target.value });
+	    }
+	  }, {
+	    key: 'refresh',
+	    value: function refresh() {
+	      this.props.refresh();
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      console.log("attempting to submit...");
+	      $.ajax({
+	        url: _urls2.default.getPlayers + this.props.details.id,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          console.log("ajax request submitted");
+	          this.setState({ showForm: false });
+	          this.refresh();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.state.showForm === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { onClick: this.showDetails.bind(this) },
+	            this.props.details.name
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'show-details' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Edit Player'
+	            ),
+	            _react2.default.createElement(
+	              'form',
+	              { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'name' },
+	                'Name: '
+	              ),
+	              _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'xp' },
+	                'XP: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'xp', value: this.state.xp, onChange: this.handleXPChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'level' },
+	                'Level: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'level', value: this.state.level, onChange: this.handleLevelChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'race' },
+	                'Race: '
+	              ),
+	              _react2.default.createElement('input', { type: 'text', id: 'race', value: this.state.race, onChange: this.handleRaceChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'class' },
+	                'Class: '
+	              ),
+	              _react2.default.createElement('input', { type: 'text', id: 'class', value: this.state.class, onChange: this.handleClassChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'current_hit_points' },
+	                'Current HP: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'current_hit_points', value: this.state.current_hit_points, onChange: this.handleCurrentHitPointsChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'max_hit_points' },
+	                'Max HP: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'max_hit_points', value: this.state.max_hit_points, onChange: this.handleMaxHitPointsChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'initiative' },
+	                'Initiative: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'armor_class' },
+	                'AC: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'armor_class', value: this.state.armor_class, onChange: this.handleArmorClassChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'fortitude' },
+	                'Fortitude: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'fortitude', value: this.state.fortitude, onChange: this.handleFortitudeChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'reflex' },
+	                'Reflex: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'reflex', value: this.state.reflex, onChange: this.handleReflexChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'will' },
+	                'Will: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'will', value: this.state.will, onChange: this.handleWillChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'speed' },
+	                'Speed: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'speed', value: this.state.speed, onChange: this.handleSpeedChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'passive_insight' },
+	                'Passive Insight: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'passive_insight', value: this.state.passive_insight, onChange: this.handlePassiveInsightChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'passive_perception' },
+	                'Passive Perception: '
+	              ),
+	              _react2.default.createElement('input', { type: 'number', id: 'passive_perception', value: this.state.passive_perception, onChange: this.handlePassivePerceptionChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'current_effects' },
+	                'Current Effects: '
+	              ),
+	              _react2.default.createElement('input', { type: 'text', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'active' },
+	                'Active: '
+	              ),
+	              _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	              _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	            )
+	          )
+	        );
+	      } else if (this.state.showDetails === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { onClick: this.showDetails.bind(this) },
+	            this.props.details.name
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'show-details' },
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.showForm.bind(this) },
+	              'Edit'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Name: ',
+	              this.props.details.name
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'XP: ',
+	              this.props.details.xp_value
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Race: ',
+	              this.props.details.race
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Class: Level ',
+	              this.props.details.level,
+	              ' ',
+	              this.props.details.class
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'HP: ',
+	              this.props.details.current_hit_points,
+	              ' / ',
+	              this.props.details.max_hit_points
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Initiative: ',
+	              this.props.details.initiative
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'AC: ',
+	              this.props.details.armor_class
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Fortitude: ',
+	              this.props.details.fortitude
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Reflex: ',
+	              this.props.details.reflex
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Will: ',
+	              this.props.details.will
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Speed: ',
+	              this.props.details.speed
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Passive Insight: ',
+	              this.props.details.passive_insight
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Passive Perception: ',
+	              this.props.details.passive_perception
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Current Effects: ',
+	              this.props.details.current_effects
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { onClick: this.showDetails.bind(this) },
+	            this.props.details.name
+	          )
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return PlayerCard;
+	}(_react2.default.Component);
+	
+	exports.default = PlayerCard;
 
 /***/ }
 /******/ ]);

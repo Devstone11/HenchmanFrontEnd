@@ -9,7 +9,8 @@ class Combat extends React.Component {
     super(props);
     this.state = {
       players: [],
-      npcs: []
+      npcs: [],
+      bla: ''
     };
   }
 
@@ -39,9 +40,15 @@ class Combat extends React.Component {
     });
   }
 
+  refresh() {
+    this.setState({bla: 'bla'});
+    console.log('refreshed in combat');
+  }
+
   render() {
     var sceneUrl = '/campaign/' + this.props.params.camp_id + '/encounter/' + this.props.params.encounter_id + '/scene/' + this.props.params.scene_id;
     var sortedList = [];
+    var combatThis = this;
     this.state.npcs.forEach(function(npc) {
       sortedList.push(npc);
     });
@@ -52,7 +59,7 @@ class Combat extends React.Component {
       return b.initiative - a.initiative;
     })
     var characterNodes = sortedList.map(function(character) {
-      return <CharacterCard details={character}></CharacterCard>
+      return <CharacterCard details={character} refresh={combatThis.refresh.bind(combatThis)}></CharacterCard>
     })
     return (
       <div>
