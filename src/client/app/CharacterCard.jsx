@@ -12,13 +12,12 @@ class CharacterCard extends React.Component {
 
   refresh() {
     this.props.refresh();
-    console.log('refreshed in charCard');
   }
 
   render() {
     if (this.props.details.npc_id) {
       return (
-        <NpcCard details={this.props.details}></NpcCard>
+        <NpcCard details={this.props.details} refresh={this.refresh.bind(this)}></NpcCard>
       )
     } else {
       return (

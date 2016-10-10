@@ -10,7 +10,6 @@ class Combat extends React.Component {
     this.state = {
       players: [],
       npcs: [],
-      bla: ''
     };
   }
 
@@ -41,8 +40,29 @@ class Combat extends React.Component {
   }
 
   refresh() {
-    this.setState({bla: 'bla'});
-    console.log('refreshed in combat');
+    $.ajax({
+      url: urls.getPlayers + this.props.params.camp_id,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({players: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    $.ajax({
+      url: urls.getNPCs + this.props.params.scene_id,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({npcs: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   }
 
   render() {

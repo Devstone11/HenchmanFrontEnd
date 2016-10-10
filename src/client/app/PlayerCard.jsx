@@ -20,7 +20,6 @@ class PlayerCard extends React.Component {
       current_effects: this.props.details.current_effects,
       current_hit_points: this.props.details.current_hit_points,
       max_hit_points: this.props.details.max_hit_points,
-      max_hit_points: this.props.details.max_hit_points,
       passive_insight: this.props.details.passive_insight,
       passive_perception: this.props.details.passive_perception,
       xp: this.props.details.xp,
@@ -102,24 +101,18 @@ class PlayerCard extends React.Component {
   }
 
   handleActiveChange (e) {
-    this.setState({active: e.target.value});
-  }
-
-  refresh() {
-    this.props.refresh();
+    this.setState({active: !this.state.active});
   }
 
   handleSubmit() {
-    console.log("attempting to submit...");
     $.ajax({
       url: urls.getPlayers + this.props.details.id,
       dataType: 'json',
       type: 'POST',
       data: this.state,
       success: function() {
-        console.log("ajax request submitted");
         this.setState({showForm: false});
-        this.refresh();
+        this.props.refresh();
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -128,7 +121,7 @@ class PlayerCard extends React.Component {
   }
 
   render() {
-    if (this.state.showForm === true) {
+    if (this.state.showForm) {
       return (
         <div>
           <div onClick={this.showDetails.bind(this)}>{this.props.details.name}</div>
@@ -168,13 +161,13 @@ class PlayerCard extends React.Component {
               <label htmlFor="current_effects">Current Effects: </label>
               <input type="text" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
               <label htmlFor="active">Active: </label>
-              <input type="checkbox" id="active" checked={this.state.active} onChange={this.handleCurrentEffectsChange.bind(this)}/>
+              <input type="checkbox" id="active" checked={this.state.active} onChange={this.handleActiveChange.bind(this)}/>
               <input type="submit" value="Save Changes" />
             </form>
           </div>
         </div>
       );
-    } else if (this.state.showDetails === true) {
+    } else if (this.state.showDetails) {
       return (
         <div>
           <div onClick={this.showDetails.bind(this)}>{this.props.details.name}</div>

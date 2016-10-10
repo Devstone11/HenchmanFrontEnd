@@ -8,9 +8,45 @@ class NpcCard extends React.Component {
     super(props);
     this.state = {
       showDetails: false,
+      showForm: false,
       raceAbilities: [],
-      items: []
+      items: [],
+      npc_name: this.props.details.npc_name,
+      npc_notes: this.props.details.npc_notes,
+      current_effects: this.props.details.current_effects,
+      current_hit_points: this.props.details.current_hit_points,
+      initiative: this.props.details.initiative,
+      loot: this.props.details.loot,
+      npc_active: this.props.details.npc_active
     };
+  }
+
+  handleNameChange (e) {
+    this.setState({npc_name: e.target.value});
+  }
+
+  handleNotesChange (e) {
+    this.setState({npc_notes: e.target.value});
+  }
+
+  handleCurrentEffectsChange (e) {
+    this.setState({current_effects: e.target.value});
+  }
+
+  handleCurrentHitPointsChange (e) {
+    this.setState({current_hit_points: e.target.value});
+  }
+
+  handleInitiativeChange (e) {
+    this.setState({initiative: e.target.value});
+  }
+
+  handleLootChange (e) {
+    this.setState({loot: e.target.value});
+  }
+
+  handleActiveChange (e) {
+    this.setState({npc_active: !this.state.npc_active});
   }
 
   componentWillMount () {
@@ -39,15 +75,63 @@ class NpcCard extends React.Component {
     })
   }
 
+  handleSubmit () {
+    console.log(this.state);
+    $.ajax({
+      url: urls.getNPCs + this.props.details.npc_id,
+      dataType: 'json',
+      type: 'POST',
+      data: this.state,
+      success: function() {
+        this.setState({showForm: false});
+        this.props.refresh();
+        console.log('post succeeded!');
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  }
+
   showDetails () {
-    this.setState({showDetails: !this.state.showDetails});
+    this.setState({showForm: false, showDetails: !this.state.showDetails});
+  }
+
+  showForm () {
+    this.setState({showForm: !this.state.showForm});
   }
 
   render() {
-    if (this.state.showDetails === true) {
+    if (this.state.showForm === true) {
+      return (
+        <div>
+          <div onClick={this.showDetails.bind(this)}>{this.props.details.npc_name}</div>
+          <div className="show-details">
+            <h2>Edit NPC</h2>
+            <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
+              <label htmlFor="name">Name: </label>
+              <input type="text" id="name" value={this.state.npc_name} onChange={this.handleNameChange.bind(this)}/>
+              <label htmlFor="notes">Notes: </label>
+              <input type="text" id="notes" value={this.state.npc_notes} onChange={this.handleNotesChange.bind(this)}/>
+              <label htmlFor="current_hit_points">Current HP: </label>
+              <input type="number" id="current_hit_points" value={this.state.current_hit_points} onChange={this.handleCurrentHitPointsChange.bind(this)}/>
+              <label htmlFor="initiative">Initiative: </label>
+              <input type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/>
+              <label htmlFor="current_effects">Current Effects: </label>
+              <input type="text" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
+              <label htmlFor="loot">Loot: </label>
+              <input type="text" id="loot" value={this.state.loot} onChange={this.handleLootChange.bind(this)}/>
+              <label htmlFor="npc_active">Active: </label>
+              <input type="checkbox" id="npc_active" checked={this.state.npc_active} onChange={this.handleActiveChange.bind(this)}/>
+              <input type="submit" value="Save Changes" />
+            </form>
+          </div>
+        </div>
+      );
+    } else if (this.state.showDetails === true) {
       var raceAbilityNodes = this.state.raceAbilities.map(function(race_ability) {
         return (
-          <div>
+          <div className="sub-details">
             <p>Ability: {race_ability.ability_name}</p>
             <p>Notes: {race_ability.ability_notes}</p>
             <p>Range: {race_ability.ability_range}</p>
@@ -59,7 +143,7 @@ class NpcCard extends React.Component {
       });
       var itemNodes = this.state.items.map(function(item) {
         return (
-          <div>
+          <div className="sub-details">
             <p>Item: {item.item_name}</p>
             <p>Item Notes: {item.item_notes}</p>
             <p>Enhancement: {item.enhancement_amount} to {item.enhancement_target}</p>
@@ -76,6 +160,7 @@ class NpcCard extends React.Component {
           <div onClick={this.showDetails.bind(this)}>{this.props.details.npc_name}</div>
           <div className="show-details">
             <div>
+              <button onClick={this.showForm.bind(this)}>Edit</button>
               <p>NPC Name: {this.props.details.npc_name}</p>
               <p>NPC Notes: {this.props.details.npc_notes}</p>
               <p>Race: {this.props.details.race_name}</p>
