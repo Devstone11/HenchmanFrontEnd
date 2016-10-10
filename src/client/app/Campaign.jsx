@@ -7,19 +7,17 @@ class Campaign extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: '',
-      showCampaign: 0
+      encounters: [],
     };
   }
 
-  getCampaigns () {
-    this.props.pickUser(this.props.userInfo.id);
+  componentWillMount () {
     $.ajax({
-      url: this.props.url + this.props.userInfo.id,
+      url: urls.getEncounters + this.props.params.camp_id,
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({data: data});
+        this.setState({encounters: data});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -28,15 +26,21 @@ class Campaign extends React.Component {
   }
 
   render() {
+    var campaignThis = this;
+    var encounterNodes = this.state.encounters.map(function(encounter) {
+      var url = '/campaign/' + campaignThis.props.params.camp_id + '/encounter/' + encounter.id;
+      return <div><Link to={url}>{encounter.name}</Link></div>
+    });
+
     return (
       <div>
-        <Link to='/'>Back to User Page</Link>
-        <h1>Campaign Page!</h1>
-        <Link to='/encounter'>To Encounter Page</Link>
+        <Link to='/'>Back to Campaigns</Link>
+        <h2>Campaign Page!</h2>
+        <h3>Select an Encounter:</h3>
+        {encounterNodes}
       </div>
     );
   }
 }
-
 
 export default Campaign;

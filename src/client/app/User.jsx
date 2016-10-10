@@ -8,8 +8,6 @@ class User extends React.Component {
     super(props);
     this.state = {
       campaigns: [],
-      showCampaign: 0,
-      test: 'is this thing on?'
     };
 
   }
@@ -21,7 +19,6 @@ class User extends React.Component {
       cache: false,
       success: function(data) {
         this.setState({campaigns: data});
-        console.log(this.state.campaigns);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());

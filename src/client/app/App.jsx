@@ -17,10 +17,10 @@ export default class App extends Component {
         <Router history={browserHistory}>
           <Route path='/' component={Container}>
             <IndexRoute component={User} />
-            <Route path='/campaign/:id' component={Campaign} />
-            <Route path='/encounter' component={Encounter} />
-            <Route path='/scene' component={Scene} />
-            <Route path='/combat' component={Combat} />
+            <Route path='/campaign/:camp_id' component={Campaign} />
+            <Route path='/campaign/:camp_id/encounter/:encounter_id' component={Encounter} />
+            <Route path='campaign/:camp_id/encounter/:encounter_id/scene/:scene_id' component={Scene} />
+            <Route path='campaign/:camp_id/encounter/:encounter_id/combat/:scene_id' component={Combat} />
           </Route>
         </Router>
       )
