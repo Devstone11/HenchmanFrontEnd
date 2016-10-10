@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import urls from '../ajax/urls.js';
+import NewEncounterForm from './NewEncounterForm.jsx';
 
 class Campaign extends React.Component {
 
@@ -9,12 +10,13 @@ class Campaign extends React.Component {
     this.state = {
       encounters: [],
       showForm: false,
+      showNewForm: false,
       name: '',
       active: ''
     };
   }
 
-  componentWillMount () {
+  getEncounters () {
     $.ajax({
       url: urls.getEncounters + this.props.params.camp_id,
       dataType: 'json',
@@ -32,8 +34,17 @@ class Campaign extends React.Component {
     })
   }
 
+  componentWillMount () {
+    this.getEncounters();
+  }
+
   showForm () {
     this.setState({showForm: !this.state.showForm});
+  }
+
+  showNewForm () {
+    this.setState({showNewForm: !this.state.showNewForm});
+    this.getEncounters();
   }
 
   handleNameChange (e) {
@@ -66,7 +77,11 @@ class Campaign extends React.Component {
       return <div><Link to={url}>{encounter.name}</Link></div>
     });
 
-    if (this.state.showForm === true) {
+    if (this.state.showNewForm === true) {
+      return (
+        <NewEncounterForm showNewForm={this.showNewForm.bind(this)} campaignId={this.props.params.camp_id}></NewEncounterForm>
+      );
+    } else if (this.state.showForm === true) {
       return (
         <div>
           <Link to='/'>Back to Campaigns</Link>
@@ -77,6 +92,7 @@ class Campaign extends React.Component {
             <input type="checkbox" id="active" checked={this.state.active} onChange={this.handleActiveChange.bind(this)}/>
             <input type="submit" value="Save Changes" />
           </form>
+          <button onClick={this.showForm.bind(this)}>Cancel</button>
         </div>
       )
     } else {
@@ -87,6 +103,7 @@ class Campaign extends React.Component {
           <button onClick={this.showForm.bind(this)}>Edit</button>
           <h3>Select an Encounter:</h3>
           {encounterNodes}
+          <button onClick={this.showNewForm.bind(this)}>Add New +</button>
         </div>
       );
     }

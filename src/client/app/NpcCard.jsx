@@ -125,6 +125,7 @@ class NpcCard extends React.Component {
               <input type="checkbox" id="npc_active" checked={this.state.npc_active} onChange={this.handleActiveChange.bind(this)}/>
               <input type="submit" value="Save Changes" />
             </form>
+            <button onClick={this.showForm.bind(this)}>Cancel</button>
           </div>
         </div>
       );

@@ -27897,6 +27897,10 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
+	var _NewCampaignForm = __webpack_require__(/*! ./NewCampaignForm.jsx */ 246);
+	
+	var _NewCampaignForm2 = _interopRequireDefault(_NewCampaignForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27914,26 +27918,22 @@
 	    var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
 	
 	    _this.state = {
-	      campaigns: []
+	      campaigns: [],
+	      showNewForm: false
 	    };
-	
 	    return _this;
 	  }
 	
 	  _createClass(User, [{
+	    key: 'showNewForm',
+	    value: function showNewForm() {
+	      this.setState({ showNewForm: !this.state.showNewForm });
+	      this.getCampaigns();
+	    }
+	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      $.ajax({
-	        url: _urls2.default.getUsers + '1',
-	        dataType: 'json',
-	        cache: false,
-	        success: function (data) {
-	          this.setState({ campaigns: data });
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
+	      this.getCampaigns();
 	    }
 	  }, {
 	    key: 'getCampaigns',
@@ -27965,21 +27965,30 @@
 	          )
 	        );
 	      });
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
+	      if (this.state.showNewForm === true) {
+	        return _react2.default.createElement(_NewCampaignForm2.default, { showNewForm: this.showNewForm.bind(this) });
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
 	          null,
-	          'User Page!'
-	        ),
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Select a Campaign:'
-	        ),
-	        campaignNodes
-	      );
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'User Page!'
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Select a Campaign:'
+	          ),
+	          campaignNodes,
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.showNewForm.bind(this) },
+	            'Add New +'
+	          )
+	        );
+	      }
 	    }
 	  }]);
 	
@@ -28004,7 +28013,8 @@
 	  getNPCs: 'http://localhost:3000/npcs/',
 	  getPlayers: 'http://localhost:3000/players/',
 	  getRaceAbilities: 'http://localhost:3000/race_abilities/',
-	  getItems: 'http://localhost:3000/items/'
+	  getItems: 'http://localhost:3000/items/',
+	  newEncounter: 'http://localhost:3000/encounters/new/'
 	}
 
 
@@ -28033,6 +28043,10 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
+	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 247);
+	
+	var _NewEncounterForm2 = _interopRequireDefault(_NewEncounterForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28052,6 +28066,7 @@
 	    _this.state = {
 	      encounters: [],
 	      showForm: false,
+	      showNewForm: false,
 	      name: '',
 	      active: ''
 	    };
@@ -28059,8 +28074,8 @@
 	  }
 	
 	  _createClass(Campaign, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'getEncounters',
+	    value: function getEncounters() {
 	      $.ajax({
 	        url: _urls2.default.getEncounters + this.props.params.camp_id,
 	        dataType: 'json',
@@ -28078,9 +28093,20 @@
 	      });
 	    }
 	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.getEncounters();
+	    }
+	  }, {
 	    key: 'showForm',
 	    value: function showForm() {
 	      this.setState({ showForm: !this.state.showForm });
+	    }
+	  }, {
+	    key: 'showNewForm',
+	    value: function showNewForm() {
+	      this.setState({ showNewForm: !this.state.showNewForm });
+	      this.getEncounters();
 	    }
 	  }, {
 	    key: 'handleNameChange',
@@ -28125,7 +28151,9 @@
 	        );
 	      });
 	
-	      if (this.state.showForm === true) {
+	      if (this.state.showNewForm === true) {
+	        return _react2.default.createElement(_NewEncounterForm2.default, { showNewForm: this.showNewForm.bind(this), campaignId: this.props.params.camp_id });
+	      } else if (this.state.showForm === true) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
@@ -28150,6 +28178,11 @@
 	            ),
 	            _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
 	            _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.showForm.bind(this) },
+	            'Cancel'
 	          )
 	        );
 	      } else {
@@ -28176,7 +28209,12 @@
 	            null,
 	            'Select an Encounter:'
 	          ),
-	          encounterNodes
+	          encounterNodes,
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.showNewForm.bind(this) },
+	            'Add New +'
+	          )
 	        );
 	      }
 	    }
@@ -28330,6 +28368,11 @@
 	            ),
 	            _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
 	            _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.showForm.bind(this) },
+	            'Cancel'
 	          )
 	        );
 	      } else {
@@ -28579,6 +28622,11 @@
 	            ),
 	            _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
 	            _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.showForm.bind(this) },
+	            'Cancel'
 	          )
 	        );
 	      } else if (this.state.obstacles.length > 0) {
@@ -29109,6 +29157,11 @@
 	              ),
 	              _react2.default.createElement('input', { type: 'checkbox', id: 'npc_active', checked: this.state.npc_active, onChange: this.handleActiveChange.bind(this) }),
 	              _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.showForm.bind(this) },
+	              'Cancel'
 	            )
 	          )
 	        );
@@ -29862,6 +29915,11 @@
 	              ),
 	              _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
 	              _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.showForm.bind(this) },
+	              'Cancel'
 	            )
 	          )
 	        );
@@ -30053,6 +30111,191 @@
 	}(_react2.default.Component);
 	
 	exports.default = Container;
+
+/***/ },
+/* 246 */
+/*!********************************************!*\
+  !*** ./src/client/app/NewCampaignForm.jsx ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewCampaignForm = function (_React$Component) {
+	  _inherits(NewCampaignForm, _React$Component);
+	
+	  function NewCampaignForm(props) {
+	    _classCallCheck(this, NewCampaignForm);
+	
+	    var _this = _possibleConstructorReturn(this, (NewCampaignForm.__proto__ || Object.getPrototypeOf(NewCampaignForm)).call(this, props));
+	
+	    _this.state = {
+	      name: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewCampaignForm, [{
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.getEncounters,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.props.showNewForm();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'name' },
+	            'New Campaign Name: '
+	          ),
+	          _react2.default.createElement('input', { type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewCampaignForm;
+	}(_react2.default.Component);
+	
+	exports.default = NewCampaignForm;
+
+/***/ },
+/* 247 */
+/*!*********************************************!*\
+  !*** ./src/client/app/NewEncounterForm.jsx ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewEncounterForm = function (_React$Component) {
+	  _inherits(NewEncounterForm, _React$Component);
+	
+	  function NewEncounterForm(props) {
+	    _classCallCheck(this, NewEncounterForm);
+	
+	    var _this = _possibleConstructorReturn(this, (NewEncounterForm.__proto__ || Object.getPrototypeOf(NewEncounterForm)).call(this, props));
+	
+	    _this.state = {
+	      name: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewEncounterForm, [{
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.newEncounter + this.props.campaignId,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          console.log('post request successful!');
+	          this.props.showNewForm();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'name' },
+	            'New Encounter Name: '
+	          ),
+	          _react2.default.createElement('input', { type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewEncounterForm;
+	}(_react2.default.Component);
+	
+	exports.default = NewEncounterForm;
 
 /***/ }
 /******/ ]);

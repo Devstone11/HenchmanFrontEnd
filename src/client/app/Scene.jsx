@@ -133,6 +133,7 @@ class Scene extends React.Component {
             <input type="checkbox" id="active" checked={this.state.active} onChange={this.handleActiveChange.bind(this)}/>
             <input type="submit" value="Save Changes" />
           </form>
+          <button onClick={this.showForm.bind(this)}>Cancel</button>
         </div>
       );
     } else if (this.state.obstacles.length > 0) {
