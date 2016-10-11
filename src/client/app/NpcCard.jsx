@@ -184,7 +184,7 @@ class NpcCard extends React.Component {
     } else {
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.npc_name}</div>
+          <div  className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
         </div>
       );
     }

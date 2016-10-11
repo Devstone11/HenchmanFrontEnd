@@ -43,13 +43,18 @@ class NewSceneForm extends React.Component {
     return (
       <div>
         <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
-          <label htmlFor="name">New Scene Name: </label>
-          <input type="text" id="name" value={this.state.name} onChange={this.handleNameChange.bind(this)}/>
+          <h3>New Scene</h3>
+          <label htmlFor="name">Name: </label>
+          <br />
+          <input className="text-input" type="text" id="name" value={this.state.name} onChange={this.handleNameChange.bind(this)}/>
+          <br />
           <label htmlFor="description">Setting Description: </label>
-          <textarea rows="4" cols="50" id="description" value={this.state.setting_description} onChange={this.handleDescriptionChange.bind(this)}/>
+          <textarea className="textarea-input" rows="3" cols="50" id="description" value={this.state.setting_description} onChange={this.handleDescriptionChange.bind(this)}/>
+          <br />
           <label htmlFor="loot">Misc Loot: </label>
-          <textarea rows="4" cols="50" id="loot" value={this.state.misc_loot} onChange={this.handleLootChange.bind(this)}/>
-          <input type="submit" value="Save Changes" />
+          <br />
+          <textarea className="textarea-input" rows="2" cols="50" id="loot" value={this.state.misc_loot} onChange={this.handleLootChange.bind(this)}/>
+          <input className="form-button" type="submit" value="Save Changes" />
         </form>
       </div>
     );

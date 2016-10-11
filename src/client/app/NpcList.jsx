@@ -49,12 +49,12 @@ class NpcList extends React.Component {
       );
     } else {
       var npcNodes = this.state.npcs.map(function(npc) {
-        return <NpcCard details={npc} refresh={listThis.getNpcs.bind(listThis)}>{npc.npc_name}</NpcCard>
+        return <NpcCard details={npc} refresh={listThis.getNpcs.bind(listThis)}></NpcCard>
       })
       return (
-        <div className="list-section">
+        <div className="middle-link-container">
           {npcNodes}
-          <button onClick={this.showForm.bind(this)}>Add New +</button>
+          <button className="nav-link scene-add-button" onClick={this.showForm.bind(this)}>Add New +</button>
         </div>
       );
     }

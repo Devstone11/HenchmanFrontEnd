@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "src",
+    "public": "src/client",
     "rewrites": [
       {
         "source": "**",

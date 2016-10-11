@@ -39,22 +39,23 @@ class User extends React.Component {
   render() {
     var campaignNodes = this.state.campaigns.map(function(campaign) {
       var url = '/campaign/' + campaign.id;
-      return <div><Link to={url} key={campaign.id}>{campaign.name}</Link></div>
+      return <div className="nav-link"><Link to={url} key={campaign.id}>{campaign.name} &#62;</Link></div>
     })
     if (this.state.showNewForm === true) {
       return (
-        <div>
+        <div className="left-bar">
           <NewCampaignForm showNewForm={this.showNewForm.bind(this)}></NewCampaignForm>
-          <button onClick={this.showNewForm.bind(this)}>Cancel</button>
+          <button className="form-button" onClick={this.showNewForm.bind(this)}>Cancel</button>
         </div>
       );
     } else {
       return (
-        <div>
-          <h2>User Page!</h2>
+        <div className="left-bar">
           <h3>Select a Campaign:</h3>
-          {campaignNodes}
-          <button onClick={this.showNewForm.bind(this)}>Add New +</button>
+          <div className="nav-link-container">
+            {campaignNodes}
+          </div>
+          <button className="nav-link add-button" onClick={this.showNewForm.bind(this)}>Add New +</button>
         </div>
       );
     }

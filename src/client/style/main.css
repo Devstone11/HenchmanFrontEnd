@@ -1,0 +1,170 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: SansSerifFLF;
+  color: #EFFFEB;
+  overflow: hidden;
+  text-align: center;
+
+}
+
+.background-image {
+  height: 100%;
+  width: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: -1;
+}
+
+.vikings {
+  background-image: url("../images/vikings.jpg");
+}
+
+.ruins {
+  background-image: url("../images/ruins.jpg");
+}
+
+.book {
+  background-image: url("../images/book.jpg");
+}
+
+.ships {
+  background-image: url("../images/ships.jpg");
+}
+
+.burningtown {
+  background-image: url("../images/burningtown.jpg");
+}
+
+h1 {
+  font-size: 64px;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: 'Booter - Five Zero';
+}
+
+#logout {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  font-family: 'Booter - Five Zero';
+}
+
+.left-bar {
+  width: 30%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: scroll;
+}
+
+h3 {
+  font-size: 32px;
+  padding: 15px 0;
+  color: #BAD19B;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.nav-link-container {
+  height: 65%;
+  overflow: scroll;
+}
+
+.nav-link {
+  padding: 15px 0;
+  margin-top: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 28px;
+  position: relative;
+}
+
+.nav-link a, .nav-back a {
+  text-decoration: none;
+}
+
+.nav-link a:hover,
+.form-button:hover,
+#logout:hover,
+.nav-back:hover {
+  color: #BAD19B;
+}
+
+.add-button:hover {
+  color: #EFFFEB;
+}
+
+.add-button {
+  width: 30%;
+  border: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #BAD19B;
+}
+
+.text-input {
+  width: 50%;
+  padding: 5px;
+  color: #15170D;
+  font-size: 18px;
+  margin: 15px;
+}
+
+.textarea-input {
+  width: 80%;
+  padding: 5px;
+  color: #15170D;
+  font-size: 12px;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.form-button {
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 22px;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+}
+
+.page-name {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  font-size: 70px;
+  padding-right: 50px;
+}
+
+.page-name h2 {
+  font-family: 'Booter - Five Zero';
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.edit-button {
+  background: none;
+  background-image: url('../images/pencil-64.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: none;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 5;
+  top: 0;
+}
+
+.nav-back {
+  position: absolute;
+  left: 11%;
+  top: 30px;
+}
+
+.edit-form input {
+  margin-top: 20px;
+}
+
+label {
+  font-size: 24px;
+}

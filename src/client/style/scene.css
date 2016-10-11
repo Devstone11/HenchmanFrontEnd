@@ -1,0 +1,89 @@
+.scene-nav {
+  margin-top: 20px;
+}
+
+.scene-main {
+  left: 40%;
+  width: 40%;
+  max-height: 400px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 50px 50px;
+  border-radius: 5px;
+  overflow: scroll;
+}
+
+.scene-main h2 {
+  font-size: 70px;
+  margin-bottom: 10px;
+}
+
+.scene-details {
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.edit-button {
+  top: 5px;
+}
+
+.scene-main form .form-button,
+.scene-main .form-button {
+  display: inline;
+}
+
+.scene-form-label {
+  font-size: 20px;
+}
+
+.scene-main form .textarea-input {
+  margin-top: 5;
+}
+
+.scene-main form .text-input {
+  margin-top: 5;
+}
+
+.combat-link a {
+  text-decoration: none;
+  padding: 15px 0;
+  margin-top: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 28px;
+  width: 30%;
+  border: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #BAD19B;
+}
+
+.middle-section {
+  border-left: 1px black solid;
+  position: absolute;
+  left: 30%;
+  top: 100px;
+  width: 30%;
+  height: 80%;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: scroll;
+}
+
+.middle-link-container {
+  height: 85%;
+  overflow: scroll;
+}
+
+.scene-add-button:hover, .combat-link a:hover {
+  color: #EFFFEB;
+}
+
+.scene-add-button {
+  width: 100%;
+  border: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #BAD19B;
+}

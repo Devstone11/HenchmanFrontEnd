@@ -137,7 +137,7 @@
 	          _react2.default.createElement(_reactRouter.Route, { path: '/campaign/:camp_id', component: _Campaign2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/campaign/:camp_id/encounter/:encounter_id', component: _Encounter2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: 'campaign/:camp_id/encounter/:encounter_id/scene/:scene_id', component: _Scene2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: 'campaign/:camp_id/encounter/:encounter_id/combat/:scene_id', component: _Combat2.default })
+	          _react2.default.createElement(_reactRouter.Route, { path: 'campaign/:camp_id/encounter/:encounter_id/combat/:scene_id/:combat', component: _Combat2.default })
 	        )
 	      );
 	    }
@@ -27957,43 +27957,43 @@
 	        var url = '/campaign/' + campaign.id;
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'nav-link' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: url, key: campaign.id },
-	            campaign.name
+	            campaign.name,
+	            ' >'
 	          )
 	        );
 	      });
 	      if (this.state.showNewForm === true) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'left-bar' },
 	          _react2.default.createElement(_NewCampaignForm2.default, { showNewForm: this.showNewForm.bind(this) }),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.showNewForm.bind(this) },
+	            { className: 'form-button', onClick: this.showNewForm.bind(this) },
 	            'Cancel'
 	          )
 	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'User Page!'
-	          ),
+	          { className: 'left-bar' },
 	          _react2.default.createElement(
 	            'h3',
 	            null,
 	            'Select a Campaign:'
 	          ),
-	          campaignNodes,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-link-container' },
+	            campaignNodes
+	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.showNewForm.bind(this) },
+	            { className: 'nav-link add-button', onClick: this.showNewForm.bind(this) },
 	            'Add New +'
 	          )
 	        );
@@ -28160,11 +28160,12 @@
 	        var url = '/campaign/' + campaignThis.props.params.camp_id + '/encounter/' + encounter.id;
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'nav-link' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: url },
-	            encounter.name
+	            encounter.name,
+	            '  >'
 	          )
 	        );
 	      });
@@ -28172,22 +28173,31 @@
 	      if (this.state.showNewForm === true) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'left-bar' },
 	          _react2.default.createElement(_NewEncounterForm2.default, { showNewForm: this.showNewForm.bind(this), campaignId: this.props.params.camp_id }),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.showNewForm.bind(this) },
+	            { className: 'form-button', onClick: this.showNewForm.bind(this) },
 	            'Cancel'
 	          )
 	        );
 	      } else if (this.state.showForm === true) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'left-bar' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            'Back to Campaigns'
+	            'div',
+	            { className: 'nav-back' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/' },
+	              '< Campaigns'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Edit Campaign'
 	          ),
 	          _react2.default.createElement(
 	            'form',
@@ -28197,18 +28207,20 @@
 	              { htmlFor: 'name' },
 	              'Name: '
 	            ),
-	            _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	            _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
 	              'label',
 	              { htmlFor: 'active' },
 	              'Active: '
 	            ),
 	            _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
-	            _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.showForm.bind(this) },
+	            { className: 'form-button', onClick: this.showForm.bind(this) },
 	            'Cancel'
 	          )
 	        );
@@ -28217,30 +28229,42 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            'Back to Campaigns'
+	            'div',
+	            { className: 'page-name' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              this.state.name
+	            ),
+	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) })
 	          ),
 	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            this.state.name
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showForm.bind(this) },
-	            'Edit'
-	          ),
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'Select an Encounter:'
-	          ),
-	          encounterNodes,
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showNewForm.bind(this) },
-	            'Add New +'
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/' },
+	                '< Campaigns'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Select an Encounter:'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-link-container' },
+	              encounterNodes
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'nav-link add-button', onClick: this.showNewForm.bind(this) },
+	              'Add New +'
+	            )
 	          )
 	        );
 	      }
@@ -28377,11 +28401,12 @@
 	        var sceneUrl = campaignUrl + '/encounter/' + encounterThis.props.params.encounter_id + '/scene/' + scene.id;
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'nav-link' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: sceneUrl },
-	            scene.name
+	            scene.name,
+	            '  >'
 	          )
 	        );
 	      });
@@ -28389,22 +28414,31 @@
 	      if (this.state.showNewForm === true) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'left-bar' },
 	          _react2.default.createElement(_NewSceneForm2.default, { showNewForm: this.showNewForm.bind(this), encounterId: this.props.params.encounter_id }),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.showNewForm.bind(this) },
+	            { className: 'form-button', onClick: this.showNewForm.bind(this) },
 	            'Cancel'
 	          )
 	        );
 	      } else if (this.state.showForm === true) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'left-bar' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: campaignUrl },
-	            'Back to Encounters'
+	            'div',
+	            { className: 'nav-back' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: campaignUrl },
+	              '< Encounters'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Edit Encounter'
 	          ),
 	          _react2.default.createElement(
 	            'form',
@@ -28414,18 +28448,20 @@
 	              { htmlFor: 'name' },
 	              'Name: '
 	            ),
-	            _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	            _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
 	              'label',
 	              { htmlFor: 'active' },
 	              'Active: '
 	            ),
 	            _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
-	            _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.showForm.bind(this) },
+	            { className: 'form-button', onClick: this.showForm.bind(this) },
 	            'Cancel'
 	          )
 	        );
@@ -28434,30 +28470,42 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: campaignUrl },
-	            'Back to Encounters'
+	            'div',
+	            { className: 'page-name' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              this.state.name
+	            ),
+	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) })
 	          ),
 	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            this.state.name
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showForm.bind(this) },
-	            'Edit'
-	          ),
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'Select a Scene:'
-	          ),
-	          sceneNodes,
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showNewForm.bind(this) },
-	            'Add New +'
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: campaignUrl },
+	                '< Encounters'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Select a Scene:'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-link-container' },
+	              sceneNodes
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'nav-link add-button', onClick: this.showNewForm.bind(this) },
+	              'Add New +'
+	            )
 	          )
 	        );
 	      }
@@ -28608,54 +28656,107 @@
 	    value: function render() {
 	      var sceneThis = this;
 	      var encounterUrl = '/campaign/' + this.props.params.camp_id + '/encounter/' + this.props.params.encounter_id;
-	      var combatUrl = encounterUrl + '/combat/' + this.props.params.scene_id;
+	      var combatUrl = encounterUrl + '/combat/' + this.props.params.scene_id + '/' + 1;
 	      if (this.state.showForm === true) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: encounterUrl },
-	            'Back to Encounter Page'
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: encounterUrl },
+	                '< Scenes'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'list-section' },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                this.state.name
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showObstacles.bind(this) },
+	                  'Obstacles >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showNpcs.bind(this) },
+	                  'NPCs >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link add-button combat-link' },
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: combatUrl },
+	                  'Combat >'
+	                )
+	              )
+	            )
 	          ),
 	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'Edit Scene'
-	          ),
-	          _react2.default.createElement(
-	            'form',
-	            { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	            'div',
+	            { className: 'page-name scene-main' },
 	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'name' },
-	              'Name: '
+	              'h2',
+	              null,
+	              'Edit Scene'
 	            ),
-	            _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
 	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'description' },
-	              'Description: '
+	              'form',
+	              { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'scene-form-label', htmlFor: 'name' },
+	                'Name: '
+	              ),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'scene-form-label', htmlFor: 'description' },
+	                'Description: '
+	              ),
+	              _react2.default.createElement('textarea', { className: 'textarea-input', rows: '4', cols: '50', id: 'description', value: this.state.setting_description, onChange: this.handleDescriptionChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'scene-form-label', htmlFor: 'loot' },
+	                'Misc Loot: '
+	              ),
+	              _react2.default.createElement('textarea', { className: 'textarea-input', rows: '4', cols: '50', id: 'loot', value: this.state.misc_loot, onChange: this.handleLootChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'scene-form-label', htmlFor: 'active' },
+	                'Active: '
+	              ),
+	              _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	            ),
-	            _react2.default.createElement('textarea', { rows: '4', cols: '50', id: 'description', value: this.state.setting_description, onChange: this.handleDescriptionChange.bind(this) }),
 	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'loot' },
-	              'Misc Loot: '
-	            ),
-	            _react2.default.createElement('textarea', { rows: '4', cols: '50', id: 'loot', value: this.state.misc_loot, onChange: this.handleLootChange.bind(this) }),
-	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'active' },
-	              'Active: '
-	            ),
-	            _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
-	            _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showForm.bind(this) },
-	            'Cancel'
+	              'button',
+	              { className: 'form-button', onClick: this.showForm.bind(this) },
+	              'Cancel'
+	            )
 	          )
 	        );
 	      } else if (this.state.showObstacles === true) {
@@ -28694,30 +28795,58 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: encounterUrl },
-	            'Back to Encounter Page'
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: encounterUrl },
+	                '< Scenes'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'list-section' },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                this.state.name
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showObstacles.bind(this) },
+	                  'Obstacles >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showNpcs.bind(this) },
+	                  'NPCs >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link add-button combat-link' },
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: combatUrl },
+	                  'Combat >'
+	                )
+	              )
+	            )
 	          ),
 	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            this.state.name
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showObstacles.bind(this) },
-	            'Obstacles'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showNpcs.bind(this) },
-	            'NPCs'
-	          ),
-	          _react2.default.createElement(_NpcList2.default, { sceneId: this.props.params.scene_id }),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: combatUrl },
-	            'To Combat Page'
+	            'div',
+	            { className: 'middle-section' },
+	            _react2.default.createElement(_NpcList2.default, { sceneId: this.props.params.scene_id })
 	          )
 	        );
 	      } else {
@@ -28725,50 +28854,83 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: encounterUrl },
-	            'Back to Encounter Page'
-	          ),
-	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            this.state.name
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showForm.bind(this) },
-	            'Edit'
-	          ),
-	          _react2.default.createElement(
 	            'div',
-	            { className: 'list-section' },
+	            { className: 'page-name scene-main' },
 	            _react2.default.createElement(
 	              'h2',
+	              null,
+	              this.state.name
+	            ),
+	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) }),
+	            _react2.default.createElement(
+	              'h3',
 	              null,
 	              'Description'
 	            ),
-	            this.state.setting_description,
 	            _react2.default.createElement(
-	              'h2',
+	              'div',
+	              { className: 'scene-details' },
+	              this.state.setting_description
+	            ),
+	            _react2.default.createElement(
+	              'h3',
 	              null,
 	              'Misc Loot'
 	            ),
-	            this.state.misc_loot
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'scene-details' },
+	              this.state.misc_loot
+	            )
 	          ),
 	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showObstacles.bind(this) },
-	            'Obstacles'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showNpcs.bind(this) },
-	            'NPCs'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: combatUrl },
-	            'To Combat Page'
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: encounterUrl },
+	                '< Scenes'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'list-section' },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                this.state.name
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showObstacles.bind(this) },
+	                  'Obstacles >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showNpcs.bind(this) },
+	                  'NPCs >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'combat-link' },
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: combatUrl },
+	                  'Combat >'
+	                )
+	              )
+	            )
 	          )
 	        );
 	      }
@@ -29388,8 +29550,9 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.npc_name
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.npc_name,
+	            ' >'
 	          )
 	        );
 	      }
@@ -30100,13 +30263,35 @@
 	  _createClass(Container, [{
 	    key: 'render',
 	    value: function render() {
+	      var backgroundDiv;
+	      if (this.props.params.combat) {
+	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image burningtown' });
+	      } else if (this.props.params.scene_id) {
+	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image ships' });
+	      } else if (this.props.params.encounter_id) {
+	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image ruins' });
+	      } else if (this.props.params.camp_id) {
+	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image book' });
+	      } else {
+	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image vikings' });
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        backgroundDiv,
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Henchman'
+	          'header',
+	          { className: 'header' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Henchman'
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { id: 'logout' },
+	            'Logout'
+	          )
 	        ),
 	        this.props.children
 	      );
@@ -30194,12 +30379,12 @@
 	          'form',
 	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
 	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'name' },
+	            'h3',
+	            null,
 	            'New Campaign Name: '
 	          ),
-	          _react2.default.createElement('input', { type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	        )
 	      );
 	    }
@@ -30286,12 +30471,12 @@
 	          'form',
 	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
 	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'name' },
+	            'h3',
+	            null,
 	            'New Encounter Name: '
 	          ),
-	          _react2.default.createElement('input', { type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	        )
 	      );
 	    }
@@ -30390,24 +30575,33 @@
 	          'form',
 	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
 	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'New Scene'
+	          ),
+	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'name' },
-	            'New Scene Name: '
+	            'Name: '
 	          ),
-	          _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'description' },
 	            'Setting Description: '
 	          ),
-	          _react2.default.createElement('textarea', { rows: '4', cols: '50', id: 'description', value: this.state.setting_description, onChange: this.handleDescriptionChange.bind(this) }),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', rows: '3', cols: '50', id: 'description', value: this.state.setting_description, onChange: this.handleDescriptionChange.bind(this) }),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'loot' },
 	            'Misc Loot: '
 	          ),
-	          _react2.default.createElement('textarea', { rows: '4', cols: '50', id: 'loot', value: this.state.misc_loot, onChange: this.handleLootChange.bind(this) }),
-	          _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', rows: '2', cols: '50', id: 'loot', value: this.state.misc_loot, onChange: this.handleLootChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	        )
 	      );
 	    }
@@ -30522,19 +30716,15 @@
 	        );
 	      } else {
 	        var npcNodes = this.state.npcs.map(function (npc) {
-	          return _react2.default.createElement(
-	            _NpcCard2.default,
-	            { details: npc, refresh: listThis.getNpcs.bind(listThis) },
-	            npc.npc_name
-	          );
+	          return _react2.default.createElement(_NpcCard2.default, { details: npc, refresh: listThis.getNpcs.bind(listThis) });
 	        });
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'list-section' },
+	          { className: 'middle-link-container' },
 	          npcNodes,
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.showForm.bind(this) },
+	            { className: 'nav-link scene-add-button', onClick: this.showForm.bind(this) },
 	            'Add New +'
 	          )
 	        );

@@ -75,39 +75,52 @@ class Encounter extends React.Component {
     var campaignUrl = '/campaign/' + this.props.params.camp_id;
     var sceneNodes = this.state.scenes.map(function(scene) {
       var sceneUrl = campaignUrl + '/encounter/' + encounterThis.props.params.encounter_id + '/scene/' + scene.id;
-      return <div><Link to={sceneUrl}>{scene.name}</Link></div>
+      return <div className="nav-link"><Link to={sceneUrl}>{scene.name}  &#62;</Link></div>
     });
 
     if (this.state.showNewForm === true) {
       return (
-        <div>
+        <div className="left-bar">
           <NewSceneForm showNewForm={this.showNewForm.bind(this)} encounterId={this.props.params.encounter_id}></NewSceneForm>
-          <button onClick={this.showNewForm.bind(this)}>Cancel</button>
+          <button className="form-button" onClick={this.showNewForm.bind(this)}>Cancel</button>
         </div>
       )
     } else if (this.state.showForm === true) {
       return (
-        <div>
-          <Link to={campaignUrl}>Back to Encounters</Link>
+        <div className="left-bar">
+          <div className="nav-back">
+            <Link to={campaignUrl}>&#60; Encounters</Link>
+          </div>
+          <h3>Edit Encounter</h3>
           <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
             <label htmlFor="name">Name: </label>
-            <input type="text" id="name" value={this.state.name} onChange={this.handleNameChange.bind(this)}/>
+            <input className="text-input" type="text" id="name" value={this.state.name} onChange={this.handleNameChange.bind(this)}/>
+            <br />
             <label htmlFor="active">Active: </label>
             <input type="checkbox" id="active" checked={this.state.active} onChange={this.handleActiveChange.bind(this)}/>
-            <input type="submit" value="Save Changes" />
+            <br />
+            <input className="form-button" type="submit" value="Save Changes" />
           </form>
-          <button onClick={this.showForm.bind(this)}>Cancel</button>
+          <button className="form-button" onClick={this.showForm.bind(this)}>Cancel</button>
         </div>
       )
     } else {
       return (
         <div>
-          <Link to={campaignUrl}>Back to Encounters</Link>
-          <h2>{this.state.name}</h2>
-          <button onClick={this.showForm.bind(this)}>Edit</button>
-          <h3>Select a Scene:</h3>
-          {sceneNodes}
-          <button onClick={this.showNewForm.bind(this)}>Add New +</button>
+          <div className="page-name">
+            <h2>{this.state.name}</h2>
+            <button className="edit-button" onClick={this.showForm.bind(this)}></button>
+          </div>
+          <div className="left-bar">
+            <div className="nav-back">
+              <Link to={campaignUrl}>&#60; Encounters</Link>
+            </div>
+            <h3>Select a Scene:</h3>
+            <div className="nav-link-container">
+              {sceneNodes}
+            </div>
+            <button className="nav-link add-button" onClick={this.showNewForm.bind(this)}>Add New +</button>
+          </div>
         </div>
       );
     }

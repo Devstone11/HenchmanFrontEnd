@@ -33,9 +33,9 @@ class NewCampaignForm extends React.Component {
     return (
       <div>
         <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
-          <label htmlFor="name">New Campaign Name: </label>
-          <input type="text" id="name" onChange={this.handleNameChange.bind(this)}/>
-          <input type="submit" value="Save Changes" />
+          <h3>New Campaign Name: </h3>
+          <input className="text-input" type="text" id="name" onChange={this.handleNameChange.bind(this)}/>
+          <input className="form-button" type="submit" value="Save Changes" />
         </form>
       </div>
     );
