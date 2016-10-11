@@ -1,12 +1,21 @@
+var development = 'http://localhost:3000/';
+var production = '';
+
+//switch this to production before deployment
+var rootUrl = development;
+
 module.exports = {
-  getUsers: 'http://localhost:3000/users/',
-  getEncounters: 'http://localhost:3000/campaigns/',
-  getScenes: 'http://localhost:3000/encounters/',
-  getOneScene: 'http://localhost:3000/scenes/',
-  getObstacles: 'http://localhost:3000/obstacles/',
-  getNPCs: 'http://localhost:3000/npcs/',
-  getPlayers: 'http://localhost:3000/players/',
-  getRaceAbilities: 'http://localhost:3000/race_abilities/',
-  getItems: 'http://localhost:3000/items/',
-  newEncounter: 'http://localhost:3000/encounters/new/'
+  getUsers: rootUrl + 'users/',
+  getEncounters: rootUrl + 'campaigns/',
+  getScenes: rootUrl + 'encounters/',
+  getOneScene: rootUrl + 'scenes/',
+  getObstacles: rootUrl + 'obstacles/',
+  getNPCs: rootUrl + 'npcs/',
+  getPlayers: rootUrl + 'players/',
+  getRaceAbilities: rootUrl + 'race_abilities/',
+  getRaces: rootUrl + 'races/',
+  getItems: rootUrl + 'items/',
+  newEncounter: rootUrl + 'encounters/new/',
+  newScene: rootUrl + 'scenes/new/',
+  newNpc: rootUrl + 'npcs/new/'
 }

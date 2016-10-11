@@ -79,7 +79,10 @@ class Campaign extends React.Component {
 
     if (this.state.showNewForm === true) {
       return (
-        <NewEncounterForm showNewForm={this.showNewForm.bind(this)} campaignId={this.props.params.camp_id}></NewEncounterForm>
+        <div>
+          <NewEncounterForm showNewForm={this.showNewForm.bind(this)} campaignId={this.props.params.camp_id}></NewEncounterForm>
+          <button onClick={this.showNewForm.bind(this)}>Cancel</button>
+        </div>
       );
     } else if (this.state.showForm === true) {
       return (

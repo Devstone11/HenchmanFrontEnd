@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
 import urls from '../ajax/urls.js';
-import ObstacleCard from './ObstacleCard.jsx';
-import NpcCard from './NpcCard.jsx';
+import NpcList from './NpcList.jsx';
+import ObstacleList from './ObstacleList.jsx';
 
 class Scene extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      obstacles: [],
-      npcs: [],
       showForm: false,
+      showNpcs: false,
+      showObstacles: false,
       name: '',
       setting_description: '',
       misc_loot: '',
@@ -42,6 +42,14 @@ class Scene extends React.Component {
 
   showForm () {
     this.setState({showForm: !this.state.showForm});
+  }
+
+  showNpcs () {
+    this.setState({showNpcs: !this.state.showNpcs, showObstacles: false});
+  }
+
+  showObstacles () {
+    this.setState({showNpcs: false, showObstacles: !this.state.showObstacles});
   }
 
   handleNameChange (e) {
@@ -75,44 +83,6 @@ class Scene extends React.Component {
     });
   }
 
-  getObstacles () {
-    if (this.state.obstacles.length > 0) {
-      this.setState({obstacles: []});
-    } else {
-      this.setState({npcs: []});
-      $.ajax({
-        url: urls.getObstacles + this.props.params.scene_id,
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-          this.setState({obstacles: data});
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }.bind(this)
-      })
-    }
-  }
-
-  getNPCs () {
-    if (this.state.npcs.length > 0) {
-      this.setState({npcs: []});
-    } else {
-      this.setState({obstacles: []});
-      $.ajax({
-        url: urls.getNPCs + this.props.params.scene_id,
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-          this.setState({npcs: data});
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }.bind(this)
-      })
-    }
-  }
-
   render() {
     var sceneThis = this;
     var encounterUrl = '/campaign/' + this.props.params.camp_id + '/encounter/' + this.props.params.encounter_id;
@@ -136,35 +106,25 @@ class Scene extends React.Component {
           <button onClick={this.showForm.bind(this)}>Cancel</button>
         </div>
       );
-    } else if (this.state.obstacles.length > 0) {
-      var obstacleNodes = this.state.obstacles.map(function(obstacle) {
-        return <ObstacleCard details={obstacle}>{obstacle.name}</ObstacleCard>
-      })
+    } else if (this.state.showObstacles === true) {
       return (
         <div>
           <Link to={encounterUrl}>Back to Encounter Page</Link>
           <h1>{this.state.name}</h1>
-          <button onClick={sceneThis.getObstacles.bind(sceneThis)}>Obstacles</button>
-          <button onClick={sceneThis.getNPCs.bind(sceneThis)}>NPCs</button>
-          <div className="list-section">
-            {obstacleNodes}
-          </div>
+          <button onClick={sceneThis.showObstacles.bind(sceneThis)}>Obstacles</button>
+          <button onClick={sceneThis.showNpcs.bind(sceneThis)}>NPCs</button>
+          <ObstacleList sceneId={this.props.params.scene_id}></ObstacleList>
           <Link to={combatUrl}>To Combat Page</Link>
         </div>
       );
-    } else if (this.state.npcs.length > 0){
-      var npcNodes = this.state.npcs.map(function(npc) {
-        return <NpcCard details={npc}>{npc.npc_name}</NpcCard>
-      })
+    } else if (this.state.showNpcs === true){
       return (
         <div>
           <Link to={encounterUrl}>Back to Encounter Page</Link>
           <h1>{this.state.name}</h1>
-          <button onClick={this.getObstacles.bind(this)}>Obstacles</button>
-          <button onClick={this.getNPCs.bind(this)}>NPCs</button>
-          <div className="list-section">
-            {npcNodes}
-          </div>
+          <button onClick={this.showObstacles.bind(this)}>Obstacles</button>
+          <button onClick={this.showNpcs.bind(this)}>NPCs</button>
+          <NpcList sceneId={this.props.params.scene_id}></NpcList>
           <Link to={combatUrl}>To Combat Page</Link>
         </div>
       );
@@ -180,8 +140,8 @@ class Scene extends React.Component {
             <h2>Misc Loot</h2>
             {this.state.misc_loot}
           </div>
-          <button onClick={this.getObstacles.bind(this)}>Obstacles</button>
-          <button onClick={this.getNPCs.bind(this)}>NPCs</button>
+          <button onClick={this.showObstacles.bind(this)}>Obstacles</button>
+          <button onClick={this.showNpcs.bind(this)}>NPCs</button>
           <Link to={combatUrl}>To Combat Page</Link>
         </div>
       );

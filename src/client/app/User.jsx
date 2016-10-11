@@ -43,7 +43,10 @@ class User extends React.Component {
     })
     if (this.state.showNewForm === true) {
       return (
-        <NewCampaignForm showNewForm={this.showNewForm.bind(this)}></NewCampaignForm>
+        <div>
+          <NewCampaignForm showNewForm={this.showNewForm.bind(this)}></NewCampaignForm>
+          <button onClick={this.showNewForm.bind(this)}>Cancel</button>
+        </div>
       );
     } else {
       return (

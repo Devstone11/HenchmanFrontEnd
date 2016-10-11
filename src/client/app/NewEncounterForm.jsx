@@ -21,7 +21,6 @@ class NewEncounterForm extends React.Component {
       type: 'POST',
       data: this.state,
       success: function() {
-        console.log('post request successful!');
         this.props.showNewForm();
       }.bind(this),
       error: function(xhr, status, err) {

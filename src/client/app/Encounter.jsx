@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import urls from '../ajax/urls.js';
+import NewSceneForm from './NewSceneForm.jsx';
 
 class Encounter extends React.Component {
 
@@ -9,12 +10,17 @@ class Encounter extends React.Component {
     this.state = {
       scenes: [],
       showForm: false,
+      showNewForm: false,
       name: '',
       active: ''
     };
   }
 
   componentWillMount () {
+    this.getScenes();
+  }
+
+  getScenes () {
     $.ajax({
       url: urls.getScenes + this.props.params.encounter_id,
       dataType: 'json',
@@ -34,6 +40,11 @@ class Encounter extends React.Component {
 
   showForm () {
     this.setState({showForm: !this.state.showForm});
+  }
+
+  showNewForm () {
+    this.setState({showNewForm: !this.state.showNewForm});
+    this.getScenes();
   }
 
   handleNameChange (e) {
@@ -67,7 +78,14 @@ class Encounter extends React.Component {
       return <div><Link to={sceneUrl}>{scene.name}</Link></div>
     });
 
-    if (this.state.showForm === true) {
+    if (this.state.showNewForm === true) {
+      return (
+        <div>
+          <NewSceneForm showNewForm={this.showNewForm.bind(this)} encounterId={this.props.params.encounter_id}></NewSceneForm>
+          <button onClick={this.showNewForm.bind(this)}>Cancel</button>
+        </div>
+      )
+    } else if (this.state.showForm === true) {
       return (
         <div>
           <Link to={campaignUrl}>Back to Encounters</Link>
@@ -89,6 +107,7 @@ class Encounter extends React.Component {
           <button onClick={this.showForm.bind(this)}>Edit</button>
           <h3>Select a Scene:</h3>
           {sceneNodes}
+          <button onClick={this.showNewForm.bind(this)}>Add New +</button>
         </div>
       );
     }

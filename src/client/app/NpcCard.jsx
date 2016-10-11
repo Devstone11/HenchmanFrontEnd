@@ -76,7 +76,6 @@ class NpcCard extends React.Component {
   }
 
   handleSubmit () {
-    console.log(this.state);
     $.ajax({
       url: urls.getNPCs + this.props.details.npc_id,
       dataType: 'json',
