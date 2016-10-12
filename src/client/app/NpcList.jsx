@@ -39,18 +39,23 @@ class NpcList extends React.Component {
 
   render() {
     var listThis = this;
+    var npcNodes = this.state.npcs.map(function(npc) {
+      return <NpcCard details={npc} refresh={listThis.getNpcs.bind(listThis)}></NpcCard>
+    })
     if (this.state.showForm === true ) {
       return (
         <div>
-          <h2>New NPC</h2>
-          <NewNpcForm sceneId={this.props.sceneId} refresh={this.showForm.bind(this)}></NewNpcForm>
-          <button onClick={this.showForm.bind(this)}>Cancel</button>
+          <div className="middle-link-container">
+            {npcNodes}
+          </div>
+          <div className="show-details">
+            <h2>New NPC</h2>
+            <NewNpcForm sceneId={this.props.sceneId} refresh={this.showForm.bind(this)}></NewNpcForm>
+            <button className="form-button" onClick={this.showForm.bind(this)}>Cancel</button>
+          </div>
         </div>
       );
     } else {
-      var npcNodes = this.state.npcs.map(function(npc) {
-        return <NpcCard details={npc} refresh={listThis.getNpcs.bind(listThis)}></NpcCard>
-      })
       return (
         <div className="middle-link-container">
           {npcNodes}

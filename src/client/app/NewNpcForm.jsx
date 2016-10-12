@@ -64,7 +64,6 @@ class NewNpcForm extends React.Component {
       success: function() {
         this.setState({showForm: false});
         this.props.refresh();
-        console.log('post succeeded!');
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -81,22 +80,33 @@ class NewNpcForm extends React.Component {
     return (
       <div>
         <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
-          <label htmlFor="name">NPC Name: </label>
-          <input type="text" id="name" value={this.state.npc_name} onChange={this.handleNameChange.bind(this)}/>
+          <label htmlFor="name">Name: </label>
+          <br />
+          <input className="text-input" type="text" id="name" value={this.state.npc_name} onChange={this.handleNameChange.bind(this)}/>
+          <br />
           <label htmlFor="race">Race: </label>
-          <select id="race" onChange={this.handleRaceChange.bind(this)}>
+          <br />
+          <select className="text-input" id="race" onChange={this.handleRaceChange.bind(this)}>
             {optionNodes}
             <option>Add New</option>
           </select>
+          <br />
           <label htmlFor="notes">Notes: </label>
-          <textarea id="notes" value={this.state.npc_notes} onChange={this.handleNotesChange.bind(this)} />
+          <br />
+          <textarea className="textarea-input" id="notes" value={this.state.npc_notes} onChange={this.handleNotesChange.bind(this)} />
+          <br />
           <label htmlFor="initiative">Initiative: </label>
-          <input type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/>
+          <br />
+          <input className="text-input" type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/>
+          <br />
           <label htmlFor="current_effects">Current Effects: </label>
-          <textarea id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
+          <br />
+          <textarea className="textarea-input" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
+          <br />
           <label htmlFor="loot">Loot: </label>
-          <textarea id="loot" value={this.state.loot} onChange={this.handleLootChange.bind(this)}/>
-          <input type="submit" value="Save Changes" />
+          <br />
+          <textarea className="textarea-input" id="loot" value={this.state.loot} onChange={this.handleLootChange.bind(this)}/>
+          <input className="form-button" type="submit" value="Save Changes" />
         </form>
       </div>
     );

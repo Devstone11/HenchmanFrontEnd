@@ -19,40 +19,20 @@ class ObstacleCard extends React.Component {
     if (this.state.showDetails === true) {
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.name}</div>
+          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
           <div className="show-details">
-            <table>
-              <thead></thead>
-              <tbody>
-                <tr>
-                  <td>Obstacle Name:</td>
-                  <td>{this.props.details.name}</td>
-                </tr>
-                <tr>
-                  <td>Perception Check:</td>
-                  <td>DC{this.props.details.perception_check}</td>
-                </tr>
-                <tr>
-                  <td>Attack:</td>
-                  <td>{this.props.details.attack_roll} vs. {this.props.details.attack_vs}</td>
-                </tr>
-                <tr>
-                  <td>Damage:</td>
-                  <td>{this.props.details.damage_roll}</td>
-                </tr>
-                <tr>
-                  <td>Notes:</td>
-                  <td>{this.props.details.obstacle_notes}</td>
-                </tr>
-              </tbody>
-            </table>
+            <p>Obstacle Name: {this.props.details.name}</p>
+            <p>Perception Check: >DC{this.props.details.perception_check}</p>
+            <p>Attack: {this.props.details.attack_roll} vs. {this.props.details.attack_vs}</p>
+            <p>Damage: {this.props.details.damage_roll}</p>
+            <p>Notes: {this.props.details.obstacle_notes}</p>
           </div>
         </div>
       );
     } else {
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.name}</div>
+          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
         </div>
       );
     }

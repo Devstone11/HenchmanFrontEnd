@@ -73,6 +73,7 @@ class NpcCard extends React.Component {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     })
+    console.log(this.state.current_hit_points);
   }
 
   handleSubmit () {
@@ -104,27 +105,43 @@ class NpcCard extends React.Component {
     if (this.state.showForm === true) {
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.npc_name}</div>
+          <div>
+            <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
+          </div>
           <div className="show-details">
             <h2>Edit NPC</h2>
             <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
-              <label htmlFor="name">Name: </label>
-              <input type="text" id="name" value={this.state.npc_name} onChange={this.handleNameChange.bind(this)}/>
-              <label htmlFor="notes">Notes: </label>
-              <input type="text" id="notes" value={this.state.npc_notes} onChange={this.handleNotesChange.bind(this)}/>
-              <label htmlFor="current_hit_points">Current HP: </label>
-              <input type="number" id="current_hit_points" value={this.state.current_hit_points} onChange={this.handleCurrentHitPointsChange.bind(this)}/>
-              <label htmlFor="initiative">Initiative: </label>
-              <input type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/>
-              <label htmlFor="current_effects">Current Effects: </label>
-              <input type="text" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
-              <label htmlFor="loot">Loot: </label>
-              <input type="text" id="loot" value={this.state.loot} onChange={this.handleLootChange.bind(this)}/>
-              <label htmlFor="npc_active">Active: </label>
+              <label className="scene-form-label" htmlFor="name">Name: </label>
+              <br />
+              <input className="text-input" type="text" id="name" value={this.state.npc_name} onChange={this.handleNameChange.bind(this)}/>
+              <br />
+              <label className="scene-form-label" htmlFor="notes">Notes: </label>
+              <br />
+              <textarea className="textarea-input" id="notes" value={this.state.npc_notes} onChange={this.handleNotesChange.bind(this)}/>
+              <br />
+              <label className="scene-form-label" htmlFor="current_hit_points">Current HP: </label>
+              <br />
+              <input className="text-input" type="number" id="current_hit_points" value={this.state.current_hit_points} onChange={this.handleCurrentHitPointsChange.bind(this)}/>
+              <br />
+              <label className="scene-form-label" htmlFor="initiative">Initiative: </label>
+              <br />
+              <input className="text-input" type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/>
+              <br />
+              <label className="scene-form-label" htmlFor="current_effects">Current Effects: </label>
+              <br />
+              <textarea className="textarea-input" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
+              <br />
+              <label className="scene-form-label" htmlFor="loot">Loot: </label>
+              <br />
+              <textarea className="textarea-input" id="loot" value={this.state.loot} onChange={this.handleLootChange.bind(this)}/>
+              <br />
+              <label className="scene-form-label" htmlFor="npc_active">Active: </label>
+              <br />
               <input type="checkbox" id="npc_active" checked={this.state.npc_active} onChange={this.handleActiveChange.bind(this)}/>
-              <input type="submit" value="Save Changes" />
+              <br />
+              <input className="form-button" type="submit" value="Save Changes" />
             </form>
-            <button onClick={this.showForm.bind(this)}>Cancel</button>
+            <button className="form-button" onClick={this.showForm.bind(this)}>Cancel</button>
           </div>
         </div>
       );
@@ -157,34 +174,32 @@ class NpcCard extends React.Component {
       })
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.npc_name}</div>
+          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
           <div className="show-details">
-            <div>
-              <button onClick={this.showForm.bind(this)}>Edit</button>
-              <p>NPC Name: {this.props.details.npc_name}</p>
-              <p>NPC Notes: {this.props.details.npc_notes}</p>
-              <p>Race: {this.props.details.race_name}</p>
-              <p>Race Notes: {this.props.details.race_notes}</p>
-              <p>Current Effects: {this.props.details.current_effects}</p>
-              <p>HP: {this.props.details.current_hit_points} / {this.props.details.max_hit_points}</p>
-              <p>Initiative: {this.props.details.initiative}</p>
-              <p>AC: {this.props.details.armor_class}</p>
-              <p>Fortitude: {this.props.details.fortitude}</p>
-              <p>Reflex: {this.props.details.reflex}</p>
-              <p>Will: {this.props.details.will}</p>
-              <p>Speed: {this.props.details.speed}</p>
-              {raceAbilityNodes}
-              {itemNodes}
-              <p>Loot: {this.props.details.loot}</p>
-              <p>XP: {this.props.details.xp_value}</p>
-            </div>
+            <button className="edit-button scene-edit-button" onClick={this.showForm.bind(this)}></button>
+            <p>NPC Name: {this.props.details.npc_name}</p>
+            <p>NPC Notes: {this.props.details.npc_notes}</p>
+            <p>Race: {this.props.details.race_name}</p>
+            <p>Race Notes: {this.props.details.race_notes}</p>
+            <p>Current Effects: {this.props.details.current_effects}</p>
+            <p>HP: {this.props.details.current_hit_points} / {this.props.details.max_hit_points}</p>
+            <p>Initiative: {this.props.details.initiative}</p>
+            <p>AC: {this.props.details.armor_class}</p>
+            <p>Fortitude: {this.props.details.fortitude}</p>
+            <p>Reflex: {this.props.details.reflex}</p>
+            <p>Will: {this.props.details.will}</p>
+            <p>Speed: {this.props.details.speed}</p>
+            {raceAbilityNodes}
+            {itemNodes}
+            <p>Loot: {this.props.details.loot}</p>
+            <p>XP: {this.props.details.xp_value}</p>
           </div>
         </div>
       );
     } else {
       return (
         <div>
-          <div  className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
+          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
         </div>
       );
     }

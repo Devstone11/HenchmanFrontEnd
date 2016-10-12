@@ -6,7 +6,7 @@
   left: 40%;
   width: 40%;
   max-height: 400px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   padding: 10px 50px 50px;
   border-radius: 5px;
   overflow: scroll;
@@ -51,7 +51,7 @@
   margin-top: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 28px;
-  width: 30%;
+  width: 31%;
   border: none;
   position: absolute;
   bottom: 0;
@@ -62,11 +62,11 @@
 .middle-section {
   border-left: 1px black solid;
   position: absolute;
-  left: 30%;
+  left: 31%;
   top: 100px;
-  width: 30%;
+  width: 31%;
   height: 80%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.75);
   overflow: scroll;
 }
 
@@ -86,4 +86,30 @@
   bottom: 0;
   left: 0;
   color: #BAD19B;
+}
+
+.show-details {
+  position: fixed;
+  top: 120px;
+  left: 62%;
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 31%;
+  height: 73%;
+  overflow: scroll;
+  padding-top: 8px;
+}
+
+.show-details h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.sub-details {
+  background-color: rgba(47, 79, 79, 0.5);
+  border: 1px black solid;
+  padding: 6px;
+}
+
+p {
+  padding: 4px;
 }

@@ -44,7 +44,7 @@ class ObstacleList extends React.Component {
         return <ObstacleCard details={obstacle}>{obstacle.name}</ObstacleCard>
       })
       return (
-        <div className="list-section">
+        <div className="middle-link-container">
           {obstacleNodes}
         </div>
       );

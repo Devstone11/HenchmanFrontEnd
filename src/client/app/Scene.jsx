@@ -87,6 +87,21 @@ class Scene extends React.Component {
     var sceneThis = this;
     var encounterUrl = '/campaign/' + this.props.params.camp_id + '/encounter/' + this.props.params.encounter_id;
     var combatUrl = encounterUrl + '/combat/' + this.props.params.scene_id + '/' + 1;
+    var leftBar = (
+      <div className="left-bar">
+        <div className="nav-back">
+          <Link to={encounterUrl}>&#60; Scenes</Link>
+        </div>
+        <div className="list-section">
+          <h3>{this.state.name}</h3>
+          <div className="nav-link scene-nav"><a onClick={this.showObstacles.bind(this)}>Obstacles &#62;</a></div>
+          <div className="nav-link scene-nav"><a onClick={this.showNpcs.bind(this)}>NPCs &#62;</a></div>
+          <div className="combat-link">
+            <Link to={combatUrl}>Combat &#62;</Link>
+          </div>
+        </div>
+      </div>
+    )
     if (this.state.showForm === true ) {
       return (
         <div>
@@ -114,6 +129,7 @@ class Scene extends React.Component {
               <textarea className="textarea-input" rows="4" cols="50" id="description" value={this.state.setting_description} onChange={this.handleDescriptionChange.bind(this)}/>
               <br />
               <label className="scene-form-label" htmlFor="loot">Misc Loot: </label>
+              <br />
               <textarea className="textarea-input" rows="4" cols="50" id="loot" value={this.state.misc_loot} onChange={this.handleLootChange.bind(this)}/>
               <br />
               <label className="scene-form-label" htmlFor="active">Active: </label>
@@ -128,30 +144,16 @@ class Scene extends React.Component {
     } else if (this.state.showObstacles === true) {
       return (
         <div>
-          <Link to={encounterUrl}>Back to Encounter Page</Link>
-          <h1>{this.state.name}</h1>
-          <button onClick={sceneThis.showObstacles.bind(sceneThis)}>Obstacles</button>
-          <button onClick={sceneThis.showNpcs.bind(sceneThis)}>NPCs</button>
-          <ObstacleList sceneId={this.props.params.scene_id}></ObstacleList>
-          <Link to={combatUrl}>To Combat Page</Link>
+          {leftBar}
+          <div className="middle-section">
+            <ObstacleList sceneId={this.props.params.scene_id}></ObstacleList>
+          </div>
         </div>
       );
     } else if (this.state.showNpcs === true){
       return (
         <div>
-          <div className="left-bar">
-            <div className="nav-back">
-              <Link to={encounterUrl}>&#60; Scenes</Link>
-            </div>
-            <div className="list-section">
-              <h3>{this.state.name}</h3>
-              <div className="nav-link scene-nav"><a onClick={this.showObstacles.bind(this)}>Obstacles &#62;</a></div>
-              <div className="nav-link scene-nav"><a onClick={this.showNpcs.bind(this)}>NPCs &#62;</a></div>
-              <div className="nav-link add-button combat-link">
-                <Link to={combatUrl}>Combat &#62;</Link>
-              </div>
-            </div>
-          </div>
+          {leftBar}
           <div className="middle-section">
             <NpcList sceneId={this.props.params.scene_id}></NpcList>
           </div>
@@ -160,6 +162,7 @@ class Scene extends React.Component {
     } else {
       return (
         <div>
+          {leftBar}
           <div className="page-name scene-main">
             <h2>{this.state.name}</h2>
             <button className="edit-button" onClick={this.showForm.bind(this)}></button>
@@ -170,19 +173,6 @@ class Scene extends React.Component {
             <h3>Misc Loot</h3>
             <div className="scene-details">
               {this.state.misc_loot}
-            </div>
-          </div>
-          <div className="left-bar">
-            <div className="nav-back">
-              <Link to={encounterUrl}>&#60; Scenes</Link>
-            </div>
-            <div className="list-section">
-              <h3>{this.state.name}</h3>
-              <div className="nav-link scene-nav"><a onClick={this.showObstacles.bind(this)}>Obstacles &#62;</a></div>
-              <div className="nav-link scene-nav"><a onClick={this.showNpcs.bind(this)}>NPCs &#62;</a></div>
-              <div className="combat-link">
-                <Link to={combatUrl}>Combat &#62;</Link>
-              </div>
             </div>
           </div>
         </div>

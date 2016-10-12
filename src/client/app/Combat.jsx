@@ -83,12 +83,16 @@ class Combat extends React.Component {
     })
     return (
       <div>
-        <Link to={sceneUrl}>Back to Scene Page</Link>
-        <h1>Combat Page!</h1>
-        <div className="list-section">
+
+        <div className="left-bar">
+          <div className="nav-back">
+            <Link to={sceneUrl}>Back to Scene Page</Link>
+          </div>
           {characterNodes}
         </div>
+        
       </div>
+
     );
   }
 }

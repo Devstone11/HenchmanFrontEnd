@@ -53,7 +53,7 @@ h1 {
 }
 
 .left-bar {
-  width: 30%;
+  width: 31%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   overflow: scroll;
@@ -76,7 +76,7 @@ h3 {
   margin-top: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 28px;
-  position: relative;
+  /*position: relative;*/
 }
 
 .nav-link a, .nav-back a {
@@ -95,7 +95,7 @@ h3 {
 }
 
 .add-button {
-  width: 30%;
+  width: 31%;
   border: none;
   position: absolute;
   bottom: 0;
@@ -108,7 +108,7 @@ h3 {
   padding: 5px;
   color: #15170D;
   font-size: 18px;
-  margin: 15px;
+  margin: 10px;
 }
 
 .textarea-input {
@@ -127,6 +127,7 @@ h3 {
   border: none;
   padding: 10px;
   margin: 5px;
+  border: 1px solid #EFFFEB;
 }
 
 .page-name {

@@ -28657,6 +28657,55 @@
 	      var sceneThis = this;
 	      var encounterUrl = '/campaign/' + this.props.params.camp_id + '/encounter/' + this.props.params.encounter_id;
 	      var combatUrl = encounterUrl + '/combat/' + this.props.params.scene_id + '/' + 1;
+	      var leftBar = _react2.default.createElement(
+	        'div',
+	        { className: 'left-bar' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'nav-back' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: encounterUrl },
+	            '< Scenes'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'list-section' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            this.state.name
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-link scene-nav' },
+	            _react2.default.createElement(
+	              'a',
+	              { onClick: this.showObstacles.bind(this) },
+	              'Obstacles >'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-link scene-nav' },
+	            _react2.default.createElement(
+	              'a',
+	              { onClick: this.showNpcs.bind(this) },
+	              'NPCs >'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'combat-link' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: combatUrl },
+	              'Combat >'
+	            )
+	          )
+	        )
+	      );
 	      if (this.state.showForm === true) {
 	        return _react2.default.createElement(
 	          'div',
@@ -28741,6 +28790,7 @@
 	                { className: 'scene-form-label', htmlFor: 'loot' },
 	                'Misc Loot: '
 	              ),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement('textarea', { className: 'textarea-input', rows: '4', cols: '50', id: 'loot', value: this.state.misc_loot, onChange: this.handleLootChange.bind(this) }),
 	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
@@ -28763,86 +28813,18 @@
 	        return _react2.default.createElement(
 	          'div',
 	          null,
+	          leftBar,
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: encounterUrl },
-	            'Back to Encounter Page'
-	          ),
-	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            this.state.name
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: sceneThis.showObstacles.bind(sceneThis) },
-	            'Obstacles'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: sceneThis.showNpcs.bind(sceneThis) },
-	            'NPCs'
-	          ),
-	          _react2.default.createElement(_ObstacleList2.default, { sceneId: this.props.params.scene_id }),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: combatUrl },
-	            'To Combat Page'
+	            'div',
+	            { className: 'middle-section' },
+	            _react2.default.createElement(_ObstacleList2.default, { sceneId: this.props.params.scene_id })
 	          )
 	        );
 	      } else if (this.state.showNpcs === true) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'left-bar' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'nav-back' },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: encounterUrl },
-	                '< Scenes'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'list-section' },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                this.state.name
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'nav-link scene-nav' },
-	                _react2.default.createElement(
-	                  'a',
-	                  { onClick: this.showObstacles.bind(this) },
-	                  'Obstacles >'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'nav-link scene-nav' },
-	                _react2.default.createElement(
-	                  'a',
-	                  { onClick: this.showNpcs.bind(this) },
-	                  'NPCs >'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'nav-link add-button combat-link' },
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: combatUrl },
-	                  'Combat >'
-	                )
-	              )
-	            )
-	          ),
+	          leftBar,
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'middle-section' },
@@ -28853,6 +28835,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          null,
+	          leftBar,
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'page-name scene-main' },
@@ -28881,55 +28864,6 @@
 	              'div',
 	              { className: 'scene-details' },
 	              this.state.misc_loot
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'left-bar' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'nav-back' },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: encounterUrl },
-	                '< Scenes'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'list-section' },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                this.state.name
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'nav-link scene-nav' },
-	                _react2.default.createElement(
-	                  'a',
-	                  { onClick: this.showObstacles.bind(this) },
-	                  'Obstacles >'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'nav-link scene-nav' },
-	                _react2.default.createElement(
-	                  'a',
-	                  { onClick: this.showNpcs.bind(this) },
-	                  'NPCs >'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'combat-link' },
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: combatUrl },
-	                  'Combat >'
-	                )
-	              )
 	            )
 	          )
 	        );
@@ -29003,93 +28937,44 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.name
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.name,
+	            ' >'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'show-details' },
 	            _react2.default.createElement(
-	              'table',
+	              'p',
 	              null,
-	              _react2.default.createElement('thead', null),
-	              _react2.default.createElement(
-	                'tbody',
-	                null,
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Obstacle Name:'
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    this.props.details.name
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Perception Check:'
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'DC',
-	                    this.props.details.perception_check
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Attack:'
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    this.props.details.attack_roll,
-	                    ' vs. ',
-	                    this.props.details.attack_vs
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Damage:'
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    this.props.details.damage_roll
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Notes:'
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    this.props.details.obstacle_notes
-	                  )
-	                )
-	              )
+	              'Obstacle Name: ',
+	              this.props.details.name
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Perception Check: >DC',
+	              this.props.details.perception_check
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Attack: ',
+	              this.props.details.attack_roll,
+	              ' vs. ',
+	              this.props.details.attack_vs
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Damage: ',
+	              this.props.details.damage_roll
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Notes: ',
+	              this.props.details.obstacle_notes
 	            )
 	          )
 	        );
@@ -29099,8 +28984,9 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.name
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.name,
+	            ' >'
 	          )
 	        );
 	      }
@@ -29230,6 +29116,7 @@
 	          console.error(this.props.url, status, err.toString());
 	        }.bind(this)
 	      });
+	      console.log(this.state.current_hit_points);
 	    }
 	  }, {
 	    key: 'handleSubmit',
@@ -29268,8 +29155,13 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.npc_name
+	            null,
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	              this.props.details.npc_name,
+	              ' >'
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -29284,51 +29176,65 @@
 	              { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
 	              _react2.default.createElement(
 	                'label',
-	                { htmlFor: 'name' },
+	                { className: 'scene-form-label', htmlFor: 'name' },
 	                'Name: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.npc_name, onChange: this.handleNameChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.npc_name, onChange: this.handleNameChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
-	                { htmlFor: 'notes' },
+	                { className: 'scene-form-label', htmlFor: 'notes' },
 	                'Notes: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'notes', value: this.state.npc_notes, onChange: this.handleNotesChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('textarea', { className: 'textarea-input', id: 'notes', value: this.state.npc_notes, onChange: this.handleNotesChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
-	                { htmlFor: 'current_hit_points' },
+	                { className: 'scene-form-label', htmlFor: 'current_hit_points' },
 	                'Current HP: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'current_hit_points', value: this.state.current_hit_points, onChange: this.handleCurrentHitPointsChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('input', { className: 'text-input', type: 'number', id: 'current_hit_points', value: this.state.current_hit_points, onChange: this.handleCurrentHitPointsChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
-	                { htmlFor: 'initiative' },
+	                { className: 'scene-form-label', htmlFor: 'initiative' },
 	                'Initiative: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('input', { className: 'text-input', type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
-	                { htmlFor: 'current_effects' },
+	                { className: 'scene-form-label', htmlFor: 'current_effects' },
 	                'Current Effects: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('textarea', { className: 'textarea-input', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
-	                { htmlFor: 'loot' },
+	                { className: 'scene-form-label', htmlFor: 'loot' },
 	                'Loot: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'loot', value: this.state.loot, onChange: this.handleLootChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('textarea', { className: 'textarea-input', id: 'loot', value: this.state.loot, onChange: this.handleLootChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
-	                { htmlFor: 'npc_active' },
+	                { className: 'scene-form-label', htmlFor: 'npc_active' },
 	                'Active: '
 	              ),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement('input', { type: 'checkbox', id: 'npc_active', checked: this.state.npc_active, onChange: this.handleActiveChange.bind(this) }),
-	              _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: this.showForm.bind(this) },
+	              { className: 'form-button', onClick: this.showForm.bind(this) },
 	              'Cancel'
 	            )
 	          )
@@ -29439,108 +29345,101 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.npc_name
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.npc_name,
+	            ' >'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'show-details' },
+	            _react2.default.createElement('button', { className: 'edit-button scene-edit-button', onClick: this.showForm.bind(this) }),
 	            _react2.default.createElement(
-	              'div',
+	              'p',
 	              null,
-	              _react2.default.createElement(
-	                'button',
-	                { onClick: this.showForm.bind(this) },
-	                'Edit'
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'NPC Name: ',
-	                this.props.details.npc_name
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'NPC Notes: ',
-	                this.props.details.npc_notes
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Race: ',
-	                this.props.details.race_name
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Race Notes: ',
-	                this.props.details.race_notes
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Current Effects: ',
-	                this.props.details.current_effects
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'HP: ',
-	                this.props.details.current_hit_points,
-	                ' / ',
-	                this.props.details.max_hit_points
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Initiative: ',
-	                this.props.details.initiative
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'AC: ',
-	                this.props.details.armor_class
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Fortitude: ',
-	                this.props.details.fortitude
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Reflex: ',
-	                this.props.details.reflex
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Will: ',
-	                this.props.details.will
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Speed: ',
-	                this.props.details.speed
-	              ),
-	              raceAbilityNodes,
-	              itemNodes,
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'Loot: ',
-	                this.props.details.loot
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'XP: ',
-	                this.props.details.xp_value
-	              )
+	              'NPC Name: ',
+	              this.props.details.npc_name
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'NPC Notes: ',
+	              this.props.details.npc_notes
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Race: ',
+	              this.props.details.race_name
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Race Notes: ',
+	              this.props.details.race_notes
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Current Effects: ',
+	              this.props.details.current_effects
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'HP: ',
+	              this.props.details.current_hit_points,
+	              ' / ',
+	              this.props.details.max_hit_points
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Initiative: ',
+	              this.props.details.initiative
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'AC: ',
+	              this.props.details.armor_class
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Fortitude: ',
+	              this.props.details.fortitude
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Reflex: ',
+	              this.props.details.reflex
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Will: ',
+	              this.props.details.will
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Speed: ',
+	              this.props.details.speed
+	            ),
+	            raceAbilityNodes,
+	            itemNodes,
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Loot: ',
+	              this.props.details.loot
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'XP: ',
+	              this.props.details.xp_value
 	            )
 	          )
 	        );
@@ -29692,18 +29591,17 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: sceneUrl },
-	          'Back to Scene Page'
-	        ),
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Combat Page!'
-	        ),
-	        _react2.default.createElement(
 	          'div',
-	          { className: 'list-section' },
+	          { className: 'left-bar' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-back' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: sceneUrl },
+	              'Back to Scene Page'
+	            )
+	          ),
 	          characterNodes
 	        )
 	      );
@@ -30698,26 +30596,35 @@
 	    key: 'render',
 	    value: function render() {
 	      var listThis = this;
+	      var npcNodes = this.state.npcs.map(function (npc) {
+	        return _react2.default.createElement(_NpcCard2.default, { details: npc, refresh: listThis.getNpcs.bind(listThis) });
+	      });
 	      if (this.state.showForm === true) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
 	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'New NPC'
+	            'div',
+	            { className: 'middle-link-container' },
+	            npcNodes
 	          ),
-	          _react2.default.createElement(_NewNpcForm2.default, { sceneId: this.props.sceneId, refresh: this.showForm.bind(this) }),
 	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showForm.bind(this) },
-	            'Cancel'
+	            'div',
+	            { className: 'show-details' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'New NPC'
+	            ),
+	            _react2.default.createElement(_NewNpcForm2.default, { sceneId: this.props.sceneId, refresh: this.showForm.bind(this) }),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.showForm.bind(this) },
+	              'Cancel'
+	            )
 	          )
 	        );
 	      } else {
-	        var npcNodes = this.state.npcs.map(function (npc) {
-	          return _react2.default.createElement(_NpcCard2.default, { details: npc, refresh: listThis.getNpcs.bind(listThis) });
-	        });
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'middle-link-container' },
@@ -30845,7 +30752,6 @@
 	        success: function () {
 	          this.setState({ showForm: false });
 	          this.props.refresh();
-	          console.log('post succeeded!');
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(this.props.url, status, err.toString());
@@ -30873,17 +30779,20 @@
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'name' },
-	            'NPC Name: '
+	            'Name: '
 	          ),
-	          _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.npc_name, onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.npc_name, onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'race' },
 	            'Race: '
 	          ),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'select',
-	            { id: 'race', onChange: this.handleRaceChange.bind(this) },
+	            { className: 'text-input', id: 'race', onChange: this.handleRaceChange.bind(this) },
 	            optionNodes,
 	            _react2.default.createElement(
 	              'option',
@@ -30891,31 +30800,39 @@
 	              'Add New'
 	            )
 	          ),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'notes' },
 	            'Notes: '
 	          ),
-	          _react2.default.createElement('textarea', { id: 'notes', value: this.state.npc_notes, onChange: this.handleNotesChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'notes', value: this.state.npc_notes, onChange: this.handleNotesChange.bind(this) }),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'initiative' },
 	            'Initiative: '
 	          ),
-	          _react2.default.createElement('input', { type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'current_effects' },
 	            'Current Effects: '
 	          ),
-	          _react2.default.createElement('textarea', { id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'label',
 	            { htmlFor: 'loot' },
 	            'Loot: '
 	          ),
-	          _react2.default.createElement('textarea', { id: 'loot', value: this.state.loot, onChange: this.handleLootChange.bind(this) }),
-	          _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'loot', value: this.state.loot, onChange: this.handleLootChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	        )
 	      );
 	    }
@@ -31026,7 +30943,7 @@
 	        });
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'list-section' },
+	          { className: 'middle-link-container' },
 	          obstacleNodes
 	        );
 	      }
