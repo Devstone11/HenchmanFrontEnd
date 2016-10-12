@@ -29592,14 +29592,14 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'left-bar' },
+	          { className: 'middle-section' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'nav-back' },
+	            { className: 'nav-back nav-back-scene' },
 	            _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: sceneUrl },
-	              'Back to Scene Page'
+	              '< Scene'
 	            )
 	          ),
 	          characterNodes
@@ -29865,8 +29865,9 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.name
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.name,
+	            ' >'
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -29884,108 +29885,125 @@
 	                { htmlFor: 'name' },
 	                'Name: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'xp' },
 	                'XP: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'xp', value: this.state.xp, onChange: this.handleXPChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'xp', value: this.state.xp, onChange: this.handleXPChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'level' },
 	                'Level: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'level', value: this.state.level, onChange: this.handleLevelChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'level', value: this.state.level, onChange: this.handleLevelChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'race' },
 	                'Race: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'race', value: this.state.race, onChange: this.handleRaceChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'text', id: 'race', value: this.state.race, onChange: this.handleRaceChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'class' },
 	                'Class: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'class', value: this.state.class, onChange: this.handleClassChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'text', id: 'class', value: this.state.class, onChange: this.handleClassChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'current_hit_points' },
 	                'Current HP: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'current_hit_points', value: this.state.current_hit_points, onChange: this.handleCurrentHitPointsChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'current_hit_points', value: this.state.current_hit_points, onChange: this.handleCurrentHitPointsChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'max_hit_points' },
 	                'Max HP: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'max_hit_points', value: this.state.max_hit_points, onChange: this.handleMaxHitPointsChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'max_hit_points', value: this.state.max_hit_points, onChange: this.handleMaxHitPointsChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'initiative' },
 	                'Initiative: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'armor_class' },
 	                'AC: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'armor_class', value: this.state.armor_class, onChange: this.handleArmorClassChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'armor_class', value: this.state.armor_class, onChange: this.handleArmorClassChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'fortitude' },
 	                'Fortitude: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'fortitude', value: this.state.fortitude, onChange: this.handleFortitudeChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'fortitude', value: this.state.fortitude, onChange: this.handleFortitudeChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'reflex' },
 	                'Reflex: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'reflex', value: this.state.reflex, onChange: this.handleReflexChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'reflex', value: this.state.reflex, onChange: this.handleReflexChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'will' },
 	                'Will: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'will', value: this.state.will, onChange: this.handleWillChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'will', value: this.state.will, onChange: this.handleWillChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'speed' },
 	                'Speed: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'speed', value: this.state.speed, onChange: this.handleSpeedChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'speed', value: this.state.speed, onChange: this.handleSpeedChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'passive_insight' },
 	                'Passive Insight: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'passive_insight', value: this.state.passive_insight, onChange: this.handlePassiveInsightChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'passive_insight', value: this.state.passive_insight, onChange: this.handlePassiveInsightChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'passive_perception' },
 	                'Passive Perception: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', id: 'passive_perception', value: this.state.passive_perception, onChange: this.handlePassivePerceptionChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'number', id: 'passive_perception', value: this.state.passive_perception, onChange: this.handlePassivePerceptionChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'current_effects' },
 	                'Current Effects: '
 	              ),
-	              _react2.default.createElement('input', { type: 'text', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	              _react2.default.createElement('input', { className: 'player-input', type: 'text', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'label',
 	                { htmlFor: 'active' },
 	                'Active: '
 	              ),
-	              _react2.default.createElement('input', { type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
-	              _react2.default.createElement('input', { type: 'submit', value: 'Save Changes' })
+	              _react2.default.createElement('input', { className: 'player-input', type: 'checkbox', id: 'active', checked: this.state.active, onChange: this.handleActiveChange.bind(this) }),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: this.showForm.bind(this) },
+	              { className: 'form-button', onClick: this.showForm.bind(this) },
 	              'Cancel'
 	            )
 	          )
@@ -29996,17 +30014,14 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.name
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.name,
+	            ' >'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'show-details' },
-	            _react2.default.createElement(
-	              'button',
-	              { onClick: this.showForm.bind(this) },
-	              'Edit'
-	            ),
+	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) }),
 	            _react2.default.createElement(
 	              'p',
 	              null,
@@ -30103,8 +30118,9 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { onClick: this.showDetails.bind(this) },
-	            this.props.details.name
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.name,
+	            ' >'
 	          )
 	        );
 	      }

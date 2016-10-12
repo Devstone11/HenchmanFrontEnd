@@ -84,13 +84,13 @@ class Combat extends React.Component {
     return (
       <div>
 
-        <div className="left-bar">
-          <div className="nav-back">
-            <Link to={sceneUrl}>Back to Scene Page</Link>
+        <div className="middle-section">
+          <div className="nav-back nav-back-scene">
+            <Link to={sceneUrl}>&#60; Scene</Link>
           </div>
           {characterNodes}
         </div>
-        
+
       </div>
 
     );

@@ -51,7 +51,7 @@
   margin-top: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 28px;
-  width: 31%;
+  width: 33%;
   border: none;
   position: absolute;
   bottom: 0;
@@ -62,9 +62,9 @@
 .middle-section {
   border-left: 1px black solid;
   position: absolute;
-  left: 31%;
+  left: 33%;
   top: 100px;
-  width: 31%;
+  width: 33%;
   height: 80%;
   background-color: rgba(0, 0, 0, 0.75);
   overflow: scroll;
@@ -91,9 +91,9 @@
 .show-details {
   position: fixed;
   top: 120px;
-  left: 62%;
+  left: 66%;
   background-color: rgba(0, 0, 0, 0.75);
-  width: 31%;
+  width: 33%;
   height: 73%;
   overflow: scroll;
   padding-top: 8px;
@@ -112,4 +112,15 @@
 
 p {
   padding: 4px;
+}
+
+.player-input {
+  color: #15170D;
+  font-size: 18px;
+}
+
+.nav-back-scene {
+  position: fixed;
+  left: 11%;
+  top: 30px;
 }

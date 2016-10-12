@@ -124,56 +124,56 @@ class PlayerCard extends React.Component {
     if (this.state.showForm) {
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.name}</div>
+          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
           <div className="show-details">
             <h2>Edit Player</h2>
             <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
               <label htmlFor="name">Name: </label>
-              <input type="text" id="name" value={this.state.name} onChange={this.handleNameChange.bind(this)}/>
+              <input className="player-input" type="text" id="name" value={this.state.name} onChange={this.handleNameChange.bind(this)}/><br />
               <label htmlFor="xp">XP: </label>
-              <input type="number" id="xp" value={this.state.xp} onChange={this.handleXPChange.bind(this)}/>
+              <input className="player-input" type="number" id="xp" value={this.state.xp} onChange={this.handleXPChange.bind(this)}/><br />
               <label htmlFor="level">Level: </label>
-              <input type="number" id="level" value={this.state.level} onChange={this.handleLevelChange.bind(this)}/>
+              <input className="player-input" type="number" id="level" value={this.state.level} onChange={this.handleLevelChange.bind(this)}/><br />
               <label htmlFor="race">Race: </label>
-              <input type="text" id="race" value={this.state.race} onChange={this.handleRaceChange.bind(this)}/>
+              <input className="player-input" type="text" id="race" value={this.state.race} onChange={this.handleRaceChange.bind(this)}/><br />
               <label htmlFor="class">Class: </label>
-              <input type="text" id="class" value={this.state.class} onChange={this.handleClassChange.bind(this)}/>
+              <input className="player-input" type="text" id="class" value={this.state.class} onChange={this.handleClassChange.bind(this)}/><br />
               <label htmlFor="current_hit_points">Current HP: </label>
-              <input type="number" id="current_hit_points" value={this.state.current_hit_points} onChange={this.handleCurrentHitPointsChange.bind(this)}/>
+              <input className="player-input" type="number" id="current_hit_points" value={this.state.current_hit_points} onChange={this.handleCurrentHitPointsChange.bind(this)}/><br />
               <label htmlFor="max_hit_points">Max HP: </label>
-              <input type="number" id="max_hit_points" value={this.state.max_hit_points} onChange={this.handleMaxHitPointsChange.bind(this)}/>
+              <input className="player-input" type="number" id="max_hit_points" value={this.state.max_hit_points} onChange={this.handleMaxHitPointsChange.bind(this)}/><br />
               <label htmlFor="initiative">Initiative: </label>
-              <input type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/>
+              <input className="player-input" type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/><br />
               <label htmlFor="armor_class">AC: </label>
-              <input type="number" id="armor_class" value={this.state.armor_class} onChange={this.handleArmorClassChange.bind(this)}/>
+              <input className="player-input" type="number" id="armor_class" value={this.state.armor_class} onChange={this.handleArmorClassChange.bind(this)}/><br />
               <label htmlFor="fortitude">Fortitude: </label>
-              <input type="number" id="fortitude" value={this.state.fortitude} onChange={this.handleFortitudeChange.bind(this)}/>
+              <input className="player-input" type="number" id="fortitude" value={this.state.fortitude} onChange={this.handleFortitudeChange.bind(this)}/><br />
               <label htmlFor="reflex">Reflex: </label>
-              <input type="number" id="reflex" value={this.state.reflex} onChange={this.handleReflexChange.bind(this)}/>
+              <input className="player-input" type="number" id="reflex" value={this.state.reflex} onChange={this.handleReflexChange.bind(this)}/><br />
               <label htmlFor="will">Will: </label>
-              <input type="number" id="will" value={this.state.will} onChange={this.handleWillChange.bind(this)}/>
+              <input className="player-input" type="number" id="will" value={this.state.will} onChange={this.handleWillChange.bind(this)}/><br />
               <label htmlFor="speed">Speed: </label>
-              <input type="number" id="speed" value={this.state.speed} onChange={this.handleSpeedChange.bind(this)}/>
+              <input className="player-input" type="number" id="speed" value={this.state.speed} onChange={this.handleSpeedChange.bind(this)}/><br />
               <label htmlFor="passive_insight">Passive Insight: </label>
-              <input type="number" id="passive_insight" value={this.state.passive_insight} onChange={this.handlePassiveInsightChange.bind(this)}/>
+              <input className="player-input" type="number" id="passive_insight" value={this.state.passive_insight} onChange={this.handlePassiveInsightChange.bind(this)}/><br />
               <label htmlFor="passive_perception">Passive Perception: </label>
-              <input type="number" id="passive_perception" value={this.state.passive_perception} onChange={this.handlePassivePerceptionChange.bind(this)}/>
+              <input className="player-input" type="number" id="passive_perception" value={this.state.passive_perception} onChange={this.handlePassivePerceptionChange.bind(this)}/><br />
               <label htmlFor="current_effects">Current Effects: </label>
-              <input type="text" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
+              <input className="player-input" type="text" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/><br />
               <label htmlFor="active">Active: </label>
-              <input type="checkbox" id="active" checked={this.state.active} onChange={this.handleActiveChange.bind(this)}/>
-              <input type="submit" value="Save Changes" />
+              <input className="player-input" type="checkbox" id="active" checked={this.state.active} onChange={this.handleActiveChange.bind(this)}/><br />
+              <input className="form-button" type="submit" value="Save Changes" />
             </form>
-            <button onClick={this.showForm.bind(this)}>Cancel</button>
+            <button className="form-button" onClick={this.showForm.bind(this)}>Cancel</button>
           </div>
         </div>
       );
     } else if (this.state.showDetails) {
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.name}</div>
+          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
           <div className="show-details">
-            <button onClick={this.showForm.bind(this)}>Edit</button>
+            <button className="edit-button" onClick={this.showForm.bind(this)}></button>
             <p>Name: {this.props.details.name}</p>
             <p>XP: {this.props.details.xp_value}</p>
             <p>Race: {this.props.details.race}</p>
@@ -194,7 +194,7 @@ class PlayerCard extends React.Component {
     } else {
       return (
         <div>
-          <div onClick={this.showDetails.bind(this)}>{this.props.details.name}</div>
+          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
         </div>
       );
     }
