@@ -40,7 +40,7 @@ class NpcList extends React.Component {
   render() {
     var listThis = this;
     var npcNodes = this.state.npcs.map(function(npc) {
-      return <NpcCard details={npc} refresh={listThis.getNpcs.bind(listThis)}></NpcCard>
+      return <NpcCard key={npc.npc_id} details={npc} refresh={listThis.getNpcs.bind(listThis)}></NpcCard>
     })
     if (this.state.showForm === true ) {
       return (

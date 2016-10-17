@@ -41,7 +41,7 @@ class ObstacleList extends React.Component {
       );
     } else {
       var obstacleNodes = this.state.obstacles.map(function(obstacle) {
-        return <ObstacleCard details={obstacle}>{obstacle.name}</ObstacleCard>
+        return <ObstacleCard key={obstacle.id} details={obstacle}>{obstacle.name}</ObstacleCard>
       })
       return (
         <div className="middle-link-container">

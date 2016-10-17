@@ -67,23 +67,23 @@
 	
 	var _User2 = _interopRequireDefault(_User);
 	
-	var _Campaign = __webpack_require__(/*! ./Campaign.jsx */ 237);
+	var _Campaign = __webpack_require__(/*! ./Campaign.jsx */ 238);
 	
 	var _Campaign2 = _interopRequireDefault(_Campaign);
 	
-	var _Encounter = __webpack_require__(/*! ./Encounter.jsx */ 238);
+	var _Encounter = __webpack_require__(/*! ./Encounter.jsx */ 240);
 	
 	var _Encounter2 = _interopRequireDefault(_Encounter);
 	
-	var _Scene = __webpack_require__(/*! ./Scene.jsx */ 239);
+	var _Scene = __webpack_require__(/*! ./Scene.jsx */ 242);
 	
 	var _Scene2 = _interopRequireDefault(_Scene);
 	
-	var _Combat = __webpack_require__(/*! ./Combat.jsx */ 242);
+	var _Combat = __webpack_require__(/*! ./Combat.jsx */ 248);
 	
 	var _Combat2 = _interopRequireDefault(_Combat);
 	
-	var _Container = __webpack_require__(/*! ./Container.jsx */ 245);
+	var _Container = __webpack_require__(/*! ./Container.jsx */ 251);
 	
 	var _Container2 = _interopRequireDefault(_Container);
 	
@@ -27897,7 +27897,7 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewCampaignForm = __webpack_require__(/*! ./NewCampaignForm.jsx */ 246);
+	var _NewCampaignForm = __webpack_require__(/*! ./NewCampaignForm.jsx */ 237);
 	
 	var _NewCampaignForm2 = _interopRequireDefault(_NewCampaignForm);
 	
@@ -27957,7 +27957,7 @@
 	        var url = '/campaign/' + campaign.id;
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'nav-link' },
+	          { key: campaign.id, className: 'nav-link' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: url, key: campaign.id },
@@ -28038,6 +28038,98 @@
 
 /***/ },
 /* 237 */
+/*!********************************************!*\
+  !*** ./src/client/app/NewCampaignForm.jsx ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewCampaignForm = function (_React$Component) {
+	  _inherits(NewCampaignForm, _React$Component);
+	
+	  function NewCampaignForm(props) {
+	    _classCallCheck(this, NewCampaignForm);
+	
+	    var _this = _possibleConstructorReturn(this, (NewCampaignForm.__proto__ || Object.getPrototypeOf(NewCampaignForm)).call(this, props));
+	
+	    _this.state = {
+	      name: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewCampaignForm, [{
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.getEncounters,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.props.showNewForm();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'New Campaign Name: '
+	          ),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewCampaignForm;
+	}(_react2.default.Component);
+	
+	exports.default = NewCampaignForm;
+
+/***/ },
+/* 238 */
 /*!*************************************!*\
   !*** ./src/client/app/Campaign.jsx ***!
   \*************************************/
@@ -28061,7 +28153,7 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 247);
+	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 239);
 	
 	var _NewEncounterForm2 = _interopRequireDefault(_NewEncounterForm);
 	
@@ -28160,7 +28252,7 @@
 	        var url = '/campaign/' + campaignThis.props.params.camp_id + '/encounter/' + encounter.id;
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'nav-link' },
+	          { key: encounter.id, className: 'nav-link' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: url },
@@ -28277,7 +28369,99 @@
 	exports.default = Campaign;
 
 /***/ },
-/* 238 */
+/* 239 */
+/*!*********************************************!*\
+  !*** ./src/client/app/NewEncounterForm.jsx ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewEncounterForm = function (_React$Component) {
+	  _inherits(NewEncounterForm, _React$Component);
+	
+	  function NewEncounterForm(props) {
+	    _classCallCheck(this, NewEncounterForm);
+	
+	    var _this = _possibleConstructorReturn(this, (NewEncounterForm.__proto__ || Object.getPrototypeOf(NewEncounterForm)).call(this, props));
+	
+	    _this.state = {
+	      name: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewEncounterForm, [{
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.newEncounter + this.props.campaignId,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.props.showNewForm();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'New Encounter Name: '
+	          ),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewEncounterForm;
+	}(_react2.default.Component);
+	
+	exports.default = NewEncounterForm;
+
+/***/ },
+/* 240 */
 /*!**************************************!*\
   !*** ./src/client/app/Encounter.jsx ***!
   \**************************************/
@@ -28301,7 +28485,7 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewSceneForm = __webpack_require__(/*! ./NewSceneForm.jsx */ 248);
+	var _NewSceneForm = __webpack_require__(/*! ./NewSceneForm.jsx */ 241);
 	
 	var _NewSceneForm2 = _interopRequireDefault(_NewSceneForm);
 	
@@ -28401,7 +28585,7 @@
 	        var sceneUrl = campaignUrl + '/encounter/' + encounterThis.props.params.encounter_id + '/scene/' + scene.id;
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'nav-link' },
+	          { key: scene.id, className: 'nav-link' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: sceneUrl },
@@ -28518,7 +28702,132 @@
 	exports.default = Encounter;
 
 /***/ },
-/* 239 */
+/* 241 */
+/*!*****************************************!*\
+  !*** ./src/client/app/NewSceneForm.jsx ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewSceneForm = function (_React$Component) {
+	  _inherits(NewSceneForm, _React$Component);
+	
+	  function NewSceneForm(props) {
+	    _classCallCheck(this, NewSceneForm);
+	
+	    var _this = _possibleConstructorReturn(this, (NewSceneForm.__proto__ || Object.getPrototypeOf(NewSceneForm)).call(this, props));
+	
+	    _this.state = {
+	      name: '',
+	      setting_description: '',
+	      misc_loot: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewSceneForm, [{
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleDescriptionChange',
+	    value: function handleDescriptionChange(e) {
+	      this.setState({ setting_description: e.target.value });
+	    }
+	  }, {
+	    key: 'handleLootChange',
+	    value: function handleLootChange(e) {
+	      this.setState({ misc_loot: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.newScene + this.props.encounterId,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.props.showNewForm();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'New Scene'
+	          ),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'name' },
+	            'Name: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'description' },
+	            'Setting Description: '
+	          ),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', rows: '3', cols: '50', id: 'description', value: this.state.setting_description, onChange: this.handleDescriptionChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'loot' },
+	            'Misc Loot: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', rows: '2', cols: '50', id: 'loot', value: this.state.misc_loot, onChange: this.handleLootChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewSceneForm;
+	}(_react2.default.Component);
+	
+	exports.default = NewSceneForm;
+
+/***/ },
+/* 242 */
 /*!**********************************!*\
   !*** ./src/client/app/Scene.jsx ***!
   \**********************************/
@@ -28542,11 +28851,11 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NpcList = __webpack_require__(/*! ./NpcList.jsx */ 249);
+	var _NpcList = __webpack_require__(/*! ./NpcList.jsx */ 243);
 	
 	var _NpcList2 = _interopRequireDefault(_NpcList);
 	
-	var _ObstacleList = __webpack_require__(/*! ./ObstacleList.jsx */ 251);
+	var _ObstacleList = __webpack_require__(/*! ./ObstacleList.jsx */ 246);
 	
 	var _ObstacleList2 = _interopRequireDefault(_ObstacleList);
 	
@@ -28750,7 +29059,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'div',
-	                { className: 'nav-link add-button combat-link' },
+	                { className: 'combat-link' },
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: combatUrl },
@@ -28813,7 +29122,55 @@
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          leftBar,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: encounterUrl },
+	                '< Scenes'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'list-section' },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                this.state.name
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav highlight' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showObstacles.bind(this) },
+	                  'Obstacles >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showNpcs.bind(this) },
+	                  'NPCs >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'combat-link' },
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: combatUrl },
+	                  'Combat >'
+	                )
+	              )
+	            )
+	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'middle-section' },
@@ -28824,7 +29181,55 @@
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          leftBar,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: encounterUrl },
+	                '< Scenes'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'list-section' },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                this.state.name
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showObstacles.bind(this) },
+	                  'Obstacles >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'nav-link scene-nav highlight' },
+	                _react2.default.createElement(
+	                  'a',
+	                  { onClick: this.showNpcs.bind(this) },
+	                  'NPCs >'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'combat-link' },
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: combatUrl },
+	                  'Combat >'
+	                )
+	              )
+	            )
+	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'middle-section' },
@@ -28877,10 +29282,10 @@
 	exports.default = Scene;
 
 /***/ },
-/* 240 */
-/*!*****************************************!*\
-  !*** ./src/client/app/ObstacleCard.jsx ***!
-  \*****************************************/
+/* 243 */
+/*!************************************!*\
+  !*** ./src/client/app/NpcList.jsx ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28901,6 +29306,14 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
+	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 244);
+	
+	var _NpcCard2 = _interopRequireDefault(_NpcCard);
+	
+	var _NewNpcForm = __webpack_require__(/*! ./NewNpcForm.jsx */ 245);
+	
+	var _NewNpcForm2 = _interopRequireDefault(_NewNpcForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28909,97 +29322,101 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var ObstacleCard = function (_React$Component) {
-	  _inherits(ObstacleCard, _React$Component);
+	var NpcList = function (_React$Component) {
+	  _inherits(NpcList, _React$Component);
 	
-	  function ObstacleCard(props) {
-	    _classCallCheck(this, ObstacleCard);
+	  function NpcList(props) {
+	    _classCallCheck(this, NpcList);
 	
-	    var _this = _possibleConstructorReturn(this, (ObstacleCard.__proto__ || Object.getPrototypeOf(ObstacleCard)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (NpcList.__proto__ || Object.getPrototypeOf(NpcList)).call(this, props));
 	
 	    _this.state = {
-	      showDetails: false
+	      npcs: [],
+	      showForm: false
 	    };
 	    return _this;
 	  }
 	
-	  _createClass(ObstacleCard, [{
-	    key: 'showDetails',
-	    value: function showDetails() {
-	      this.setState({ showDetails: !this.state.showDetails });
+	  _createClass(NpcList, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.getNpcs();
+	    }
+	  }, {
+	    key: 'getNpcs',
+	    value: function getNpcs() {
+	      $.ajax({
+	        url: _urls2.default.getNPCs + this.props.sceneId,
+	        dataType: 'json',
+	        cache: false,
+	        success: function (data) {
+	          this.setState({ npcs: data });
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'showForm',
+	    value: function showForm() {
+	      this.setState({ showForm: !this.state.showForm });
+	      this.getNpcs();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.state.showDetails === true) {
+	      var listThis = this;
+	      var npcNodes = this.state.npcs.map(function (npc) {
+	        return _react2.default.createElement(_NpcCard2.default, { key: npc.npc_id, details: npc, refresh: listThis.getNpcs.bind(listThis) });
+	      });
+	      if (this.state.showForm === true) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
-	            this.props.details.name,
-	            ' >'
+	            { className: 'middle-link-container' },
+	            npcNodes
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'show-details' },
 	            _react2.default.createElement(
-	              'p',
+	              'h2',
 	              null,
-	              'Obstacle Name: ',
-	              this.props.details.name
+	              'New NPC'
 	            ),
+	            _react2.default.createElement(_NewNpcForm2.default, { sceneId: this.props.sceneId, refresh: this.showForm.bind(this) }),
 	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Perception Check: >DC',
-	              this.props.details.perception_check
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Attack: ',
-	              this.props.details.attack_roll,
-	              ' vs. ',
-	              this.props.details.attack_vs
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Damage: ',
-	              this.props.details.damage_roll
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Notes: ',
-	              this.props.details.obstacle_notes
+	              'button',
+	              { className: 'form-button', onClick: this.showForm.bind(this) },
+	              'Cancel'
 	            )
 	          )
 	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'middle-link-container' },
+	          npcNodes,
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
-	            this.props.details.name,
-	            ' >'
+	            'button',
+	            { className: 'nav-link scene-add-button', onClick: this.showForm.bind(this) },
+	            'Add New +'
 	          )
 	        );
 	      }
 	    }
 	  }]);
 	
-	  return ObstacleCard;
+	  return NpcList;
 	}(_react2.default.Component);
 	
-	exports.default = ObstacleCard;
+	exports.default = NpcList;
 
 /***/ },
-/* 241 */
+/* 244 */
 /*!************************************!*\
   !*** ./src/client/app/NpcCard.jsx ***!
   \************************************/
@@ -29116,7 +29533,6 @@
 	          console.error(this.props.url, status, err.toString());
 	        }.bind(this)
 	      });
-	      console.log(this.state.current_hit_points);
 	    }
 	  }, {
 	    key: 'handleSubmit',
@@ -29129,7 +29545,6 @@
 	        success: function () {
 	          this.setState({ showForm: false });
 	          this.props.refresh();
-	          console.log('post succeeded!');
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(this.props.url, status, err.toString());
@@ -29158,7 +29573,7 @@
 	            null,
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	              { className: 'nav-link highlight', onClick: this.showDetails.bind(this) },
 	              this.props.details.npc_name,
 	              ' >'
 	            )
@@ -29243,7 +29658,7 @@
 	        var raceAbilityNodes = this.state.raceAbilities.map(function (race_ability) {
 	          return _react2.default.createElement(
 	            'div',
-	            { className: 'sub-details' },
+	            { key: race_ability.race_abilities_id, className: 'sub-details' },
 	            _react2.default.createElement(
 	              'p',
 	              null,
@@ -29285,7 +29700,7 @@
 	        var itemNodes = this.state.items.map(function (item) {
 	          return _react2.default.createElement(
 	            'div',
-	            { className: 'sub-details' },
+	            { key: item.item_ability_id, className: 'sub-details' },
 	            _react2.default.createElement(
 	              'p',
 	              null,
@@ -29345,7 +29760,7 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            { className: 'nav-link highlight', onClick: this.showDetails.bind(this) },
 	            this.props.details.npc_name,
 	            ' >'
 	          ),
@@ -29464,7 +29879,440 @@
 	exports.default = NpcCard;
 
 /***/ },
-/* 242 */
+/* 245 */
+/*!***************************************!*\
+  !*** ./src/client/app/NewNpcForm.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewNpcForm = function (_React$Component) {
+	  _inherits(NewNpcForm, _React$Component);
+	
+	  function NewNpcForm(props) {
+	    _classCallCheck(this, NewNpcForm);
+	
+	    var _this = _possibleConstructorReturn(this, (NewNpcForm.__proto__ || Object.getPrototypeOf(NewNpcForm)).call(this, props));
+	
+	    _this.state = {
+	      races: [],
+	      npc_name: '',
+	      npc_notes: '',
+	      race_id: '',
+	      current_effects: '',
+	      initiative: '',
+	      loot: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewNpcForm, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      $.ajax({
+	        url: _urls2.default.getRaces,
+	        dataType: 'json',
+	        cache: false,
+	        success: function (data) {
+	          console.log('got the data!');
+	          this.setState({ races: data });
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ npc_name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleRaceChange',
+	    value: function handleRaceChange(e) {
+	      this.setState({ race_id: e.target.value });
+	    }
+	  }, {
+	    key: 'handleNotesChange',
+	    value: function handleNotesChange(e) {
+	      this.setState({ npc_notes: e.target.value });
+	    }
+	  }, {
+	    key: 'handleCurrentEffectsChange',
+	    value: function handleCurrentEffectsChange(e) {
+	      this.setState({ current_effects: e.target.value });
+	    }
+	  }, {
+	    key: 'handleInitiativeChange',
+	    value: function handleInitiativeChange(e) {
+	      this.setState({ initiative: e.target.value });
+	    }
+	  }, {
+	    key: 'handleLootChange',
+	    value: function handleLootChange(e) {
+	      this.setState({ loot: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.newNpc + this.props.sceneId,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.setState({ showForm: false });
+	          this.props.refresh();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var formThis = this;
+	      this.state.races;
+	      var optionNodes = this.state.races.map(function (race) {
+	        return _react2.default.createElement(
+	          'option',
+	          { key: race.id, value: race.id },
+	          race.name
+	        );
+	      });
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'name' },
+	            'Name: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.npc_name, onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'race' },
+	            'Race: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'select',
+	            { className: 'text-input', id: 'race', onChange: this.handleRaceChange.bind(this) },
+	            optionNodes,
+	            _react2.default.createElement(
+	              'option',
+	              null,
+	              'Add New'
+	            )
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'notes' },
+	            'Notes: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'notes', value: this.state.npc_notes, onChange: this.handleNotesChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'initiative' },
+	            'Initiative: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'current_effects' },
+	            'Current Effects: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            { htmlFor: 'loot' },
+	            'Loot: '
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'loot', value: this.state.loot, onChange: this.handleLootChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewNpcForm;
+	}(_react2.default.Component);
+	
+	exports.default = NewNpcForm;
+
+/***/ },
+/* 246 */
+/*!*****************************************!*\
+  !*** ./src/client/app/ObstacleList.jsx ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 172);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	var _ObstacleCard = __webpack_require__(/*! ./ObstacleCard.jsx */ 247);
+	
+	var _ObstacleCard2 = _interopRequireDefault(_ObstacleCard);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ObstacleList = function (_React$Component) {
+	  _inherits(ObstacleList, _React$Component);
+	
+	  function ObstacleList(props) {
+	    _classCallCheck(this, ObstacleList);
+	
+	    var _this = _possibleConstructorReturn(this, (ObstacleList.__proto__ || Object.getPrototypeOf(ObstacleList)).call(this, props));
+	
+	    _this.state = {
+	      obstacles: [],
+	      showForm: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(ObstacleList, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      $.ajax({
+	        url: _urls2.default.getObstacles + this.props.sceneId,
+	        dataType: 'json',
+	        cache: false,
+	        success: function (data) {
+	          this.setState({ obstacles: data });
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'showForm',
+	    value: function showForm() {
+	      this.setState({ showForm: !this.state.showForm });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.state.showForm === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'New Obstacle'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.showForm.bind(this) },
+	            'Cancel'
+	          )
+	        );
+	      } else {
+	        var obstacleNodes = this.state.obstacles.map(function (obstacle) {
+	          return _react2.default.createElement(
+	            _ObstacleCard2.default,
+	            { key: obstacle.id, details: obstacle },
+	            obstacle.name
+	          );
+	        });
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'middle-link-container' },
+	          obstacleNodes
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return ObstacleList;
+	}(_react2.default.Component);
+	
+	exports.default = ObstacleList;
+
+/***/ },
+/* 247 */
+/*!*****************************************!*\
+  !*** ./src/client/app/ObstacleCard.jsx ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 172);
+	
+	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ObstacleCard = function (_React$Component) {
+	  _inherits(ObstacleCard, _React$Component);
+	
+	  function ObstacleCard(props) {
+	    _classCallCheck(this, ObstacleCard);
+	
+	    var _this = _possibleConstructorReturn(this, (ObstacleCard.__proto__ || Object.getPrototypeOf(ObstacleCard)).call(this, props));
+	
+	    _this.state = {
+	      showDetails: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(ObstacleCard, [{
+	    key: 'showDetails',
+	    value: function showDetails() {
+	      this.setState({ showDetails: !this.state.showDetails });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.state.showDetails === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-link highlight', onClick: this.showDetails.bind(this) },
+	            this.props.details.name,
+	            ' >'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'show-details' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Obstacle Name: ',
+	              this.props.details.name
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Perception Check: DC',
+	              this.props.details.perception_check
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Attack: ',
+	              this.props.details.attack_roll,
+	              ' vs. ',
+	              this.props.details.attack_vs
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Damage: ',
+	              this.props.details.damage_roll
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Notes: ',
+	              this.props.details.obstacle_notes
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            this.props.details.name,
+	            ' >'
+	          )
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return ObstacleCard;
+	}(_react2.default.Component);
+	
+	exports.default = ObstacleCard;
+
+/***/ },
+/* 248 */
 /*!***********************************!*\
   !*** ./src/client/app/Combat.jsx ***!
   \***********************************/
@@ -29488,7 +30336,7 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _CharacterCard = __webpack_require__(/*! ./CharacterCard.jsx */ 243);
+	var _CharacterCard = __webpack_require__(/*! ./CharacterCard.jsx */ 249);
 	
 	var _CharacterCard2 = _interopRequireDefault(_CharacterCard);
 	
@@ -29584,8 +30432,8 @@
 	      sortedList.sort(function (a, b) {
 	        return b.initiative - a.initiative;
 	      });
-	      var characterNodes = sortedList.map(function (character) {
-	        return _react2.default.createElement(_CharacterCard2.default, { details: character, refresh: combatThis.refresh.bind(combatThis) });
+	      var characterNodes = sortedList.map(function (character, i) {
+	        return _react2.default.createElement(_CharacterCard2.default, { key: i, details: character, refresh: combatThis.refresh.bind(combatThis) });
 	      });
 	      return _react2.default.createElement(
 	        'div',
@@ -29614,7 +30462,7 @@
 	exports.default = Combat;
 
 /***/ },
-/* 243 */
+/* 249 */
 /*!******************************************!*\
   !*** ./src/client/app/CharacterCard.jsx ***!
   \******************************************/
@@ -29632,11 +30480,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 241);
+	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 244);
 	
 	var _NpcCard2 = _interopRequireDefault(_NpcCard);
 	
-	var _PlayerCard = __webpack_require__(/*! ./PlayerCard.jsx */ 244);
+	var _PlayerCard = __webpack_require__(/*! ./PlayerCard.jsx */ 250);
 	
 	var _PlayerCard2 = _interopRequireDefault(_PlayerCard);
 	
@@ -29682,7 +30530,7 @@
 	exports.default = CharacterCard;
 
 /***/ },
-/* 244 */
+/* 250 */
 /*!***************************************!*\
   !*** ./src/client/app/PlayerCard.jsx ***!
   \***************************************/
@@ -29865,7 +30713,7 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            { className: 'nav-link highlight', onClick: this.showDetails.bind(this) },
 	            this.props.details.name,
 	            ' >'
 	          ),
@@ -30014,7 +30862,7 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'nav-link', onClick: this.showDetails.bind(this) },
+	            { className: 'nav-link highlight', onClick: this.showDetails.bind(this) },
 	            this.props.details.name,
 	            ' >'
 	          ),
@@ -30133,7 +30981,7 @@
 	exports.default = PlayerCard;
 
 /***/ },
-/* 245 */
+/* 251 */
 /*!**************************************!*\
   !*** ./src/client/app/Container.jsx ***!
   \**************************************/
@@ -30187,7 +31035,7 @@
 	      } else if (this.props.params.camp_id) {
 	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image book' });
 	      } else {
-	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image vikings' });
+	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image forest' });
 	      }
 	      return _react2.default.createElement(
 	        'div',
@@ -30216,760 +31064,6 @@
 	}(_react2.default.Component);
 	
 	exports.default = Container;
-
-/***/ },
-/* 246 */
-/*!********************************************!*\
-  !*** ./src/client/app/NewCampaignForm.jsx ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewCampaignForm = function (_React$Component) {
-	  _inherits(NewCampaignForm, _React$Component);
-	
-	  function NewCampaignForm(props) {
-	    _classCallCheck(this, NewCampaignForm);
-	
-	    var _this = _possibleConstructorReturn(this, (NewCampaignForm.__proto__ || Object.getPrototypeOf(NewCampaignForm)).call(this, props));
-	
-	    _this.state = {
-	      name: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewCampaignForm, [{
-	    key: 'handleNameChange',
-	    value: function handleNameChange(e) {
-	      this.setState({ name: e.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      $.ajax({
-	        url: _urls2.default.getEncounters,
-	        dataType: 'json',
-	        type: 'POST',
-	        data: this.state,
-	        success: function () {
-	          this.props.showNewForm();
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'form',
-	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'New Campaign Name: '
-	          ),
-	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return NewCampaignForm;
-	}(_react2.default.Component);
-	
-	exports.default = NewCampaignForm;
-
-/***/ },
-/* 247 */
-/*!*********************************************!*\
-  !*** ./src/client/app/NewEncounterForm.jsx ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewEncounterForm = function (_React$Component) {
-	  _inherits(NewEncounterForm, _React$Component);
-	
-	  function NewEncounterForm(props) {
-	    _classCallCheck(this, NewEncounterForm);
-	
-	    var _this = _possibleConstructorReturn(this, (NewEncounterForm.__proto__ || Object.getPrototypeOf(NewEncounterForm)).call(this, props));
-	
-	    _this.state = {
-	      name: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewEncounterForm, [{
-	    key: 'handleNameChange',
-	    value: function handleNameChange(e) {
-	      this.setState({ name: e.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      $.ajax({
-	        url: _urls2.default.newEncounter + this.props.campaignId,
-	        dataType: 'json',
-	        type: 'POST',
-	        data: this.state,
-	        success: function () {
-	          this.props.showNewForm();
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'form',
-	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'New Encounter Name: '
-	          ),
-	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return NewEncounterForm;
-	}(_react2.default.Component);
-	
-	exports.default = NewEncounterForm;
-
-/***/ },
-/* 248 */
-/*!*****************************************!*\
-  !*** ./src/client/app/NewSceneForm.jsx ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewSceneForm = function (_React$Component) {
-	  _inherits(NewSceneForm, _React$Component);
-	
-	  function NewSceneForm(props) {
-	    _classCallCheck(this, NewSceneForm);
-	
-	    var _this = _possibleConstructorReturn(this, (NewSceneForm.__proto__ || Object.getPrototypeOf(NewSceneForm)).call(this, props));
-	
-	    _this.state = {
-	      name: '',
-	      setting_description: '',
-	      misc_loot: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewSceneForm, [{
-	    key: 'handleNameChange',
-	    value: function handleNameChange(e) {
-	      this.setState({ name: e.target.value });
-	    }
-	  }, {
-	    key: 'handleDescriptionChange',
-	    value: function handleDescriptionChange(e) {
-	      this.setState({ setting_description: e.target.value });
-	    }
-	  }, {
-	    key: 'handleLootChange',
-	    value: function handleLootChange(e) {
-	      this.setState({ misc_loot: e.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      $.ajax({
-	        url: _urls2.default.newScene + this.props.encounterId,
-	        dataType: 'json',
-	        type: 'POST',
-	        data: this.state,
-	        success: function () {
-	          this.props.showNewForm();
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'form',
-	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'New Scene'
-	          ),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'name' },
-	            'Name: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'description' },
-	            'Setting Description: '
-	          ),
-	          _react2.default.createElement('textarea', { className: 'textarea-input', rows: '3', cols: '50', id: 'description', value: this.state.setting_description, onChange: this.handleDescriptionChange.bind(this) }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'loot' },
-	            'Misc Loot: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('textarea', { className: 'textarea-input', rows: '2', cols: '50', id: 'loot', value: this.state.misc_loot, onChange: this.handleLootChange.bind(this) }),
-	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return NewSceneForm;
-	}(_react2.default.Component);
-	
-	exports.default = NewSceneForm;
-
-/***/ },
-/* 249 */
-/*!************************************!*\
-  !*** ./src/client/app/NpcList.jsx ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 172);
-	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 241);
-	
-	var _NpcCard2 = _interopRequireDefault(_NpcCard);
-	
-	var _NewNpcForm = __webpack_require__(/*! ./NewNpcForm.jsx */ 250);
-	
-	var _NewNpcForm2 = _interopRequireDefault(_NewNpcForm);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NpcList = function (_React$Component) {
-	  _inherits(NpcList, _React$Component);
-	
-	  function NpcList(props) {
-	    _classCallCheck(this, NpcList);
-	
-	    var _this = _possibleConstructorReturn(this, (NpcList.__proto__ || Object.getPrototypeOf(NpcList)).call(this, props));
-	
-	    _this.state = {
-	      npcs: [],
-	      showForm: false
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NpcList, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.getNpcs();
-	    }
-	  }, {
-	    key: 'getNpcs',
-	    value: function getNpcs() {
-	      $.ajax({
-	        url: _urls2.default.getNPCs + this.props.sceneId,
-	        dataType: 'json',
-	        cache: false,
-	        success: function (data) {
-	          this.setState({ npcs: data });
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'showForm',
-	    value: function showForm() {
-	      this.setState({ showForm: !this.state.showForm });
-	      this.getNpcs();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var listThis = this;
-	      var npcNodes = this.state.npcs.map(function (npc) {
-	        return _react2.default.createElement(_NpcCard2.default, { details: npc, refresh: listThis.getNpcs.bind(listThis) });
-	      });
-	      if (this.state.showForm === true) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'middle-link-container' },
-	            npcNodes
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'show-details' },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'New NPC'
-	            ),
-	            _react2.default.createElement(_NewNpcForm2.default, { sceneId: this.props.sceneId, refresh: this.showForm.bind(this) }),
-	            _react2.default.createElement(
-	              'button',
-	              { className: 'form-button', onClick: this.showForm.bind(this) },
-	              'Cancel'
-	            )
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'middle-link-container' },
-	          npcNodes,
-	          _react2.default.createElement(
-	            'button',
-	            { className: 'nav-link scene-add-button', onClick: this.showForm.bind(this) },
-	            'Add New +'
-	          )
-	        );
-	      }
-	    }
-	  }]);
-	
-	  return NpcList;
-	}(_react2.default.Component);
-	
-	exports.default = NpcList;
-
-/***/ },
-/* 250 */
-/*!***************************************!*\
-  !*** ./src/client/app/NewNpcForm.jsx ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewNpcForm = function (_React$Component) {
-	  _inherits(NewNpcForm, _React$Component);
-	
-	  function NewNpcForm(props) {
-	    _classCallCheck(this, NewNpcForm);
-	
-	    var _this = _possibleConstructorReturn(this, (NewNpcForm.__proto__ || Object.getPrototypeOf(NewNpcForm)).call(this, props));
-	
-	    _this.state = {
-	      races: [],
-	      npc_name: '',
-	      npc_notes: '',
-	      race_id: '',
-	      current_effects: '',
-	      initiative: '',
-	      loot: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewNpcForm, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      $.ajax({
-	        url: _urls2.default.getRaces,
-	        dataType: 'json',
-	        cache: false,
-	        success: function (data) {
-	          console.log('got the data!');
-	          this.setState({ races: data });
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'handleNameChange',
-	    value: function handleNameChange(e) {
-	      this.setState({ npc_name: e.target.value });
-	    }
-	  }, {
-	    key: 'handleRaceChange',
-	    value: function handleRaceChange(e) {
-	      this.setState({ race_id: e.target.value });
-	    }
-	  }, {
-	    key: 'handleNotesChange',
-	    value: function handleNotesChange(e) {
-	      this.setState({ npc_notes: e.target.value });
-	    }
-	  }, {
-	    key: 'handleCurrentEffectsChange',
-	    value: function handleCurrentEffectsChange(e) {
-	      this.setState({ current_effects: e.target.value });
-	    }
-	  }, {
-	    key: 'handleInitiativeChange',
-	    value: function handleInitiativeChange(e) {
-	      this.setState({ initiative: e.target.value });
-	    }
-	  }, {
-	    key: 'handleLootChange',
-	    value: function handleLootChange(e) {
-	      this.setState({ loot: e.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      $.ajax({
-	        url: _urls2.default.newNpc + this.props.sceneId,
-	        dataType: 'json',
-	        type: 'POST',
-	        data: this.state,
-	        success: function () {
-	          this.setState({ showForm: false });
-	          this.props.refresh();
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var formThis = this;
-	      this.state.races;
-	      var optionNodes = this.state.races.map(function (race) {
-	        return _react2.default.createElement(
-	          'option',
-	          { value: race.id },
-	          race.name
-	        );
-	      });
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'form',
-	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'name' },
-	            'Name: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', value: this.state.npc_name, onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'race' },
-	            'Race: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'select',
-	            { className: 'text-input', id: 'race', onChange: this.handleRaceChange.bind(this) },
-	            optionNodes,
-	            _react2.default.createElement(
-	              'option',
-	              null,
-	              'Add New'
-	            )
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'notes' },
-	            'Notes: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'notes', value: this.state.npc_notes, onChange: this.handleNotesChange.bind(this) }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'initiative' },
-	            'Initiative: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('input', { className: 'text-input', type: 'number', id: 'initiative', value: this.state.initiative, onChange: this.handleInitiativeChange.bind(this) }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'current_effects' },
-	            'Current Effects: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'current_effects', value: this.state.current_effects, onChange: this.handleCurrentEffectsChange.bind(this) }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'label',
-	            { htmlFor: 'loot' },
-	            'Loot: '
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('textarea', { className: 'textarea-input', id: 'loot', value: this.state.loot, onChange: this.handleLootChange.bind(this) }),
-	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return NewNpcForm;
-	}(_react2.default.Component);
-	
-	exports.default = NewNpcForm;
-
-/***/ },
-/* 251 */
-/*!*****************************************!*\
-  !*** ./src/client/app/ObstacleList.jsx ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 172);
-	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	var _ObstacleCard = __webpack_require__(/*! ./ObstacleCard.jsx */ 240);
-	
-	var _ObstacleCard2 = _interopRequireDefault(_ObstacleCard);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ObstacleList = function (_React$Component) {
-	  _inherits(ObstacleList, _React$Component);
-	
-	  function ObstacleList(props) {
-	    _classCallCheck(this, ObstacleList);
-	
-	    var _this = _possibleConstructorReturn(this, (ObstacleList.__proto__ || Object.getPrototypeOf(ObstacleList)).call(this, props));
-	
-	    _this.state = {
-	      obstacles: [],
-	      showForm: false
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(ObstacleList, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      $.ajax({
-	        url: _urls2.default.getObstacles + this.props.sceneId,
-	        dataType: 'json',
-	        cache: false,
-	        success: function (data) {
-	          this.setState({ obstacles: data });
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'showForm',
-	    value: function showForm() {
-	      this.setState({ showForm: !this.state.showForm });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.state.showForm === true) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'New Obstacle'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.showForm.bind(this) },
-	            'Cancel'
-	          )
-	        );
-	      } else {
-	        var obstacleNodes = this.state.obstacles.map(function (obstacle) {
-	          return _react2.default.createElement(
-	            _ObstacleCard2.default,
-	            { details: obstacle },
-	            obstacle.name
-	          );
-	        });
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'middle-link-container' },
-	          obstacleNodes
-	        );
-	      }
-	    }
-	  }]);
-	
-	  return ObstacleList;
-	}(_react2.default.Component);
-	
-	exports.default = ObstacleList;
 
 /***/ }
 /******/ ]);

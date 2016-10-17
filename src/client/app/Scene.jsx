@@ -113,7 +113,7 @@ class Scene extends React.Component {
               <h3>{this.state.name}</h3>
               <div className="nav-link scene-nav"><a onClick={this.showObstacles.bind(this)}>Obstacles &#62;</a></div>
               <div className="nav-link scene-nav"><a onClick={this.showNpcs.bind(this)}>NPCs &#62;</a></div>
-              <div className="nav-link add-button combat-link">
+              <div className="combat-link">
                 <Link to={combatUrl}>Combat &#62;</Link>
               </div>
             </div>
@@ -144,7 +144,19 @@ class Scene extends React.Component {
     } else if (this.state.showObstacles === true) {
       return (
         <div>
-          {leftBar}
+          <div className="left-bar">
+            <div className="nav-back">
+              <Link to={encounterUrl}>&#60; Scenes</Link>
+            </div>
+            <div className="list-section">
+              <h3>{this.state.name}</h3>
+              <div className="nav-link scene-nav highlight"><a onClick={this.showObstacles.bind(this)}>Obstacles &#62;</a></div>
+              <div className="nav-link scene-nav"><a onClick={this.showNpcs.bind(this)}>NPCs &#62;</a></div>
+              <div className="combat-link">
+                <Link to={combatUrl}>Combat &#62;</Link>
+              </div>
+            </div>
+          </div>
           <div className="middle-section">
             <ObstacleList sceneId={this.props.params.scene_id}></ObstacleList>
           </div>
@@ -153,7 +165,19 @@ class Scene extends React.Component {
     } else if (this.state.showNpcs === true){
       return (
         <div>
-          {leftBar}
+          <div className="left-bar">
+            <div className="nav-back">
+              <Link to={encounterUrl}>&#60; Scenes</Link>
+            </div>
+            <div className="list-section">
+              <h3>{this.state.name}</h3>
+              <div className="nav-link scene-nav"><a onClick={this.showObstacles.bind(this)}>Obstacles &#62;</a></div>
+              <div className="nav-link scene-nav highlight"><a onClick={this.showNpcs.bind(this)}>NPCs &#62;</a></div>
+              <div className="combat-link">
+                <Link to={combatUrl}>Combat &#62;</Link>
+              </div>
+            </div>
+          </div>
           <div className="middle-section">
             <NpcList sceneId={this.props.params.scene_id}></NpcList>
           </div>

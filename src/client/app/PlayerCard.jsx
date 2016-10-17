@@ -124,7 +124,7 @@ class PlayerCard extends React.Component {
     if (this.state.showForm) {
       return (
         <div>
-          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
+          <div className="nav-link highlight" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
           <div className="show-details">
             <h2>Edit Player</h2>
             <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
@@ -171,7 +171,7 @@ class PlayerCard extends React.Component {
     } else if (this.state.showDetails) {
       return (
         <div>
-          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
+          <div className="nav-link highlight" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
           <div className="show-details">
             <button className="edit-button" onClick={this.showForm.bind(this)}></button>
             <p>Name: {this.props.details.name}</p>

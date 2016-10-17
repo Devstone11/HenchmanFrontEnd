@@ -19,10 +19,10 @@ class ObstacleCard extends React.Component {
     if (this.state.showDetails === true) {
       return (
         <div>
-          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
+          <div className="nav-link highlight" onClick={this.showDetails.bind(this)}>{this.props.details.name} &#62;</div>
           <div className="show-details">
             <p>Obstacle Name: {this.props.details.name}</p>
-            <p>Perception Check: >DC{this.props.details.perception_check}</p>
+            <p>Perception Check: DC{this.props.details.perception_check}</p>
             <p>Attack: {this.props.details.attack_roll} vs. {this.props.details.attack_vs}</p>
             <p>Damage: {this.props.details.damage_roll}</p>
             <p>Notes: {this.props.details.obstacle_notes}</p>

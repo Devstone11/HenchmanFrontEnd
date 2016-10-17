@@ -73,7 +73,6 @@ class NpcCard extends React.Component {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     })
-    console.log(this.state.current_hit_points);
   }
 
   handleSubmit () {
@@ -85,7 +84,6 @@ class NpcCard extends React.Component {
       success: function() {
         this.setState({showForm: false});
         this.props.refresh();
-        console.log('post succeeded!');
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -106,39 +104,25 @@ class NpcCard extends React.Component {
       return (
         <div>
           <div>
-            <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
+            <div className="nav-link highlight" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
           </div>
           <div className="show-details">
             <h2>Edit NPC</h2>
             <form className="edit-form" onSubmit={this.handleSubmit.bind(this)}>
-              <label className="scene-form-label" htmlFor="name">Name: </label>
-              <br />
-              <input className="text-input" type="text" id="name" value={this.state.npc_name} onChange={this.handleNameChange.bind(this)}/>
-              <br />
-              <label className="scene-form-label" htmlFor="notes">Notes: </label>
-              <br />
-              <textarea className="textarea-input" id="notes" value={this.state.npc_notes} onChange={this.handleNotesChange.bind(this)}/>
-              <br />
-              <label className="scene-form-label" htmlFor="current_hit_points">Current HP: </label>
-              <br />
-              <input className="text-input" type="number" id="current_hit_points" value={this.state.current_hit_points} onChange={this.handleCurrentHitPointsChange.bind(this)}/>
-              <br />
-              <label className="scene-form-label" htmlFor="initiative">Initiative: </label>
-              <br />
-              <input className="text-input" type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/>
-              <br />
-              <label className="scene-form-label" htmlFor="current_effects">Current Effects: </label>
-              <br />
-              <textarea className="textarea-input" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/>
-              <br />
-              <label className="scene-form-label" htmlFor="loot">Loot: </label>
-              <br />
-              <textarea className="textarea-input" id="loot" value={this.state.loot} onChange={this.handleLootChange.bind(this)}/>
-              <br />
-              <label className="scene-form-label" htmlFor="npc_active">Active: </label>
-              <br />
-              <input type="checkbox" id="npc_active" checked={this.state.npc_active} onChange={this.handleActiveChange.bind(this)}/>
-              <br />
+              <label className="scene-form-label" htmlFor="name">Name: </label><br />
+              <input className="text-input" type="text" id="name" value={this.state.npc_name} onChange={this.handleNameChange.bind(this)}/><br />
+              <label className="scene-form-label" htmlFor="notes">Notes: </label><br />
+              <textarea className="textarea-input" id="notes" value={this.state.npc_notes} onChange={this.handleNotesChange.bind(this)}/><br />
+              <label className="scene-form-label" htmlFor="current_hit_points">Current HP: </label><br />
+              <input className="text-input" type="number" id="current_hit_points" value={this.state.current_hit_points} onChange={this.handleCurrentHitPointsChange.bind(this)}/><br />
+              <label className="scene-form-label" htmlFor="initiative">Initiative: </label><br />
+              <input className="text-input" type="number" id="initiative" value={this.state.initiative} onChange={this.handleInitiativeChange.bind(this)}/><br />
+              <label className="scene-form-label" htmlFor="current_effects">Current Effects: </label><br />
+              <textarea className="textarea-input" id="current_effects" value={this.state.current_effects} onChange={this.handleCurrentEffectsChange.bind(this)}/><br />
+              <label className="scene-form-label" htmlFor="loot">Loot: </label><br />
+              <textarea className="textarea-input" id="loot" value={this.state.loot} onChange={this.handleLootChange.bind(this)}/><br />
+              <label className="scene-form-label" htmlFor="npc_active">Active: </label><br />
+              <input type="checkbox" id="npc_active" checked={this.state.npc_active} onChange={this.handleActiveChange.bind(this)}/><br />
               <input className="form-button" type="submit" value="Save Changes" />
             </form>
             <button className="form-button" onClick={this.showForm.bind(this)}>Cancel</button>
@@ -148,7 +132,7 @@ class NpcCard extends React.Component {
     } else if (this.state.showDetails === true) {
       var raceAbilityNodes = this.state.raceAbilities.map(function(race_ability) {
         return (
-          <div className="sub-details">
+          <div key={race_ability.race_abilities_id} className="sub-details">
             <p>Ability: {race_ability.ability_name}</p>
             <p>Notes: {race_ability.ability_notes}</p>
             <p>Range: {race_ability.ability_range}</p>
@@ -160,7 +144,7 @@ class NpcCard extends React.Component {
       });
       var itemNodes = this.state.items.map(function(item) {
         return (
-          <div className="sub-details">
+          <div key={item.item_ability_id} className="sub-details">
             <p>Item: {item.item_name}</p>
             <p>Item Notes: {item.item_notes}</p>
             <p>Enhancement: {item.enhancement_amount} to {item.enhancement_target}</p>
@@ -174,7 +158,7 @@ class NpcCard extends React.Component {
       })
       return (
         <div>
-          <div className="nav-link" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
+          <div className="nav-link highlight" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
           <div className="show-details">
             <button className="edit-button scene-edit-button" onClick={this.showForm.bind(this)}></button>
             <p>NPC Name: {this.props.details.npc_name}</p>

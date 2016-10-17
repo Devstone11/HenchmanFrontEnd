@@ -75,7 +75,7 @@ class Encounter extends React.Component {
     var campaignUrl = '/campaign/' + this.props.params.camp_id;
     var sceneNodes = this.state.scenes.map(function(scene) {
       var sceneUrl = campaignUrl + '/encounter/' + encounterThis.props.params.encounter_id + '/scene/' + scene.id;
-      return <div className="nav-link"><Link to={sceneUrl}>{scene.name}  &#62;</Link></div>
+      return <div key={scene.id} className="nav-link"><Link to={sceneUrl}>{scene.name}  &#62;</Link></div>
     });
 
     if (this.state.showNewForm === true) {

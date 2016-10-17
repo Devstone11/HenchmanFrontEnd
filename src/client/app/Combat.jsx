@@ -78,8 +78,8 @@ class Combat extends React.Component {
     sortedList.sort(function(a, b) {
       return b.initiative - a.initiative;
     })
-    var characterNodes = sortedList.map(function(character) {
-      return <CharacterCard details={character} refresh={combatThis.refresh.bind(combatThis)}></CharacterCard>
+    var characterNodes = sortedList.map(function(character, i) {
+      return <CharacterCard key={i} details={character} refresh={combatThis.refresh.bind(combatThis)}></CharacterCard>
     })
     return (
       <div>

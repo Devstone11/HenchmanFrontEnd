@@ -75,7 +75,7 @@ class NewNpcForm extends React.Component {
     var formThis = this;
     this.state.races;
     var optionNodes = this.state.races.map(function(race) {
-      return <option value={race.id}>{race.name}</option>
+      return <option key={race.id} value={race.id}>{race.name}</option>
     })
     return (
       <div>
