@@ -1,5 +1,5 @@
 import React from 'react';
-import urls from '../ajax/urls.js';
+import urls from '../scripts/urls.js';
 
 class PlayerCard extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import urls from '../ajax/urls.js';
+import urls from '../scripts/urls.js';
 import NewEncounterForm from './NewEncounterForm.jsx';
 
 class Campaign extends React.Component {

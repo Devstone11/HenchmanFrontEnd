@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import urls from '../ajax/urls.js';
+import cookie from 'react-cookie';
+import urls from '../scripts/urls.js';
 import NewSceneForm from './NewSceneForm.jsx';
 
 class Encounter extends React.Component {
@@ -17,6 +18,7 @@ class Encounter extends React.Component {
   }
 
   componentWillMount () {
+    console.log(cookie.load('userId'));
     this.getScenes();
   }
 

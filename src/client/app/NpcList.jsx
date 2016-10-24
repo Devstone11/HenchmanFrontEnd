@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import urls from '../ajax/urls.js';
+import urls from '../scripts/urls.js';
 import NpcCard from './NpcCard.jsx';
 import NewNpcForm from './NewNpcForm.jsx';
 

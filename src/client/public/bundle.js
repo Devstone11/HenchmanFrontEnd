@@ -67,25 +67,29 @@
 	
 	var _User2 = _interopRequireDefault(_User);
 	
-	var _Campaign = __webpack_require__(/*! ./Campaign.jsx */ 238);
+	var _Campaign = __webpack_require__(/*! ./Campaign.jsx */ 240);
 	
 	var _Campaign2 = _interopRequireDefault(_Campaign);
 	
-	var _Encounter = __webpack_require__(/*! ./Encounter.jsx */ 240);
+	var _Encounter = __webpack_require__(/*! ./Encounter.jsx */ 242);
 	
 	var _Encounter2 = _interopRequireDefault(_Encounter);
 	
-	var _Scene = __webpack_require__(/*! ./Scene.jsx */ 242);
+	var _Scene = __webpack_require__(/*! ./Scene.jsx */ 244);
 	
 	var _Scene2 = _interopRequireDefault(_Scene);
 	
-	var _Combat = __webpack_require__(/*! ./Combat.jsx */ 248);
+	var _Combat = __webpack_require__(/*! ./Combat.jsx */ 250);
 	
 	var _Combat2 = _interopRequireDefault(_Combat);
 	
-	var _Container = __webpack_require__(/*! ./Container.jsx */ 251);
+	var _Container = __webpack_require__(/*! ./Container.jsx */ 253);
 	
 	var _Container2 = _interopRequireDefault(_Container);
+	
+	var _Login = __webpack_require__(/*! ./Login.jsx */ 254);
+	
+	var _Login2 = _interopRequireDefault(_Login);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -94,26 +98,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var First = function First() {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'Hello World! ',
-	    _react2.default.createElement(
-	      _reactRouter.Link,
-	      { to: '/campaign' },
-	      'Home'
-	    )
-	  );
-	};
-	var Second = function Second() {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'Hello Second!'
-	  );
-	};
 	
 	var App = function (_Component) {
 	  _inherits(App, _Component);
@@ -134,10 +118,11 @@
 	          _reactRouter.Route,
 	          { path: '/', component: _Container2.default },
 	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _User2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/campaign/:camp_id', component: _Campaign2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/campaign/:camp_id/encounter/:encounter_id', component: _Encounter2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: 'campaign/:camp_id/encounter/:encounter_id/scene/:scene_id', component: _Scene2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: 'campaign/:camp_id/encounter/:encounter_id/combat/:scene_id/:combat', component: _Combat2.default })
+	          _react2.default.createElement(_reactRouter.Route, { path: '/campaign/:camp_id/encounter/:encounter_id/scene/:scene_id', component: _Scene2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: '/campaign/:camp_id/encounter/:encounter_id/combat/:scene_id/:combat', component: _Combat2.default })
 	        )
 	      );
 	    }
@@ -27893,13 +27878,21 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewCampaignForm = __webpack_require__(/*! ./NewCampaignForm.jsx */ 237);
+	var _NewCampaignForm = __webpack_require__(/*! ./NewCampaignForm.jsx */ 239);
 	
 	var _NewCampaignForm2 = _interopRequireDefault(_NewCampaignForm);
+	
+	var _Login = __webpack_require__(/*! ./Login.jsx */ 254);
+	
+	var _Login2 = _interopRequireDefault(_Login);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -27940,6 +27933,7 @@
 	    value: function getCampaigns() {
 	      $.ajax({
 	        url: _urls2.default.getUsers + '1',
+	        data: { userId: _reactCookie2.default.load('userId') },
 	        dataType: 'json',
 	        cache: false,
 	        success: function (data) {
@@ -27966,7 +27960,7 @@
 	          )
 	        );
 	      });
-	      if (this.state.showNewForm === true) {
+	      if (this.state.showNewForm === true && _reactCookie2.default.load('userId')) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'left-bar' },
@@ -27977,7 +27971,7 @@
 	            'Cancel'
 	          )
 	        );
-	      } else {
+	      } else if (_reactCookie2.default.load('userId')) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'left-bar' },
@@ -27997,6 +27991,8 @@
 	            'Add New +'
 	          )
 	        );
+	      } else {
+	        return _react2.default.createElement(_Login2.default, null);
 	      }
 	    }
 	  }]);
@@ -28009,35 +28005,327 @@
 /***/ },
 /* 236 */
 /*!*********************************!*\
-  !*** ./src/client/ajax/urls.js ***!
+  !*** ./~/react-cookie/index.js ***!
   \*********************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	var development = 'http://localhost:3000/';
-	var production = '';
+	var cookie = __webpack_require__(/*! cookie */ 237);
 	
-	//switch this to production before deployment
-	var rootUrl = development;
+	if (typeof Object.assign != 'function') {
+	  Object.assign = function(target) {
+	    'use strict';
+	    if (target == null) {
+	      throw new TypeError('Cannot convert undefined or null to object');
+	    }
 	
-	module.exports = {
-	  getUsers: rootUrl + 'users/',
-	  getEncounters: rootUrl + 'campaigns/',
-	  getScenes: rootUrl + 'encounters/',
-	  getOneScene: rootUrl + 'scenes/',
-	  getObstacles: rootUrl + 'obstacles/',
-	  getNPCs: rootUrl + 'npcs/',
-	  getPlayers: rootUrl + 'players/',
-	  getRaceAbilities: rootUrl + 'race_abilities/',
-	  getRaces: rootUrl + 'races/',
-	  getItems: rootUrl + 'items/',
-	  newEncounter: rootUrl + 'encounters/new/',
-	  newScene: rootUrl + 'scenes/new/',
-	  newNpc: rootUrl + 'npcs/new/'
+	    target = Object(target);
+	    for (var index = 1; index < arguments.length; index++) {
+	      var source = arguments[index];
+	      if (source != null) {
+	        for (var key in source) {
+	          if (Object.prototype.hasOwnProperty.call(source, key)) {
+	            target[key] = source[key];
+	          }
+	        }
+	      }
+	    }
+	    return target;
+	  };
 	}
+	
+	var _rawCookie = {};
+	var _res = undefined;
+	
+	function _isResWritable() {
+	  if(!_res)
+	    return false
+	  if(_res.headersSent === true)
+	    return false
+	  return true
+	}
+	
+	function load(name, doNotParse) {
+	  var cookies = (typeof document === 'undefined') ? _rawCookie : cookie.parse(document.cookie);
+	  var cookieVal = cookies && cookies[name];
+	
+	  if (!doNotParse) {
+	    try {
+	      cookieVal = JSON.parse(cookieVal);
+	    } catch(e) {
+	      // Not serialized object
+	    }
+	  }
+	
+	  return cookieVal;
+	}
+	
+	function select(regex) {
+	  var cookies = (typeof document === 'undefined') ? _rawCookie : cookie.parse(document.cookie);
+	  if(!cookies)
+	    return {}
+	  if(!regex)
+	    return cookies
+	  return Object.keys(cookies)
+	    .reduce(function(accumulator, name) {
+	      if(!regex.test(name))
+	        return accumulator
+	      var newCookie = {}
+	      newCookie[name] = cookies[name]
+	      return Object.assign({}, accumulator, newCookie)
+	    }, {})
+	}
+	
+	function save(name, val, opt) {
+	  _rawCookie[name] = val;
+	
+	  // allow you to work with cookies as objects.
+	  if (typeof val === 'object') {
+	    _rawCookie[name] = JSON.stringify(val);
+	  }
+	
+	  // Cookies only work in the browser
+	  if (typeof document !== 'undefined') {
+	    document.cookie = cookie.serialize(name, _rawCookie[name], opt);
+	  }
+	
+	  if (_isResWritable() && _res.cookie) {
+	    _res.cookie(name, val, opt);
+	  }
+	}
+	
+	function remove(name, opt) {
+	  delete _rawCookie[name];
+	
+	  if (typeof opt === 'undefined') {
+	    opt = {};
+	  } else if (typeof opt === 'string') {
+	    // Will be deprecated in future versions
+	    opt = { path: opt };
+	  } else {
+	    // Prevent mutation of opt below
+	    opt = Object.assign({}, opt);
+	  }
+	
+	  if (typeof document !== 'undefined') {
+	    opt.expires = new Date(1970, 1, 1, 0, 0, 1);
+	    document.cookie = cookie.serialize(name, '', opt);
+	  }
+	
+	  if (_isResWritable() && _res.clearCookie) {
+	    _res.clearCookie(name, opt);
+	  }
+	}
+	
+	function setRawCookie(rawCookie) {
+	  if (rawCookie) {
+	    _rawCookie = cookie.parse(rawCookie);
+	  } else {
+	    _rawCookie = {};
+	  }
+	}
+	
+	function plugToRequest(req, res) {
+	  if (req.cookie) {
+	    _rawCookie = req.cookie;
+	  } else if (req.cookies) {
+	    _rawCookie = req.cookies;
+	  } else if (req.headers && req.headers.cookie) {
+	    setRawCookie(req.headers.cookie);
+	  } else {
+	    _rawCookie = {};
+	  }
+	
+	  _res = res;
+	  return function unplug() {
+	    _res = null;
+	    _rawCookie = {};
+	  }
+	}
+	
+	var reactCookie = {
+	  load: load,
+	  select: select,
+	  save: save,
+	  remove: remove,
+	  setRawCookie: setRawCookie,
+	  plugToRequest: plugToRequest
+	};
+	
+	if (typeof window !== 'undefined') {
+	  window['reactCookie'] = reactCookie;
+	}
+	
+	module.exports = reactCookie;
 
 
 /***/ },
 /* 237 */
+/*!***************************!*\
+  !*** ./~/cookie/index.js ***!
+  \***************************/
+/***/ function(module, exports) {
+
+	/*!
+	 * cookie
+	 * Copyright(c) 2012-2014 Roman Shtylman
+	 * Copyright(c) 2015 Douglas Christopher Wilson
+	 * MIT Licensed
+	 */
+	
+	/**
+	 * Module exports.
+	 * @public
+	 */
+	
+	exports.parse = parse;
+	exports.serialize = serialize;
+	
+	/**
+	 * Module variables.
+	 * @private
+	 */
+	
+	var decode = decodeURIComponent;
+	var encode = encodeURIComponent;
+	
+	/**
+	 * RegExp to match field-content in RFC 7230 sec 3.2
+	 *
+	 * field-content = field-vchar [ 1*( SP / HTAB ) field-vchar ]
+	 * field-vchar   = VCHAR / obs-text
+	 * obs-text      = %x80-FF
+	 */
+	
+	var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
+	
+	/**
+	 * Parse a cookie header.
+	 *
+	 * Parse the given cookie header string into an object
+	 * The object has the various cookies as keys(names) => values
+	 *
+	 * @param {string} str
+	 * @param {object} [options]
+	 * @return {object}
+	 * @public
+	 */
+	
+	function parse(str, options) {
+	  if (typeof str !== 'string') {
+	    throw new TypeError('argument str must be a string');
+	  }
+	
+	  var obj = {}
+	  var opt = options || {};
+	  var pairs = str.split(/; */);
+	  var dec = opt.decode || decode;
+	
+	  pairs.forEach(function(pair) {
+	    var eq_idx = pair.indexOf('=')
+	
+	    // skip things that don't look like key=value
+	    if (eq_idx < 0) {
+	      return;
+	    }
+	
+	    var key = pair.substr(0, eq_idx).trim()
+	    var val = pair.substr(++eq_idx, pair.length).trim();
+	
+	    // quoted values
+	    if ('"' == val[0]) {
+	      val = val.slice(1, -1);
+	    }
+	
+	    // only assign once
+	    if (undefined == obj[key]) {
+	      obj[key] = tryDecode(val, dec);
+	    }
+	  });
+	
+	  return obj;
+	}
+	
+	/**
+	 * Serialize data into a cookie header.
+	 *
+	 * Serialize the a name value pair into a cookie string suitable for
+	 * http headers. An optional options object specified cookie parameters.
+	 *
+	 * serialize('foo', 'bar', { httpOnly: true })
+	 *   => "foo=bar; httpOnly"
+	 *
+	 * @param {string} name
+	 * @param {string} val
+	 * @param {object} [options]
+	 * @return {string}
+	 * @public
+	 */
+	
+	function serialize(name, val, options) {
+	  var opt = options || {};
+	  var enc = opt.encode || encode;
+	
+	  if (!fieldContentRegExp.test(name)) {
+	    throw new TypeError('argument name is invalid');
+	  }
+	
+	  var value = enc(val);
+	
+	  if (value && !fieldContentRegExp.test(value)) {
+	    throw new TypeError('argument val is invalid');
+	  }
+	
+	  var pairs = [name + '=' + value];
+	
+	  if (null != opt.maxAge) {
+	    var maxAge = opt.maxAge - 0;
+	    if (isNaN(maxAge)) throw new Error('maxAge should be a Number');
+	    pairs.push('Max-Age=' + maxAge);
+	  }
+	
+	  if (opt.domain) {
+	    if (!fieldContentRegExp.test(opt.domain)) {
+	      throw new TypeError('option domain is invalid');
+	    }
+	
+	    pairs.push('Domain=' + opt.domain);
+	  }
+	
+	  if (opt.path) {
+	    if (!fieldContentRegExp.test(opt.path)) {
+	      throw new TypeError('option path is invalid');
+	    }
+	
+	    pairs.push('Path=' + opt.path);
+	  }
+	
+	  if (opt.expires) pairs.push('Expires=' + opt.expires.toUTCString());
+	  if (opt.httpOnly) pairs.push('HttpOnly');
+	  if (opt.secure) pairs.push('Secure');
+	
+	  return pairs.join('; ');
+	}
+	
+	/**
+	 * Try decoding a string using a decoding function.
+	 *
+	 * @param {string} str
+	 * @param {function} decode
+	 * @private
+	 */
+	
+	function tryDecode(str, decode) {
+	  try {
+	    return decode(str);
+	  } catch (e) {
+	    return str;
+	  }
+	}
+
+
+/***/ },
+/* 238 */,
+/* 239 */
 /*!********************************************!*\
   !*** ./src/client/app/NewCampaignForm.jsx ***!
   \********************************************/
@@ -28055,7 +28343,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -28129,7 +28417,7 @@
 	exports.default = NewCampaignForm;
 
 /***/ },
-/* 238 */
+/* 240 */
 /*!*************************************!*\
   !*** ./src/client/app/Campaign.jsx ***!
   \*************************************/
@@ -28149,11 +28437,11 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 239);
+	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 241);
 	
 	var _NewEncounterForm2 = _interopRequireDefault(_NewEncounterForm);
 	
@@ -28369,7 +28657,7 @@
 	exports.default = Campaign;
 
 /***/ },
-/* 239 */
+/* 241 */
 /*!*********************************************!*\
   !*** ./src/client/app/NewEncounterForm.jsx ***!
   \*********************************************/
@@ -28387,7 +28675,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -28461,7 +28749,7 @@
 	exports.default = NewEncounterForm;
 
 /***/ },
-/* 240 */
+/* 242 */
 /*!**************************************!*\
   !*** ./src/client/app/Encounter.jsx ***!
   \**************************************/
@@ -28481,11 +28769,15 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewSceneForm = __webpack_require__(/*! ./NewSceneForm.jsx */ 241);
+	var _NewSceneForm = __webpack_require__(/*! ./NewSceneForm.jsx */ 243);
 	
 	var _NewSceneForm2 = _interopRequireDefault(_NewSceneForm);
 	
@@ -28518,6 +28810,7 @@
 	  _createClass(Encounter, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      console.log(_reactCookie2.default.load('userId'));
 	      this.getScenes();
 	    }
 	  }, {
@@ -28702,7 +28995,7 @@
 	exports.default = Encounter;
 
 /***/ },
-/* 241 */
+/* 243 */
 /*!*****************************************!*\
   !*** ./src/client/app/NewSceneForm.jsx ***!
   \*****************************************/
@@ -28720,7 +29013,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -28827,7 +29120,7 @@
 	exports.default = NewSceneForm;
 
 /***/ },
-/* 242 */
+/* 244 */
 /*!**********************************!*\
   !*** ./src/client/app/Scene.jsx ***!
   \**********************************/
@@ -28847,15 +29140,15 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NpcList = __webpack_require__(/*! ./NpcList.jsx */ 243);
+	var _NpcList = __webpack_require__(/*! ./NpcList.jsx */ 245);
 	
 	var _NpcList2 = _interopRequireDefault(_NpcList);
 	
-	var _ObstacleList = __webpack_require__(/*! ./ObstacleList.jsx */ 246);
+	var _ObstacleList = __webpack_require__(/*! ./ObstacleList.jsx */ 248);
 	
 	var _ObstacleList2 = _interopRequireDefault(_ObstacleList);
 	
@@ -29282,7 +29575,7 @@
 	exports.default = Scene;
 
 /***/ },
-/* 243 */
+/* 245 */
 /*!************************************!*\
   !*** ./src/client/app/NpcList.jsx ***!
   \************************************/
@@ -29302,15 +29595,15 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 244);
+	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 246);
 	
 	var _NpcCard2 = _interopRequireDefault(_NpcCard);
 	
-	var _NewNpcForm = __webpack_require__(/*! ./NewNpcForm.jsx */ 245);
+	var _NewNpcForm = __webpack_require__(/*! ./NewNpcForm.jsx */ 247);
 	
 	var _NewNpcForm2 = _interopRequireDefault(_NewNpcForm);
 	
@@ -29416,7 +29709,7 @@
 	exports.default = NpcList;
 
 /***/ },
-/* 244 */
+/* 246 */
 /*!************************************!*\
   !*** ./src/client/app/NpcCard.jsx ***!
   \************************************/
@@ -29436,7 +29729,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -29879,7 +30172,7 @@
 	exports.default = NpcCard;
 
 /***/ },
-/* 245 */
+/* 247 */
 /*!***************************************!*\
   !*** ./src/client/app/NewNpcForm.jsx ***!
   \***************************************/
@@ -29897,7 +30190,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30078,7 +30371,7 @@
 	exports.default = NewNpcForm;
 
 /***/ },
-/* 246 */
+/* 248 */
 /*!*****************************************!*\
   !*** ./src/client/app/ObstacleList.jsx ***!
   \*****************************************/
@@ -30098,11 +30391,11 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _ObstacleCard = __webpack_require__(/*! ./ObstacleCard.jsx */ 247);
+	var _ObstacleCard = __webpack_require__(/*! ./ObstacleCard.jsx */ 249);
 	
 	var _ObstacleCard2 = _interopRequireDefault(_ObstacleCard);
 	
@@ -30190,7 +30483,7 @@
 	exports.default = ObstacleList;
 
 /***/ },
-/* 247 */
+/* 249 */
 /*!*****************************************!*\
   !*** ./src/client/app/ObstacleCard.jsx ***!
   \*****************************************/
@@ -30210,7 +30503,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30312,7 +30605,7 @@
 	exports.default = ObstacleCard;
 
 /***/ },
-/* 248 */
+/* 250 */
 /*!***********************************!*\
   !*** ./src/client/app/Combat.jsx ***!
   \***********************************/
@@ -30332,11 +30625,11 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _CharacterCard = __webpack_require__(/*! ./CharacterCard.jsx */ 249);
+	var _CharacterCard = __webpack_require__(/*! ./CharacterCard.jsx */ 251);
 	
 	var _CharacterCard2 = _interopRequireDefault(_CharacterCard);
 	
@@ -30462,7 +30755,7 @@
 	exports.default = Combat;
 
 /***/ },
-/* 249 */
+/* 251 */
 /*!******************************************!*\
   !*** ./src/client/app/CharacterCard.jsx ***!
   \******************************************/
@@ -30480,11 +30773,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 244);
+	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 246);
 	
 	var _NpcCard2 = _interopRequireDefault(_NpcCard);
 	
-	var _PlayerCard = __webpack_require__(/*! ./PlayerCard.jsx */ 250);
+	var _PlayerCard = __webpack_require__(/*! ./PlayerCard.jsx */ 252);
 	
 	var _PlayerCard2 = _interopRequireDefault(_PlayerCard);
 	
@@ -30530,7 +30823,7 @@
 	exports.default = CharacterCard;
 
 /***/ },
-/* 250 */
+/* 252 */
 /*!***************************************!*\
   !*** ./src/client/app/PlayerCard.jsx ***!
   \***************************************/
@@ -30548,7 +30841,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30981,7 +31274,7 @@
 	exports.default = PlayerCard;
 
 /***/ },
-/* 251 */
+/* 253 */
 /*!**************************************!*\
   !*** ./src/client/app/Container.jsx ***!
   \**************************************/
@@ -31001,9 +31294,17 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../ajax/urls.js */ 236);
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
 	
 	var _urls2 = _interopRequireDefault(_urls);
+	
+	var _Login = __webpack_require__(/*! ./Login.jsx */ 254);
+	
+	var _Login2 = _interopRequireDefault(_Login);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31023,6 +31324,54 @@
 	  }
 	
 	  _createClass(Container, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.fbAsyncInit = function () {
+	        FB.init({
+	          appId: '200596083700635',
+	          cookie: true, // enable cookies to allow the server to access the session
+	          xfbml: true, // parse social plugins on this page
+	          version: 'v2.1' // use version 2.1
+	        });
+	
+	        // Now that we've initialized the JavaScript SDK, we call
+	        // FB.getLoginStatus().  This function gets the state of the
+	        // person visiting this page and can return one of three states to
+	        // the callback you provide.  They can be:
+	        //
+	        // 1. Logged into your app ('connected')
+	        // 2. Logged into Facebook, but not your app ('not_authorized')
+	        // 3. Not logged into Facebook and can't tell if they are logged into
+	        //    your app or not.
+	        //
+	        // These three cases are handled in the callback function.
+	
+	        // FB.getLoginStatus(function(response) {
+	        //   this.statusChangeCallback(response);
+	        // }.bind(this));
+	      }.bind(this);
+	
+	      // Load the SDK asynchronously
+	      (function (d, s, id) {
+	        var js,
+	            fjs = d.getElementsByTagName(s)[0];
+	        if (d.getElementById(id)) return;
+	        js = d.createElement(s);js.id = id;
+	        js.src = "//connect.facebook.net/en_US/sdk.js";
+	        fjs.parentNode.insertBefore(js, fjs);
+	      })(document, 'script', 'facebook-jssdk');
+	    }
+	  }, {
+	    key: 'logOut',
+	    value: function logOut() {
+	      FB.logout(function (response) {
+	        _reactCookie2.default.remove("userId");
+	        console.log('cookie removed!');
+	        // document.getElementById('status').innerHTML = 'You have successfully logged out.';
+	      });
+	      console.log('logout successful');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var backgroundDiv;
@@ -31037,26 +31386,50 @@
 	      } else {
 	        backgroundDiv = _react2.default.createElement('div', { className: 'background-image forest' });
 	      }
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        backgroundDiv,
-	        _react2.default.createElement(
-	          'header',
-	          { className: 'header' },
+	      if (_reactCookie2.default.load('userId')) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          backgroundDiv,
 	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Henchman'
+	            'header',
+	            { className: 'header' },
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              'Henchman'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { id: 'logout', href: '#/login', onClick: this.logOut.bind(this) },
+	              'Logout'
+	            )
 	          ),
+	          _react2.default.createElement(_Login2.default, null),
+	          this.props.children
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          backgroundDiv,
 	          _react2.default.createElement(
-	            'span',
-	            { id: 'logout' },
-	            'Logout'
-	          )
-	        ),
-	        this.props.children
-	      );
+	            'header',
+	            { className: 'header' },
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              'Henchman'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { id: 'logout', href: '#/login', onClick: this.logOut.bind(this) },
+	              'Logout'
+	            )
+	          ),
+	          _react2.default.createElement(_Login2.default, null)
+	        );
+	      }
 	    }
 	  }]);
 	
@@ -31064,6 +31437,207 @@
 	}(_react2.default.Component);
 	
 	exports.default = Container;
+
+/***/ },
+/* 254 */
+/*!**********************************!*\
+  !*** ./src/client/app/Login.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 172);
+	
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Login = function (_React$Component) {
+	  _inherits(Login, _React$Component);
+	
+	  function Login(props) {
+	    _classCallCheck(this, Login);
+	
+	    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+	
+	    _this.state = {};
+	    return _this;
+	  }
+	
+	  _createClass(Login, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.fbAsyncInit = function () {
+	        FB.init({
+	          appId: '200596083700635',
+	          cookie: true, // enable cookies to allow the server to access the session
+	          xfbml: true, // parse social plugins on this page
+	          version: 'v2.1' // use version 2.1
+	        });
+	
+	        // Now that we've initialized the JavaScript SDK, we call
+	        // FB.getLoginStatus().  This function gets the state of the
+	        // person visiting this page and can return one of three states to
+	        // the callback you provide.  They can be:
+	        //
+	        // 1. Logged into your app ('connected')
+	        // 2. Logged into Facebook, but not your app ('not_authorized')
+	        // 3. Not logged into Facebook and can't tell if they are logged into
+	        //    your app or not.
+	        //
+	        // These three cases are handled in the callback function.
+	        FB.getLoginStatus(function (response) {
+	          this.statusChangeCallback(response);
+	        }.bind(this));
+	      }.bind(this);
+	
+	      // Load the SDK asynchronously
+	      (function (d, s, id) {
+	        var js,
+	            fjs = d.getElementsByTagName(s)[0];
+	        if (d.getElementById(id)) return;
+	        js = d.createElement(s);js.id = id;
+	        js.src = "//connect.facebook.net/en_US/sdk.js";
+	        fjs.parentNode.insertBefore(js, fjs);
+	      })(document, 'script', 'facebook-jssdk');
+	    }
+	
+	    // Here we run a very simple test of the Graph API after login is
+	    // successful.  See statusChangeCallback() for when this call is made.
+	
+	  }, {
+	    key: 'testAPI',
+	    value: function testAPI() {
+	      FB.api('/me', function (response) {
+	        document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+	      });
+	    }
+	
+	    // This is called with the results from from FB.getLoginStatus().
+	
+	  }, {
+	    key: 'statusChangeCallback',
+	    value: function statusChangeCallback(response) {
+	      console.log(response);
+	      // The response object is returned with a status field that lets the
+	      // app know the current login status of the person.
+	      // Full docs on the response object can be found in the documentation
+	      // for FB.getLoginStatus().
+	      if (response.status === 'connected') {
+	        this.testAPI();
+	        _reactCookie2.default.save('userId', response.authResponse.userID);
+	      } else if (response.status === 'not_authorized') {
+	        document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+	      } else {
+	        document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+	      }
+	    }
+	
+	    // This function is called when someone finishes with the Login
+	    // Button.  See the onlogin handler attached to it in the sample
+	    // code below.
+	
+	  }, {
+	    key: 'checkLoginState',
+	    value: function checkLoginState() {
+	      FB.getLoginStatus(function (response) {
+	        this.statusChangeCallback(response);
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      FB.login(this.checkLoginState());
+	    }
+	  }, {
+	    key: 'logOut',
+	    value: function logOut() {
+	      FB.logout(function (response) {
+	        _reactCookie2.default.remove("userId");
+	        console.log('cookie removed!');
+	        document.getElementById('status').innerHTML = 'You have successfully logged out.';
+	      });
+	      console.log('logout successful');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('div', { id: 'status' }),
+	        _react2.default.createElement(
+	          'a',
+	          { href: '#/', onClick: this.handleClick.bind(this) },
+	          'Login'
+	        ),
+	        _react2.default.createElement(
+	          'a',
+	          { href: '#/login', onClick: this.logOut.bind(this) },
+	          'Logout'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Login;
+	}(_react2.default.Component);
+	
+	exports.default = Login;
+
+/***/ },
+/* 255 */
+/*!************************************!*\
+  !*** ./src/client/scripts/urls.js ***!
+  \************************************/
+/***/ function(module, exports) {
+
+	var development = 'http://localhost:3000/';
+	var production = '';
+	
+	//switch this to production before deployment
+	var rootUrl = development;
+	
+	module.exports = {
+	  getUsers: rootUrl + 'users/',
+	  getEncounters: rootUrl + 'campaigns/',
+	  getScenes: rootUrl + 'encounters/',
+	  getOneScene: rootUrl + 'scenes/',
+	  getObstacles: rootUrl + 'obstacles/',
+	  getNPCs: rootUrl + 'npcs/',
+	  getPlayers: rootUrl + 'players/',
+	  getRaceAbilities: rootUrl + 'race_abilities/',
+	  getRaces: rootUrl + 'races/',
+	  getItems: rootUrl + 'items/',
+	  newEncounter: rootUrl + 'encounters/new/',
+	  newScene: rootUrl + 'scenes/new/',
+	  newNpc: rootUrl + 'npcs/new/'
+	}
+
 
 /***/ }
 /******/ ]);

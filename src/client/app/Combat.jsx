@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import urls from '../ajax/urls.js';
+import urls from '../scripts/urls.js';
 import CharacterCard from './CharacterCard.jsx';
 
 class Combat extends React.Component {

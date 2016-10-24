@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
-import urls from '../ajax/urls.js';
+import cookie from 'react-cookie';
+import urls from '../scripts/urls.js';
 import NewCampaignForm from './NewCampaignForm.jsx';
+import Login from './Login.jsx';
 
 class User extends React.Component {
 
@@ -25,6 +27,7 @@ class User extends React.Component {
   getCampaigns () {
     $.ajax({
       url: urls.getUsers + '1',
+      data: {userId: cookie.load('userId')},
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -41,14 +44,14 @@ class User extends React.Component {
       var url = '/campaign/' + campaign.id;
       return <div key={campaign.id} className="nav-link"><Link to={url} key={campaign.id}>{campaign.name} &#62;</Link></div>
     })
-    if (this.state.showNewForm === true) {
+    if (this.state.showNewForm === true && cookie.load('userId')) {
       return (
         <div className="left-bar">
           <NewCampaignForm showNewForm={this.showNewForm.bind(this)}></NewCampaignForm>
           <button className="form-button" onClick={this.showNewForm.bind(this)}>Cancel</button>
         </div>
       );
-    } else {
+    } else if (cookie.load('userId')){
       return (
         <div className="left-bar">
           <h3>Select a Campaign:</h3>
@@ -58,6 +61,10 @@ class User extends React.Component {
           <button className="nav-link add-button" onClick={this.showNewForm.bind(this)}>Add New +</button>
         </div>
       );
+    } else {
+      return (
+        <Login></Login>
+      )
     }
   }
 }
