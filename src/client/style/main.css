@@ -38,14 +38,19 @@
 }
 
 h1 {
-  font-size: 64px;
   background-color: rgba(0, 0, 0, 0.6);
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.title {
+  font-size: 64px;
   font-family: 'Booter - Five Zero';
+  text-decoration: none;
 }
 
 #logout {
   position: absolute;
+  text-decoration: none;
   right: 20px;
   top: 20px;
   font-size: 24px;

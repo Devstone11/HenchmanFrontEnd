@@ -27932,7 +27932,7 @@
 	    key: 'getCampaigns',
 	    value: function getCampaigns() {
 	      $.ajax({
-	        url: _urls2.default.getUsers + '1',
+	        url: _urls2.default.getUsers + _reactCookie2.default.load('userId'),
 	        data: { userId: _reactCookie2.default.load('userId') },
 	        dataType: 'json',
 	        cache: false,
@@ -31333,25 +31333,8 @@
 	          xfbml: true, // parse social plugins on this page
 	          version: 'v2.1' // use version 2.1
 	        });
-	
-	        // Now that we've initialized the JavaScript SDK, we call
-	        // FB.getLoginStatus().  This function gets the state of the
-	        // person visiting this page and can return one of three states to
-	        // the callback you provide.  They can be:
-	        //
-	        // 1. Logged into your app ('connected')
-	        // 2. Logged into Facebook, but not your app ('not_authorized')
-	        // 3. Not logged into Facebook and can't tell if they are logged into
-	        //    your app or not.
-	        //
-	        // These three cases are handled in the callback function.
-	
-	        // FB.getLoginStatus(function(response) {
-	        //   this.statusChangeCallback(response);
-	        // }.bind(this));
 	      }.bind(this);
 	
-	      // Load the SDK asynchronously
 	      (function (d, s, id) {
 	        var js,
 	            fjs = d.getElementsByTagName(s)[0];
@@ -31364,10 +31347,9 @@
 	  }, {
 	    key: 'logOut',
 	    value: function logOut() {
+	      _reactCookie2.default.remove("userId");
 	      FB.logout(function (response) {
-	        _reactCookie2.default.remove("userId");
 	        console.log('cookie removed!');
-	        // document.getElementById('status').innerHTML = 'You have successfully logged out.';
 	      });
 	      console.log('logout successful');
 	    }
@@ -31397,7 +31379,11 @@
 	            _react2.default.createElement(
 	              'h1',
 	              null,
-	              'Henchman'
+	              _react2.default.createElement(
+	                'a',
+	                { href: '/', className: 'title' },
+	                'Henchman'
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'a',
@@ -31405,7 +31391,6 @@
 	              'Logout'
 	            )
 	          ),
-	          _react2.default.createElement(_Login2.default, null),
 	          this.props.children
 	        );
 	      } else {
@@ -31414,18 +31399,9 @@
 	          null,
 	          backgroundDiv,
 	          _react2.default.createElement(
-	            'header',
-	            { className: 'header' },
-	            _react2.default.createElement(
-	              'h1',
-	              null,
-	              'Henchman'
-	            ),
-	            _react2.default.createElement(
-	              'a',
-	              { id: 'logout', href: '#/login', onClick: this.logOut.bind(this) },
-	              'Logout'
-	            )
+	            'h1',
+	            { id: 'welcome' },
+	            'Welcome to Henchman'
 	          ),
 	          _react2.default.createElement(_Login2.default, null)
 	        );
@@ -31532,7 +31508,9 @@
 	    key: 'testAPI',
 	    value: function testAPI() {
 	      FB.api('/me', function (response) {
-	        document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+	        document.getElementById('status').innerHTML = 'You have successfully logged in!';
+	        document.getElementById('login-button').innerHTML = 'Enter';
+	        $('a').addClass('enter');
 	      });
 	    }
 	
@@ -31553,6 +31531,8 @@
 	        document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
 	      } else {
 	        document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+	        document.getElementById('login-button').innerHTML = 'Enter Henchman';
+	        $('a').addClass('enter');
 	      }
 	    }
 	
@@ -31573,32 +31553,21 @@
 	      FB.login(this.checkLoginState());
 	    }
 	  }, {
-	    key: 'logOut',
-	    value: function logOut() {
-	      FB.logout(function (response) {
-	        _reactCookie2.default.remove("userId");
-	        console.log('cookie removed!');
-	        document.getElementById('status').innerHTML = 'You have successfully logged out.';
-	      });
-	      console.log('logout successful');
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement('div', { id: 'status' }),
 	        _react2.default.createElement(
-	          'a',
-	          { href: '#/', onClick: this.handleClick.bind(this) },
-	          'Login'
-	        ),
-	        _react2.default.createElement(
-	          'a',
-	          { href: '#/login', onClick: this.logOut.bind(this) },
-	          'Logout'
+	          _reactRouter.Link,
+	          { to: '/', id: 'login-button', onClick: this.handleClick.bind(this) },
+	          _react2.default.createElement('img', { src: '../images/Facebook.png', alt: '', width: '31', height: '31' }),
+	          _react2.default.createElement(
+	            'span',
+	            { id: 'login-link' },
+	            'Login with Facebook'
+	          )
 	        )
 	      );
 	    }

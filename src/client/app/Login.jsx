@@ -51,7 +51,9 @@ class Login extends React.Component {
   // successful.  See statusChangeCallback() for when this call is made.
   testAPI () {
     FB.api('/me', function(response) {
-      document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+      document.getElementById('status').innerHTML = 'You have successfully logged in!';
+      document.getElementById('login-button').innerHTML = 'Enter';
+      $('a').addClass('enter');
     });
   }
 
@@ -69,6 +71,8 @@ class Login extends React.Component {
       document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
     } else {
       document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+      document.getElementById('login-button').innerHTML = 'Enter Henchman';
+      $('a').addClass('enter');
     }
   }
 
@@ -85,26 +89,16 @@ class Login extends React.Component {
     FB.login(this.checkLoginState());
   }
 
-  logOut () {
-    FB.logout(function(response) {
-      cookie.remove("userId");
-      console.log('cookie removed!');
-      document.getElementById('status').innerHTML = 'You have successfully logged out.';
-    });
-    console.log('logout successful');
-  }
-
   render() {
-
     return (
       <div>
-        <div id="status">
-        </div>
-        <a href="#/" onClick={this.handleClick.bind(this)}>Login</a>
-        <a href="#/login" onClick={this.logOut.bind(this)}>Logout</a>
+        <div id="status"></div>
+        <Link to="/" id="login-button" onClick={this.handleClick.bind(this)}>
+          <img src="../images/Facebook.png" alt="" width="31" height="31" />
+          <span id="login-link">Login with Facebook</span>
+        </Link>
       </div>
     );
-
   }
 }
 

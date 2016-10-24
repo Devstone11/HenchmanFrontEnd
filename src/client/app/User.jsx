@@ -26,7 +26,7 @@ class User extends React.Component {
 
   getCampaigns () {
     $.ajax({
-      url: urls.getUsers + '1',
+      url: urls.getUsers + cookie.load('userId'),
       data: {userId: cookie.load('userId')},
       dataType: 'json',
       cache: false,

@@ -1,0 +1,68 @@
+#welcome {
+  background-color: transparent;
+  font-size: 120px;
+  margin-top: 20vh;
+}
+
+#status {
+  height: 16vh;
+  padding-top: 8vh;
+  font-size: 20px;
+}
+
+#login-button {
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.28;
+  padding: 20px 0px 0px 8px;
+  background: #4c69ba;
+  background: linear-gradient(#4c69ba, #3b55a0);
+  border-color: #4c69ba;
+  border-radius: 3px;
+  color: #fff;
+  font-family: "Helvetica neue";
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 -1px 0 #354c8c;
+  margin-top: 500px;
+}
+
+#login-button:hover {
+  background: linear-gradient(#5b7bd5, #4864b1);
+  border-bottom-color: #365899;
+  border-left-color: #4961a8;
+  border-right-color: #4961a8;
+  border-top-color: #5874c3;
+  box-shadow: inset 0 1px 0 #607fd6;
+  cursor: pointer;
+}
+
+#login-link {
+  font-size: 24px;
+  line-height: 30px;
+  padding: 0px 8px;
+  font-weight: bold;
+  white-space: nowrap;
+  display: inline-block;
+  font-family: helvetica, arial, sans-serif;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+#login-button.enter {
+  font-size: 64px;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: 'Booter - Five Zero';
+  text-decoration: none;
+  background-color: transparent;
+  background: none;
+  padding: 0;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+}
+
+#login-button.enter:hover {
+  box-shadow: none;
+  font-size: 68px;
+
+}
