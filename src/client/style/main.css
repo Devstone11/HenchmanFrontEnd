@@ -62,6 +62,7 @@ h1 {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   overflow: scroll;
+  text-align: center;
 }
 
 h3 {
@@ -91,7 +92,8 @@ h3 {
 .nav-link a:hover,
 .form-button:hover,
 #logout:hover,
-.nav-back:hover {
+.nav-back:hover,
+.nav-link:hover {
   color: #BAD19B;
 }
 
@@ -135,12 +137,16 @@ h3 {
   border: 1px solid #EFFFEB;
 }
 
+div.form-button {
+  width: 30%;
+}
+
 .page-name {
   position: absolute;
   left: 50%;
   top: 20%;
   font-size: 70px;
-  padding-right: 50px;
+  padding-right: 75px;
 }
 
 .page-name h2 {
@@ -157,8 +163,21 @@ h3 {
   width: 30px;
   height: 30px;
   position: absolute;
-  right: 5;
+  right: 38;
   top: 0;
+}
+
+.delete-button {
+  background: none;
+  background-image: url('../images/delete.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: none;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 0px;
+  top: 5;
 }
 
 .nav-back {

@@ -2,6 +2,8 @@
   background-color: transparent;
   font-size: 120px;
   margin-top: 20vh;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: 'Booter - Five Zero';
 }
 
 #status {
@@ -64,5 +66,4 @@
 #login-button.enter:hover {
   box-shadow: none;
   font-size: 68px;
-
 }

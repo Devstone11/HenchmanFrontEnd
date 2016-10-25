@@ -67,7 +67,7 @@
 	
 	var _User2 = _interopRequireDefault(_User);
 	
-	var _Campaign = __webpack_require__(/*! ./Campaign.jsx */ 240);
+	var _Campaign = __webpack_require__(/*! ./Campaign.jsx */ 241);
 	
 	var _Campaign2 = _interopRequireDefault(_Campaign);
 	
@@ -87,7 +87,7 @@
 	
 	var _Container2 = _interopRequireDefault(_Container);
 	
-	var _Login = __webpack_require__(/*! ./Login.jsx */ 254);
+	var _Login = __webpack_require__(/*! ./Login.jsx */ 240);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
@@ -27882,7 +27882,7 @@
 	
 	var _reactCookie2 = _interopRequireDefault(_reactCookie);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -27890,7 +27890,7 @@
 	
 	var _NewCampaignForm2 = _interopRequireDefault(_NewCampaignForm);
 	
-	var _Login = __webpack_require__(/*! ./Login.jsx */ 254);
+	var _Login = __webpack_require__(/*! ./Login.jsx */ 240);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
@@ -28324,7 +28324,36 @@
 
 
 /***/ },
-/* 238 */,
+/* 238 */
+/*!************************************!*\
+  !*** ./src/client/scripts/urls.js ***!
+  \************************************/
+/***/ function(module, exports) {
+
+	var development = 'http://localhost:3000/';
+	var production = '';
+	
+	//switch this to production before deployment
+	var rootUrl = development;
+	
+	module.exports = {
+	  getUsers: rootUrl + 'users/',
+	  getEncounters: rootUrl + 'campaigns/',
+	  getScenes: rootUrl + 'encounters/',
+	  getOneScene: rootUrl + 'scenes/',
+	  getObstacles: rootUrl + 'obstacles/',
+	  getNPCs: rootUrl + 'npcs/',
+	  getPlayers: rootUrl + 'players/',
+	  getRaceAbilities: rootUrl + 'race_abilities/',
+	  getRaces: rootUrl + 'races/',
+	  getItems: rootUrl + 'items/',
+	  newEncounter: rootUrl + 'encounters/new/',
+	  newScene: rootUrl + 'scenes/new/',
+	  newNpc: rootUrl + 'npcs/new/'
+	}
+
+
+/***/ },
 /* 239 */
 /*!********************************************!*\
   !*** ./src/client/app/NewCampaignForm.jsx ***!
@@ -28343,7 +28372,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -28418,6 +28447,170 @@
 
 /***/ },
 /* 240 */
+/*!**********************************!*\
+  !*** ./src/client/app/Login.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 172);
+	
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Login = function (_React$Component) {
+	  _inherits(Login, _React$Component);
+	
+	  function Login(props) {
+	    _classCallCheck(this, Login);
+	
+	    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+	
+	    _this.state = {};
+	    return _this;
+	  }
+	
+	  _createClass(Login, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.fbAsyncInit = function () {
+	        FB.init({
+	          appId: '200596083700635',
+	          cookie: true, // enable cookies to allow the server to access the session
+	          xfbml: true, // parse social plugins on this page
+	          version: 'v2.1' // use version 2.1
+	        });
+	
+	        // Now that we've initialized the JavaScript SDK, we call
+	        // FB.getLoginStatus().  This function gets the state of the
+	        // person visiting this page and can return one of three states to
+	        // the callback you provide.  They can be:
+	        //
+	        // 1. Logged into your app ('connected')
+	        // 2. Logged into Facebook, but not your app ('not_authorized')
+	        // 3. Not logged into Facebook and can't tell if they are logged into
+	        //    your app or not.
+	        //
+	        // These three cases are handled in the callback function.
+	        FB.getLoginStatus(function (response) {
+	          this.statusChangeCallback(response);
+	        }.bind(this));
+	      }.bind(this);
+	
+	      // Load the SDK asynchronously
+	      (function (d, s, id) {
+	        var js,
+	            fjs = d.getElementsByTagName(s)[0];
+	        if (d.getElementById(id)) return;
+	        js = d.createElement(s);js.id = id;
+	        js.src = "//connect.facebook.net/en_US/sdk.js";
+	        fjs.parentNode.insertBefore(js, fjs);
+	      })(document, 'script', 'facebook-jssdk');
+	    }
+	
+	    // Here we run a very simple test of the Graph API after login is
+	    // successful.  See statusChangeCallback() for when this call is made.
+	
+	  }, {
+	    key: 'testAPI',
+	    value: function testAPI() {
+	      FB.api('/me', function (response) {
+	        document.getElementById('status').innerHTML = 'You have successfully logged in!';
+	        document.getElementById('login-button').innerHTML = 'Enter';
+	        $('a').addClass('enter');
+	      });
+	    }
+	
+	    // This is called with the results from from FB.getLoginStatus().
+	
+	  }, {
+	    key: 'statusChangeCallback',
+	    value: function statusChangeCallback(response) {
+	      console.log(response);
+	      // The response object is returned with a status field that lets the
+	      // app know the current login status of the person.
+	      // Full docs on the response object can be found in the documentation
+	      // for FB.getLoginStatus().
+	      if (response.status === 'connected') {
+	        this.testAPI();
+	        _reactCookie2.default.save('userId', response.authResponse.userID);
+	      } else if (response.status === 'not_authorized') {
+	        document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+	      } else {
+	        // document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+	        document.getElementById('login-button').innerHTML = 'Enter';
+	        $('a').addClass('enter');
+	      }
+	    }
+	
+	    // This function is called when someone finishes with the Login
+	    // Button.  See the onlogin handler attached to it in the sample
+	    // code below.
+	
+	  }, {
+	    key: 'checkLoginState',
+	    value: function checkLoginState() {
+	      FB.getLoginStatus(function (response) {
+	        this.statusChangeCallback(response);
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      FB.login(this.checkLoginState());
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('div', { id: 'status' }),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/', id: 'login-button', onClick: this.handleClick.bind(this) },
+	          _react2.default.createElement('img', { src: '../images/Facebook.png', alt: '', width: '31', height: '31' }),
+	          _react2.default.createElement(
+	            'span',
+	            { id: 'login-link' },
+	            'Login with Facebook'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Login;
+	}(_react2.default.Component);
+	
+	exports.default = Login;
+
+/***/ },
+/* 241 */
 /*!*************************************!*\
   !*** ./src/client/app/Campaign.jsx ***!
   \*************************************/
@@ -28437,11 +28630,11 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 241);
+	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 254);
 	
 	var _NewEncounterForm2 = _interopRequireDefault(_NewEncounterForm);
 	
@@ -28465,6 +28658,7 @@
 	      encounters: [],
 	      showForm: false,
 	      showNewForm: false,
+	      showConfirm: false,
 	      name: '',
 	      active: ''
 	    };
@@ -28507,6 +28701,11 @@
 	      this.getEncounters();
 	    }
 	  }, {
+	    key: 'showConfirm',
+	    value: function showConfirm() {
+	      this.setState({ showConfirm: !this.state.showConfirm });
+	    }
+	  }, {
 	    key: 'handleNameChange',
 	    value: function handleNameChange(e) {
 	      this.setState({ name: e.target.value });
@@ -28526,6 +28725,22 @@
 	        data: this.state,
 	        success: function () {
 	          this.setState({ showForm: false });
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'submitDelete',
+	    value: function submitDelete() {
+	      $.ajax({
+	        url: _urls2.default.getEncounters + this.props.params.camp_id,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.setState({ showConfirm: false });
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(this.props.url, status, err.toString());
@@ -28553,12 +28768,25 @@
 	      if (this.state.showNewForm === true) {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'left-bar' },
-	          _react2.default.createElement(_NewEncounterForm2.default, { showNewForm: this.showNewForm.bind(this), campaignId: this.props.params.camp_id }),
+	          null,
 	          _react2.default.createElement(
-	            'button',
-	            { className: 'form-button', onClick: this.showNewForm.bind(this) },
-	            'Cancel'
+	            'div',
+	            { className: 'page-name' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              this.state.name
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(_NewEncounterForm2.default, { showNewForm: this.showNewForm.bind(this), campaignId: this.props.params.camp_id }),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.showNewForm.bind(this) },
+	              'Cancel'
+	            )
 	          )
 	        );
 	      } else if (this.state.showForm === true) {
@@ -28604,6 +28832,39 @@
 	            'Cancel'
 	          )
 	        );
+	      } else if (this.state.showConfirm === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'left-bar' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-back' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/' },
+	              '< Campaigns'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Delete this Campaign?'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'form-button' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/', onClick: this.submitDelete.bind(this) },
+	              'Confirm'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'form-button', onClick: this.showConfirm.bind(this) },
+	            'Cancel'
+	          )
+	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
@@ -28616,7 +28877,8 @@
 	              null,
 	              this.state.name
 	            ),
-	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) })
+	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) }),
+	            _react2.default.createElement('button', { className: 'delete-button', onClick: this.showConfirm.bind(campaignThis) })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -28657,98 +28919,6 @@
 	exports.default = Campaign;
 
 /***/ },
-/* 241 */
-/*!*********************************************!*\
-  !*** ./src/client/app/NewEncounterForm.jsx ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewEncounterForm = function (_React$Component) {
-	  _inherits(NewEncounterForm, _React$Component);
-	
-	  function NewEncounterForm(props) {
-	    _classCallCheck(this, NewEncounterForm);
-	
-	    var _this = _possibleConstructorReturn(this, (NewEncounterForm.__proto__ || Object.getPrototypeOf(NewEncounterForm)).call(this, props));
-	
-	    _this.state = {
-	      name: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewEncounterForm, [{
-	    key: 'handleNameChange',
-	    value: function handleNameChange(e) {
-	      this.setState({ name: e.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      $.ajax({
-	        url: _urls2.default.newEncounter + this.props.campaignId,
-	        dataType: 'json',
-	        type: 'POST',
-	        data: this.state,
-	        success: function () {
-	          this.props.showNewForm();
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'form',
-	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'New Encounter Name: '
-	          ),
-	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return NewEncounterForm;
-	}(_react2.default.Component);
-	
-	exports.default = NewEncounterForm;
-
-/***/ },
 /* 242 */
 /*!**************************************!*\
   !*** ./src/client/app/Encounter.jsx ***!
@@ -28773,7 +28943,7 @@
 	
 	var _reactCookie2 = _interopRequireDefault(_reactCookie);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -29013,7 +29183,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -29140,7 +29310,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -29595,7 +29765,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -29729,7 +29899,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30190,7 +30360,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30391,7 +30561,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30503,7 +30673,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30625,7 +30795,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -30841,7 +31011,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -31298,11 +31468,11 @@
 	
 	var _reactCookie2 = _interopRequireDefault(_reactCookie);
 	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _Login = __webpack_require__(/*! ./Login.jsx */ 254);
+	var _Login = __webpack_require__(/*! ./Login.jsx */ 240);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
@@ -31416,9 +31586,9 @@
 
 /***/ },
 /* 254 */
-/*!**********************************!*\
-  !*** ./src/client/app/Login.jsx ***!
-  \**********************************/
+/*!*********************************************!*\
+  !*** ./src/client/app/NewEncounterForm.jsx ***!
+  \*********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31433,13 +31603,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 172);
-	
-	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
-	
-	var _reactCookie2 = _interopRequireDefault(_reactCookie);
-	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 255);
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
@@ -31451,106 +31615,40 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Login = function (_React$Component) {
-	  _inherits(Login, _React$Component);
+	var NewEncounterForm = function (_React$Component) {
+	  _inherits(NewEncounterForm, _React$Component);
 	
-	  function Login(props) {
-	    _classCallCheck(this, Login);
+	  function NewEncounterForm(props) {
+	    _classCallCheck(this, NewEncounterForm);
 	
-	    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (NewEncounterForm.__proto__ || Object.getPrototypeOf(NewEncounterForm)).call(this, props));
 	
-	    _this.state = {};
+	    _this.state = {
+	      name: ''
+	    };
 	    return _this;
 	  }
 	
-	  _createClass(Login, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      window.fbAsyncInit = function () {
-	        FB.init({
-	          appId: '200596083700635',
-	          cookie: true, // enable cookies to allow the server to access the session
-	          xfbml: true, // parse social plugins on this page
-	          version: 'v2.1' // use version 2.1
-	        });
-	
-	        // Now that we've initialized the JavaScript SDK, we call
-	        // FB.getLoginStatus().  This function gets the state of the
-	        // person visiting this page and can return one of three states to
-	        // the callback you provide.  They can be:
-	        //
-	        // 1. Logged into your app ('connected')
-	        // 2. Logged into Facebook, but not your app ('not_authorized')
-	        // 3. Not logged into Facebook and can't tell if they are logged into
-	        //    your app or not.
-	        //
-	        // These three cases are handled in the callback function.
-	        FB.getLoginStatus(function (response) {
-	          this.statusChangeCallback(response);
-	        }.bind(this));
-	      }.bind(this);
-	
-	      // Load the SDK asynchronously
-	      (function (d, s, id) {
-	        var js,
-	            fjs = d.getElementsByTagName(s)[0];
-	        if (d.getElementById(id)) return;
-	        js = d.createElement(s);js.id = id;
-	        js.src = "//connect.facebook.net/en_US/sdk.js";
-	        fjs.parentNode.insertBefore(js, fjs);
-	      })(document, 'script', 'facebook-jssdk');
+	  _createClass(NewEncounterForm, [{
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
 	    }
-	
-	    // Here we run a very simple test of the Graph API after login is
-	    // successful.  See statusChangeCallback() for when this call is made.
-	
 	  }, {
-	    key: 'testAPI',
-	    value: function testAPI() {
-	      FB.api('/me', function (response) {
-	        document.getElementById('status').innerHTML = 'You have successfully logged in!';
-	        document.getElementById('login-button').innerHTML = 'Enter';
-	        $('a').addClass('enter');
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.newEncounter + this.props.campaignId,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.props.showNewForm();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
 	      });
-	    }
-	
-	    // This is called with the results from from FB.getLoginStatus().
-	
-	  }, {
-	    key: 'statusChangeCallback',
-	    value: function statusChangeCallback(response) {
-	      console.log(response);
-	      // The response object is returned with a status field that lets the
-	      // app know the current login status of the person.
-	      // Full docs on the response object can be found in the documentation
-	      // for FB.getLoginStatus().
-	      if (response.status === 'connected') {
-	        this.testAPI();
-	        _reactCookie2.default.save('userId', response.authResponse.userID);
-	      } else if (response.status === 'not_authorized') {
-	        document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
-	      } else {
-	        document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
-	        document.getElementById('login-button').innerHTML = 'Enter Henchman';
-	        $('a').addClass('enter');
-	      }
-	    }
-	
-	    // This function is called when someone finishes with the Login
-	    // Button.  See the onlogin handler attached to it in the sample
-	    // code below.
-	
-	  }, {
-	    key: 'checkLoginState',
-	    value: function checkLoginState() {
-	      FB.getLoginStatus(function (response) {
-	        this.statusChangeCallback(response);
-	      }.bind(this));
-	    }
-	  }, {
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      FB.login(this.checkLoginState());
 	    }
 	  }, {
 	    key: 'render',
@@ -31558,55 +31656,25 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement('div', { id: 'status' }),
 	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/', id: 'login-button', onClick: this.handleClick.bind(this) },
-	          _react2.default.createElement('img', { src: '../images/Facebook.png', alt: '', width: '31', height: '31' }),
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
 	          _react2.default.createElement(
-	            'span',
-	            { id: 'login-link' },
-	            'Login with Facebook'
-	          )
+	            'h3',
+	            null,
+	            'New Encounter Name: '
+	          ),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
 	        )
 	      );
 	    }
 	  }]);
 	
-	  return Login;
+	  return NewEncounterForm;
 	}(_react2.default.Component);
 	
-	exports.default = Login;
-
-/***/ },
-/* 255 */
-/*!************************************!*\
-  !*** ./src/client/scripts/urls.js ***!
-  \************************************/
-/***/ function(module, exports) {
-
-	var development = 'http://localhost:3000/';
-	var production = '';
-	
-	//switch this to production before deployment
-	var rootUrl = development;
-	
-	module.exports = {
-	  getUsers: rootUrl + 'users/',
-	  getEncounters: rootUrl + 'campaigns/',
-	  getScenes: rootUrl + 'encounters/',
-	  getOneScene: rootUrl + 'scenes/',
-	  getObstacles: rootUrl + 'obstacles/',
-	  getNPCs: rootUrl + 'npcs/',
-	  getPlayers: rootUrl + 'players/',
-	  getRaceAbilities: rootUrl + 'race_abilities/',
-	  getRaces: rootUrl + 'races/',
-	  getItems: rootUrl + 'items/',
-	  newEncounter: rootUrl + 'encounters/new/',
-	  newScene: rootUrl + 'scenes/new/',
-	  newNpc: rootUrl + 'npcs/new/'
-	}
-
+	exports.default = NewEncounterForm;
 
 /***/ }
 /******/ ]);

@@ -11,6 +11,7 @@ class Campaign extends React.Component {
       encounters: [],
       showForm: false,
       showNewForm: false,
+      showConfirm: false,
       name: '',
       active: ''
     };
@@ -47,6 +48,10 @@ class Campaign extends React.Component {
     this.getEncounters();
   }
 
+  showConfirm () {
+    this.setState({showConfirm: !this.state.showConfirm});
+  }
+
   handleNameChange (e) {
     this.setState({name: e.target.value});
   }
@@ -70,6 +75,21 @@ class Campaign extends React.Component {
     });
   }
 
+  submitDelete() {
+    $.ajax({
+      url: urls.getEncounters + this.props.params.camp_id,
+      dataType: 'json',
+      type: 'POST',
+      data: this.state,
+      success: function() {
+        this.setState({showConfirm: false});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  }
+
   render() {
     var campaignThis = this;
     var encounterNodes = this.state.encounters.map(function(encounter) {
@@ -79,9 +99,14 @@ class Campaign extends React.Component {
 
     if (this.state.showNewForm === true) {
       return (
-        <div className="left-bar">
-          <NewEncounterForm showNewForm={this.showNewForm.bind(this)} campaignId={this.props.params.camp_id}></NewEncounterForm>
-          <button className="form-button" onClick={this.showNewForm.bind(this)}>Cancel</button>
+        <div>
+          <div className="page-name">
+            <h2>{this.state.name}</h2>
+          </div>
+          <div className="left-bar">
+            <NewEncounterForm showNewForm={this.showNewForm.bind(this)} campaignId={this.props.params.camp_id}></NewEncounterForm>
+            <button className="form-button" onClick={this.showNewForm.bind(this)}>Cancel</button>
+          </div>
         </div>
       );
     } else if (this.state.showForm === true) {
@@ -103,12 +128,24 @@ class Campaign extends React.Component {
           <button className="form-button" onClick={this.showForm.bind(this)}>Cancel</button>
         </div>
       )
+    } else if (this.state.showConfirm === true) {
+      return (
+        <div className="left-bar">
+          <div className="nav-back">
+            <Link to='/'>&#60; Campaigns</Link>
+          </div>
+          <h3>Delete this Campaign?</h3>
+          <div className="form-button"><Link to="/" onClick={this.submitDelete.bind(this)}>Confirm</Link></div>
+          <button className="form-button" onClick={this.showConfirm.bind(this)}>Cancel</button>
+        </div>
+      )
     } else {
       return (
         <div>
           <div className="page-name">
             <h2>{this.state.name}</h2>
             <button className="edit-button" onClick={this.showForm.bind(this)}></button>
+            <button className="delete-button" onClick={this.showConfirm.bind(campaignThis)}></button>
           </div>
           <div className="left-bar">
             <div className="nav-back">

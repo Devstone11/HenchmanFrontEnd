@@ -70,8 +70,8 @@ class Login extends React.Component {
     } else if (response.status === 'not_authorized') {
       document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
     } else {
-      document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
-      document.getElementById('login-button').innerHTML = 'Enter Henchman';
+      // document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+      document.getElementById('login-button').innerHTML = 'Enter';
       $('a').addClass('enter');
     }
   }
