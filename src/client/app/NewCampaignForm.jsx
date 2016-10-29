@@ -1,4 +1,5 @@
 import React from 'react';
+import cookie from 'react-cookie';
 import urls from '../scripts/urls.js';
 
 class NewCampaignForm extends React.Component {
@@ -7,6 +8,7 @@ class NewCampaignForm extends React.Component {
     super(props);
     this.state = {
       name: '',
+      userId: cookie.load("userId")
     };
   }
 
@@ -16,7 +18,7 @@ class NewCampaignForm extends React.Component {
 
   handleSubmit() {
     $.ajax({
-      url: urls.getEncounters,
+      url: urls.getEncounters + 'new/userId',
       dataType: 'json',
       type: 'POST',
       data: this.state,

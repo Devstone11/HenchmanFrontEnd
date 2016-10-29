@@ -189,7 +189,9 @@ class Scene extends React.Component {
           {leftBar}
           <div className="page-name scene-main">
             <h2>{this.state.name}</h2>
-            <button className="edit-button" onClick={this.showForm.bind(this)}></button>
+            <div className="button-box">
+              <button className="name-button edit" onClick={this.showForm.bind(this)}></button>
+            </div>
             <h3>Description</h3>
             <div className="scene-details">
               {this.state.setting_description}

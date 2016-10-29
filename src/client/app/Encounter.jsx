@@ -12,6 +12,7 @@ class Encounter extends React.Component {
       scenes: [],
       showForm: false,
       showNewForm: false,
+      showConfirm: false,
       name: '',
       active: ''
     };
@@ -48,6 +49,11 @@ class Encounter extends React.Component {
     this.getScenes();
   }
 
+  showConfirm() {
+    this.setState({showConfirm: !this.state.showConfirm});
+    console.log(this.state.showConfirm);
+  }
+
   handleNameChange (e) {
     this.setState({name: e.target.value});
   }
@@ -69,6 +75,23 @@ class Encounter extends React.Component {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  }
+
+  submitDelete() {
+    $.ajax({
+      url: urls.deleteEncounter + this.props.params.encounter_id,
+      dataType: 'json',
+      type: 'POST',
+      data: {userId: cookie.load('userId')},
+      success: function() {
+        console.log('delete request successful.');
+        hashHistory.push("/");
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+    console.log("delete!");
   }
 
   render() {
@@ -105,12 +128,32 @@ class Encounter extends React.Component {
           <button className="form-button" onClick={this.showForm.bind(this)}>Cancel</button>
         </div>
       )
+    } else if (this.state.showConfirm === true){
+      return (
+        <div>
+          <div className="page-name">
+            <h2>{this.state.name}</h2>
+          </div>
+          <div className="left-bar">
+            <div className="nav-back">
+              <Link to='/'>&#60; Encounters</Link>
+            </div>
+            <h3>Delete this Encounter?</h3>
+            <h4>(This will permanently delete all associated scenes, obstacles, and NPCs)</h4>
+            <button className="form-button" onClick={this.submitDelete.bind(this)}>Confirm</button>
+            <button className="form-button" onClick={this.showConfirm.bind(this)}>Cancel</button>
+          </div>
+        </div>
+      )
     } else {
       return (
         <div>
           <div className="page-name">
             <h2>{this.state.name}</h2>
-            <button className="edit-button" onClick={this.showForm.bind(this)}></button>
+            <div className="button-box">
+              <button className="name-button edit" onClick={this.showForm.bind(this)}></button>
+              <button className="name-button delete" onClick={this.showConfirm.bind(this)}></button>
+            </div>
           </div>
           <div className="left-bar">
             <div className="nav-back">

@@ -90,7 +90,6 @@ class Campaign extends React.Component {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-    console.log("Deleted!");
   }
 
   render() {
@@ -148,8 +147,10 @@ class Campaign extends React.Component {
         <div>
           <div className="page-name">
             <h2>{this.state.name}</h2>
-            <button className="edit-button" onClick={this.showForm.bind(this)}></button>
-            <button className="delete-button" onClick={this.showConfirm.bind(campaignThis)}></button>
+            <div className="button-box">
+              <button className="name-button edit" onClick={this.showForm.bind(this)}></button>
+              <button className="name-button delete" onClick={this.showConfirm.bind(campaignThis)}></button>
+            </div>
           </div>
           <div className="left-bar">
             <div className="nav-back">

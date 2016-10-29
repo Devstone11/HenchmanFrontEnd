@@ -156,38 +156,41 @@ h4 {
   left: 50%;
   top: 20%;
   font-size: 70px;
-  padding-right: 75px;
+  margin-right: 75px;
+  padding-right: 85px;
 }
 
 .page-name h2 {
   font-family: 'Booter - Five Zero';
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  display: inline-block;
 }
 
-.edit-button {
+.button-box {
+  display: inline-block;
+  position: absolute;
+  margin-left: 10px;
+}
+
+.name-button {
   background: none;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: none;
+  width: 30px;
+  height: 30px;
+  display: inline;
+}
+
+.edit {
   background-image: url('../images/pencil-64.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border: none;
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 38;
-  top: 0;
+  display: inline-block;
+  margin-top: 0;
 }
 
-.delete-button {
-  background: none;
+.delete {
   background-image: url('../images/delete.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border: none;
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 0px;
-  top: 5;
+  margin-left: 6px;
 }
 
 .nav-back {

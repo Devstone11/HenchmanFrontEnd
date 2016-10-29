@@ -28373,6 +28373,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
 	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
@@ -28394,7 +28398,8 @@
 	    var _this = _possibleConstructorReturn(this, (NewCampaignForm.__proto__ || Object.getPrototypeOf(NewCampaignForm)).call(this, props));
 	
 	    _this.state = {
-	      name: ''
+	      name: '',
+	      userId: _reactCookie2.default.load("userId")
 	    };
 	    return _this;
 	  }
@@ -28408,7 +28413,7 @@
 	    key: 'handleSubmit',
 	    value: function handleSubmit() {
 	      $.ajax({
-	        url: _urls2.default.getEncounters,
+	        url: _urls2.default.getEncounters + 'new/userId',
 	        dataType: 'json',
 	        type: 'POST',
 	        data: this.state,
@@ -28752,7 +28757,6 @@
 	          console.error(this.props.url, status, err.toString());
 	        }.bind(this)
 	      });
-	      console.log("Deleted!");
 	    }
 	  }, {
 	    key: 'render',
@@ -28885,8 +28889,12 @@
 	              null,
 	              this.state.name
 	            ),
-	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) }),
-	            _react2.default.createElement('button', { className: 'delete-button', onClick: this.showConfirm.bind(campaignThis) })
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'button-box' },
+	              _react2.default.createElement('button', { className: 'name-button edit', onClick: this.showForm.bind(this) }),
+	              _react2.default.createElement('button', { className: 'name-button delete', onClick: this.showConfirm.bind(campaignThis) })
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -29071,6 +29079,7 @@
 	      scenes: [],
 	      showForm: false,
 	      showNewForm: false,
+	      showConfirm: false,
 	      name: '',
 	      active: ''
 	    };
@@ -29113,6 +29122,12 @@
 	      this.getScenes();
 	    }
 	  }, {
+	    key: 'showConfirm',
+	    value: function showConfirm() {
+	      this.setState({ showConfirm: !this.state.showConfirm });
+	      console.log(this.state.showConfirm);
+	    }
+	  }, {
 	    key: 'handleNameChange',
 	    value: function handleNameChange(e) {
 	      this.setState({ name: e.target.value });
@@ -29137,6 +29152,24 @@
 	          console.error(this.props.url, status, err.toString());
 	        }.bind(this)
 	      });
+	    }
+	  }, {
+	    key: 'submitDelete',
+	    value: function submitDelete() {
+	      $.ajax({
+	        url: _urls2.default.deleteEncounter + this.props.params.encounter_id,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: { userId: _reactCookie2.default.load('userId') },
+	        success: function () {
+	          console.log('delete request successful.');
+	          hashHistory.push("/");
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	      console.log("delete!");
 	    }
 	  }, {
 	    key: 'render',
@@ -29211,6 +29244,53 @@
 	            'Cancel'
 	          )
 	        );
+	      } else if (this.state.showConfirm === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-name' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              this.state.name
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'left-bar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'nav-back' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/' },
+	                '< Encounters'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Delete this Encounter?'
+	            ),
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              '(This will permanently delete all associated scenes, obstacles, and NPCs)'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.submitDelete.bind(this) },
+	              'Confirm'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.showConfirm.bind(this) },
+	              'Cancel'
+	            )
+	          )
+	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
@@ -29223,7 +29303,12 @@
 	              null,
 	              this.state.name
 	            ),
-	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) })
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'button-box' },
+	              _react2.default.createElement('button', { className: 'name-button edit', onClick: this.showForm.bind(this) }),
+	              _react2.default.createElement('button', { className: 'name-button delete', onClick: this.showConfirm.bind(this) })
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -29811,7 +29896,11 @@
 	              null,
 	              this.state.name
 	            ),
-	            _react2.default.createElement('button', { className: 'edit-button', onClick: this.showForm.bind(this) }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'button-box' },
+	              _react2.default.createElement('button', { className: 'name-button edit', onClick: this.showForm.bind(this) })
+	            ),
 	            _react2.default.createElement(
 	              'h3',
 	              null,
