@@ -71,19 +71,19 @@
 	
 	var _Campaign2 = _interopRequireDefault(_Campaign);
 	
-	var _Encounter = __webpack_require__(/*! ./Encounter.jsx */ 242);
+	var _Encounter = __webpack_require__(/*! ./Encounter.jsx */ 243);
 	
 	var _Encounter2 = _interopRequireDefault(_Encounter);
 	
-	var _Scene = __webpack_require__(/*! ./Scene.jsx */ 244);
+	var _Scene = __webpack_require__(/*! ./Scene.jsx */ 245);
 	
 	var _Scene2 = _interopRequireDefault(_Scene);
 	
-	var _Combat = __webpack_require__(/*! ./Combat.jsx */ 250);
+	var _Combat = __webpack_require__(/*! ./Combat.jsx */ 251);
 	
 	var _Combat2 = _interopRequireDefault(_Combat);
 	
-	var _Container = __webpack_require__(/*! ./Container.jsx */ 253);
+	var _Container = __webpack_require__(/*! ./Container.jsx */ 254);
 	
 	var _Container2 = _interopRequireDefault(_Container);
 	
@@ -28349,7 +28349,8 @@
 	  getItems: rootUrl + 'items/',
 	  newEncounter: rootUrl + 'encounters/new/',
 	  newScene: rootUrl + 'scenes/new/',
-	  newNpc: rootUrl + 'npcs/new/'
+	  newNpc: rootUrl + 'npcs/new/',
+	  deleteCampaign: rootUrl + 'campaigns/delete/'
 	}
 
 
@@ -28630,11 +28631,15 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
 	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 254);
+	var _NewEncounterForm = __webpack_require__(/*! ./NewEncounterForm.jsx */ 242);
 	
 	var _NewEncounterForm2 = _interopRequireDefault(_NewEncounterForm);
 	
@@ -28735,17 +28740,19 @@
 	    key: 'submitDelete',
 	    value: function submitDelete() {
 	      $.ajax({
-	        url: _urls2.default.getEncounters + this.props.params.camp_id,
+	        url: _urls2.default.deleteCampaign + this.props.params.camp_id,
 	        dataType: 'json',
 	        type: 'POST',
-	        data: this.state,
+	        data: { userId: _reactCookie2.default.load('userId') },
 	        success: function () {
-	          this.setState({ showConfirm: false });
+	          console.log('delete request successful.');
+	          _reactRouter.hashHistory.push("/");
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(this.props.url, status, err.toString());
 	        }.bind(this)
 	      });
+	      console.log("Deleted!");
 	    }
 	  }, {
 	    key: 'render',
@@ -28851,13 +28858,14 @@
 	            'Delete this Campaign?'
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'form-button' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/', onClick: this.submitDelete.bind(this) },
-	              'Confirm'
-	            )
+	            'h4',
+	            null,
+	            '(This will permanently delete all associated encounters, scenes, obstacles, NPCs, and PCs)'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'form-button', onClick: this.submitDelete.bind(this) },
+	            'Confirm'
 	          ),
 	          _react2.default.createElement(
 	            'button',
@@ -28920,6 +28928,98 @@
 
 /***/ },
 /* 242 */
+/*!*********************************************!*\
+  !*** ./src/client/app/NewEncounterForm.jsx ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
+	
+	var _urls2 = _interopRequireDefault(_urls);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewEncounterForm = function (_React$Component) {
+	  _inherits(NewEncounterForm, _React$Component);
+	
+	  function NewEncounterForm(props) {
+	    _classCallCheck(this, NewEncounterForm);
+	
+	    var _this = _possibleConstructorReturn(this, (NewEncounterForm.__proto__ || Object.getPrototypeOf(NewEncounterForm)).call(this, props));
+	
+	    _this.state = {
+	      name: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewEncounterForm, [{
+	    key: 'handleNameChange',
+	    value: function handleNameChange(e) {
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      $.ajax({
+	        url: _urls2.default.newEncounter + this.props.campaignId,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: this.state,
+	        success: function () {
+	          this.props.showNewForm();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'New Encounter Name: '
+	          ),
+	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
+	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewEncounterForm;
+	}(_react2.default.Component);
+	
+	exports.default = NewEncounterForm;
+
+/***/ },
+/* 243 */
 /*!**************************************!*\
   !*** ./src/client/app/Encounter.jsx ***!
   \**************************************/
@@ -28947,7 +29047,7 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NewSceneForm = __webpack_require__(/*! ./NewSceneForm.jsx */ 243);
+	var _NewSceneForm = __webpack_require__(/*! ./NewSceneForm.jsx */ 244);
 	
 	var _NewSceneForm2 = _interopRequireDefault(_NewSceneForm);
 	
@@ -28980,7 +29080,6 @@
 	  _createClass(Encounter, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      console.log(_reactCookie2.default.load('userId'));
 	      this.getScenes();
 	    }
 	  }, {
@@ -29165,7 +29264,7 @@
 	exports.default = Encounter;
 
 /***/ },
-/* 243 */
+/* 244 */
 /*!*****************************************!*\
   !*** ./src/client/app/NewSceneForm.jsx ***!
   \*****************************************/
@@ -29290,7 +29389,7 @@
 	exports.default = NewSceneForm;
 
 /***/ },
-/* 244 */
+/* 245 */
 /*!**********************************!*\
   !*** ./src/client/app/Scene.jsx ***!
   \**********************************/
@@ -29314,11 +29413,11 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NpcList = __webpack_require__(/*! ./NpcList.jsx */ 245);
+	var _NpcList = __webpack_require__(/*! ./NpcList.jsx */ 246);
 	
 	var _NpcList2 = _interopRequireDefault(_NpcList);
 	
-	var _ObstacleList = __webpack_require__(/*! ./ObstacleList.jsx */ 248);
+	var _ObstacleList = __webpack_require__(/*! ./ObstacleList.jsx */ 249);
 	
 	var _ObstacleList2 = _interopRequireDefault(_ObstacleList);
 	
@@ -29745,7 +29844,7 @@
 	exports.default = Scene;
 
 /***/ },
-/* 245 */
+/* 246 */
 /*!************************************!*\
   !*** ./src/client/app/NpcList.jsx ***!
   \************************************/
@@ -29769,11 +29868,11 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 246);
+	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 247);
 	
 	var _NpcCard2 = _interopRequireDefault(_NpcCard);
 	
-	var _NewNpcForm = __webpack_require__(/*! ./NewNpcForm.jsx */ 247);
+	var _NewNpcForm = __webpack_require__(/*! ./NewNpcForm.jsx */ 248);
 	
 	var _NewNpcForm2 = _interopRequireDefault(_NewNpcForm);
 	
@@ -29879,7 +29978,7 @@
 	exports.default = NpcList;
 
 /***/ },
-/* 246 */
+/* 247 */
 /*!************************************!*\
   !*** ./src/client/app/NpcCard.jsx ***!
   \************************************/
@@ -30342,7 +30441,7 @@
 	exports.default = NpcCard;
 
 /***/ },
-/* 247 */
+/* 248 */
 /*!***************************************!*\
   !*** ./src/client/app/NewNpcForm.jsx ***!
   \***************************************/
@@ -30541,7 +30640,7 @@
 	exports.default = NewNpcForm;
 
 /***/ },
-/* 248 */
+/* 249 */
 /*!*****************************************!*\
   !*** ./src/client/app/ObstacleList.jsx ***!
   \*****************************************/
@@ -30565,7 +30664,7 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _ObstacleCard = __webpack_require__(/*! ./ObstacleCard.jsx */ 249);
+	var _ObstacleCard = __webpack_require__(/*! ./ObstacleCard.jsx */ 250);
 	
 	var _ObstacleCard2 = _interopRequireDefault(_ObstacleCard);
 	
@@ -30653,7 +30752,7 @@
 	exports.default = ObstacleList;
 
 /***/ },
-/* 249 */
+/* 250 */
 /*!*****************************************!*\
   !*** ./src/client/app/ObstacleCard.jsx ***!
   \*****************************************/
@@ -30775,7 +30874,7 @@
 	exports.default = ObstacleCard;
 
 /***/ },
-/* 250 */
+/* 251 */
 /*!***********************************!*\
   !*** ./src/client/app/Combat.jsx ***!
   \***********************************/
@@ -30799,7 +30898,7 @@
 	
 	var _urls2 = _interopRequireDefault(_urls);
 	
-	var _CharacterCard = __webpack_require__(/*! ./CharacterCard.jsx */ 251);
+	var _CharacterCard = __webpack_require__(/*! ./CharacterCard.jsx */ 252);
 	
 	var _CharacterCard2 = _interopRequireDefault(_CharacterCard);
 	
@@ -30925,7 +31024,7 @@
 	exports.default = Combat;
 
 /***/ },
-/* 251 */
+/* 252 */
 /*!******************************************!*\
   !*** ./src/client/app/CharacterCard.jsx ***!
   \******************************************/
@@ -30943,11 +31042,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 246);
+	var _NpcCard = __webpack_require__(/*! ./NpcCard.jsx */ 247);
 	
 	var _NpcCard2 = _interopRequireDefault(_NpcCard);
 	
-	var _PlayerCard = __webpack_require__(/*! ./PlayerCard.jsx */ 252);
+	var _PlayerCard = __webpack_require__(/*! ./PlayerCard.jsx */ 253);
 	
 	var _PlayerCard2 = _interopRequireDefault(_PlayerCard);
 	
@@ -30993,7 +31092,7 @@
 	exports.default = CharacterCard;
 
 /***/ },
-/* 252 */
+/* 253 */
 /*!***************************************!*\
   !*** ./src/client/app/PlayerCard.jsx ***!
   \***************************************/
@@ -31444,7 +31543,7 @@
 	exports.default = PlayerCard;
 
 /***/ },
-/* 253 */
+/* 254 */
 /*!**************************************!*\
   !*** ./src/client/app/Container.jsx ***!
   \**************************************/
@@ -31583,98 +31682,6 @@
 	}(_react2.default.Component);
 	
 	exports.default = Container;
-
-/***/ },
-/* 254 */
-/*!*********************************************!*\
-  !*** ./src/client/app/NewEncounterForm.jsx ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
-	
-	var _urls2 = _interopRequireDefault(_urls);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewEncounterForm = function (_React$Component) {
-	  _inherits(NewEncounterForm, _React$Component);
-	
-	  function NewEncounterForm(props) {
-	    _classCallCheck(this, NewEncounterForm);
-	
-	    var _this = _possibleConstructorReturn(this, (NewEncounterForm.__proto__ || Object.getPrototypeOf(NewEncounterForm)).call(this, props));
-	
-	    _this.state = {
-	      name: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewEncounterForm, [{
-	    key: 'handleNameChange',
-	    value: function handleNameChange(e) {
-	      this.setState({ name: e.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      $.ajax({
-	        url: _urls2.default.newEncounter + this.props.campaignId,
-	        dataType: 'json',
-	        type: 'POST',
-	        data: this.state,
-	        success: function () {
-	          this.props.showNewForm();
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(this.props.url, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'form',
-	          { className: 'edit-form', onSubmit: this.handleSubmit.bind(this) },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'New Encounter Name: '
-	          ),
-	          _react2.default.createElement('input', { className: 'text-input', type: 'text', id: 'name', onChange: this.handleNameChange.bind(this) }),
-	          _react2.default.createElement('input', { className: 'form-button', type: 'submit', value: 'Save Changes' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return NewEncounterForm;
-	}(_react2.default.Component);
-	
-	exports.default = NewEncounterForm;
 
 /***/ }
 /******/ ]);

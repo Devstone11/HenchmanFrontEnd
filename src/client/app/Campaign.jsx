@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
+import cookie from 'react-cookie';
 import urls from '../scripts/urls.js';
 import NewEncounterForm from './NewEncounterForm.jsx';
 
@@ -77,17 +78,19 @@ class Campaign extends React.Component {
 
   submitDelete() {
     $.ajax({
-      url: urls.getEncounters + this.props.params.camp_id,
+      url: urls.deleteCampaign + this.props.params.camp_id,
       dataType: 'json',
       type: 'POST',
-      data: this.state,
+      data: {userId: cookie.load('userId')},
       success: function() {
-        this.setState({showConfirm: false});
+        console.log('delete request successful.');
+        hashHistory.push("/");
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+    console.log("Deleted!");
   }
 
   render() {
@@ -135,7 +138,8 @@ class Campaign extends React.Component {
             <Link to='/'>&#60; Campaigns</Link>
           </div>
           <h3>Delete this Campaign?</h3>
-          <div className="form-button"><Link to="/" onClick={this.submitDelete.bind(this)}>Confirm</Link></div>
+          <h4>(This will permanently delete all associated encounters, scenes, obstacles, NPCs, and PCs)</h4>
+          <button className="form-button" onClick={this.submitDelete.bind(this)}>Confirm</button>
           <button className="form-button" onClick={this.showConfirm.bind(this)}>Cancel</button>
         </div>
       )

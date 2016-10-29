@@ -17,5 +17,6 @@ module.exports = {
   getItems: rootUrl + 'items/',
   newEncounter: rootUrl + 'encounters/new/',
   newScene: rootUrl + 'scenes/new/',
-  newNpc: rootUrl + 'npcs/new/'
+  newNpc: rootUrl + 'npcs/new/',
+  deleteCampaign: rootUrl + 'campaigns/delete/'
 }

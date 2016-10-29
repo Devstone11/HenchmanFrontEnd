@@ -18,7 +18,6 @@ class Encounter extends React.Component {
   }
 
   componentWillMount () {
-    console.log(cookie.load('userId'));
     this.getScenes();
   }
 
