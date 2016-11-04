@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import cookie from 'react-cookie';
 import urls from '../scripts/urls.js';
 import NewSceneForm from './NewSceneForm.jsx';
@@ -51,7 +51,6 @@ class Encounter extends React.Component {
 
   showConfirm() {
     this.setState({showConfirm: !this.state.showConfirm});
-    console.log(this.state.showConfirm);
   }
 
   handleNameChange (e) {
@@ -84,14 +83,12 @@ class Encounter extends React.Component {
       type: 'POST',
       data: {userId: cookie.load('userId')},
       success: function() {
-        console.log('delete request successful.');
         hashHistory.push("/");
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-    console.log("delete!");
   }
 
   render() {

@@ -28350,7 +28350,8 @@
 	  newEncounter: rootUrl + 'encounters/new/',
 	  newScene: rootUrl + 'scenes/new/',
 	  newNpc: rootUrl + 'npcs/new/',
-	  deleteCampaign: rootUrl + 'campaigns/delete/'
+	  deleteCampaign: rootUrl + 'campaigns/delete/',
+	  deleteEncounter: rootUrl + 'encounters/delete/'
 	}
 
 
@@ -28556,7 +28557,6 @@
 	  }, {
 	    key: 'statusChangeCallback',
 	    value: function statusChangeCallback(response) {
-	      console.log(response);
 	      // The response object is returned with a status field that lets the
 	      // app know the current login status of the person.
 	      // Full docs on the response object can be found in the documentation
@@ -28750,7 +28750,6 @@
 	        type: 'POST',
 	        data: { userId: _reactCookie2.default.load('userId') },
 	        success: function () {
-	          console.log('delete request successful.');
 	          _reactRouter.hashHistory.push("/");
 	        }.bind(this),
 	        error: function (xhr, status, err) {
@@ -29125,7 +29124,6 @@
 	    key: 'showConfirm',
 	    value: function showConfirm() {
 	      this.setState({ showConfirm: !this.state.showConfirm });
-	      console.log(this.state.showConfirm);
 	    }
 	  }, {
 	    key: 'handleNameChange',
@@ -29162,14 +29160,12 @@
 	        type: 'POST',
 	        data: { userId: _reactCookie2.default.load('userId') },
 	        success: function () {
-	          console.log('delete request successful.');
-	          hashHistory.push("/");
+	          _reactRouter.hashHistory.push("/");
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(this.props.url, status, err.toString());
 	        }.bind(this)
 	      });
-	      console.log("delete!");
 	    }
 	  }, {
 	    key: 'render',

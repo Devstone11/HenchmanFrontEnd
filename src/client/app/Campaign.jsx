@@ -83,7 +83,6 @@ class Campaign extends React.Component {
       type: 'POST',
       data: {userId: cookie.load('userId')},
       success: function() {
-        console.log('delete request successful.');
         hashHistory.push("/");
       }.bind(this),
       error: function(xhr, status, err) {
