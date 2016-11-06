@@ -83,7 +83,7 @@ class Encounter extends React.Component {
       type: 'POST',
       data: {userId: cookie.load('userId')},
       success: function() {
-        hashHistory.push("/");
+        hashHistory.push("/campaign/" + this.props.params.camp_id);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());

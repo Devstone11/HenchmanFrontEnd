@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
+import cookie from 'react-cookie';
 import urls from '../scripts/urls.js';
 import NpcList from './NpcList.jsx';
 import ObstacleList from './ObstacleList.jsx';
@@ -12,6 +13,7 @@ class Scene extends React.Component {
       showForm: false,
       showNpcs: false,
       showObstacles: false,
+      showConfirm: false,
       name: '',
       setting_description: '',
       misc_loot: '',
@@ -52,6 +54,10 @@ class Scene extends React.Component {
     this.setState({showNpcs: false, showObstacles: !this.state.showObstacles});
   }
 
+  showConfirm() {
+    this.setState({showConfirm: !this.state.showConfirm});
+  }
+
   handleNameChange (e) {
     this.setState({name: e.target.value});
   }
@@ -76,6 +82,21 @@ class Scene extends React.Component {
       data: this.state,
       success: function() {
         this.setState({showForm: false});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  }
+
+  submitDelete() {
+    $.ajax({
+      url: urls.deleteScene + this.props.params.scene_id,
+      dataType: 'json',
+      type: 'POST',
+      data: {userId: cookie.load('userId')},
+      success: function() {
+        hashHistory.push("/campaign/" + this.props.params.camp_id + "/encounter/" + this.props.params.encounter_id);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -183,6 +204,19 @@ class Scene extends React.Component {
           </div>
         </div>
       );
+    } else if (this.state.showConfirm === true){
+      return (
+        <div>
+          {leftBar}
+          <div className="page-name scene-main">
+            <h2>{this.state.name}</h2>
+            <h3>Delete this scene?</h3>
+            <h4>(This will permanently delete all associated obstacles and NPCs)</h4>
+            <button className="form-button" onClick={this.submitDelete.bind(this)}>Confirm</button>
+            <button className="form-button" onClick={this.showConfirm.bind(this)}>Cancel</button>
+          </div>
+        </div>
+      );
     } else {
       return (
         <div>
@@ -191,6 +225,7 @@ class Scene extends React.Component {
             <h2>{this.state.name}</h2>
             <div className="button-box">
               <button className="name-button edit" onClick={this.showForm.bind(this)}></button>
+              <button className="name-button delete" onClick={this.showConfirm.bind(this)}></button>
             </div>
             <h3>Description</h3>
             <div className="scene-details">

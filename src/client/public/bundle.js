@@ -28351,7 +28351,8 @@
 	  newScene: rootUrl + 'scenes/new/',
 	  newNpc: rootUrl + 'npcs/new/',
 	  deleteCampaign: rootUrl + 'campaigns/delete/',
-	  deleteEncounter: rootUrl + 'encounters/delete/'
+	  deleteEncounter: rootUrl + 'encounters/delete/',
+	  deleteScene: rootUrl + 'scenes/delete/'
 	}
 
 
@@ -29160,7 +29161,7 @@
 	        type: 'POST',
 	        data: { userId: _reactCookie2.default.load('userId') },
 	        success: function () {
-	          _reactRouter.hashHistory.push("/");
+	          _reactRouter.hashHistory.push("/campaign/" + this.props.params.camp_id);
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(this.props.url, status, err.toString());
@@ -29490,6 +29491,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
 	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
@@ -29522,6 +29527,7 @@
 	      showForm: false,
 	      showNpcs: false,
 	      showObstacles: false,
+	      showConfirm: false,
 	      name: '',
 	      setting_description: '',
 	      misc_loot: '',
@@ -29568,6 +29574,11 @@
 	      this.setState({ showNpcs: false, showObstacles: !this.state.showObstacles });
 	    }
 	  }, {
+	    key: 'showConfirm',
+	    value: function showConfirm() {
+	      this.setState({ showConfirm: !this.state.showConfirm });
+	    }
+	  }, {
 	    key: 'handleNameChange',
 	    value: function handleNameChange(e) {
 	      this.setState({ name: e.target.value });
@@ -29597,6 +29608,22 @@
 	        data: this.state,
 	        success: function () {
 	          this.setState({ showForm: false });
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'submitDelete',
+	    value: function submitDelete() {
+	      $.ajax({
+	        url: _urls2.default.deleteScene + this.props.params.scene_id,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: { userId: _reactCookie2.default.load('userId') },
+	        success: function () {
+	          _reactRouter.hashHistory.push("/campaign/" + this.props.params.camp_id + "/encounter/" + this.props.params.encounter_id);
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(this.props.url, status, err.toString());
@@ -29879,6 +29906,41 @@
 	            _react2.default.createElement(_NpcList2.default, { sceneId: this.props.params.scene_id })
 	          )
 	        );
+	      } else if (this.state.showConfirm === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          leftBar,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-name scene-main' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              this.state.name
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Delete this scene?'
+	            ),
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              '(This will permanently delete all associated obstacles and NPCs)'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.submitDelete.bind(this) },
+	              'Confirm'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.showConfirm.bind(this) },
+	              'Cancel'
+	            )
+	          )
+	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
@@ -29895,7 +29957,8 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'button-box' },
-	              _react2.default.createElement('button', { className: 'name-button edit', onClick: this.showForm.bind(this) })
+	              _react2.default.createElement('button', { className: 'name-button edit', onClick: this.showForm.bind(this) }),
+	              _react2.default.createElement('button', { className: 'name-button delete', onClick: this.showConfirm.bind(this) })
 	            ),
 	            _react2.default.createElement(
 	              'h3',
