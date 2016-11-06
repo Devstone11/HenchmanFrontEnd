@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import cookie from 'react-cookie';
 import urls from '../scripts/urls.js';
 
 class NpcCard extends React.Component {
@@ -9,6 +10,7 @@ class NpcCard extends React.Component {
     this.state = {
       showDetails: false,
       showForm: false,
+      showConfirm: false,
       raceAbilities: [],
       items: [],
       npc_name: this.props.details.npc_name,
@@ -91,12 +93,36 @@ class NpcCard extends React.Component {
     });
   }
 
+  submitDelete () {
+    $.ajax({
+      url: urls.deleteNPC + this.props.details.npc_id,
+      dataType: 'json',
+      type: 'POST',
+      data: {userId: cookie.load('userId')},
+      success: function() {
+        this.setState({showForm: false});
+        this.props.refresh();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  }
+
   showDetails () {
-    this.setState({showForm: false, showDetails: !this.state.showDetails});
+    this.setState({
+      showForm: false,
+      showConfirm: false,
+      showDetails: !this.state.showDetails
+    });
   }
 
   showForm () {
-    this.setState({showForm: !this.state.showForm});
+    this.setState({showForm: !this.state.showForm, showConfirm: false});
+  }
+
+  showConfirm () {
+    this.setState({showDetails: false, showConfirm: true});
   }
 
   render() {
@@ -160,7 +186,8 @@ class NpcCard extends React.Component {
         <div>
           <div className="nav-link highlight" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
           <div className="show-details">
-            <button className="edit-button scene-edit-button" onClick={this.showForm.bind(this)}></button>
+            <button className="edit-button edit name-button" onClick={this.showForm.bind(this)}></button>
+            <button className="edit-button delete name-button" onClick={this.showConfirm.bind(this)}></button>
             <p>NPC Name: {this.props.details.npc_name}</p>
             <p>NPC Notes: {this.props.details.npc_notes}</p>
             <p>Race: {this.props.details.race_name}</p>
@@ -177,6 +204,18 @@ class NpcCard extends React.Component {
             {itemNodes}
             <p>Loot: {this.props.details.loot}</p>
             <p>XP: {this.props.details.xp_value}</p>
+          </div>
+        </div>
+      );
+    } else if (this.state.showConfirm === true) {
+      return (
+        <div>
+          <div className="nav-link highlight" onClick={this.showDetails.bind(this)}>{this.props.details.npc_name} &#62;</div>
+          <div className="show-details">
+            <p>{this.props.details.npc_name}</p>
+            <h3>Delete this NPC?</h3>
+            <button className="form-button" onClick={this.submitDelete.bind(this)}>Confirm</button>
+            <button className="form-button" onClick={this.showDetails.bind(this)}>Cancel</button>
           </div>
         </div>
       );

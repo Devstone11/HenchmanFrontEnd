@@ -28352,7 +28352,8 @@
 	  newNpc: rootUrl + 'npcs/new/',
 	  deleteCampaign: rootUrl + 'campaigns/delete/',
 	  deleteEncounter: rootUrl + 'encounters/delete/',
-	  deleteScene: rootUrl + 'scenes/delete/'
+	  deleteScene: rootUrl + 'scenes/delete/',
+	  deleteNPC: rootUrl + 'NPCs/delete/'
 	}
 
 
@@ -30146,6 +30147,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 236);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
 	var _urls = __webpack_require__(/*! ../scripts/urls.js */ 238);
 	
 	var _urls2 = _interopRequireDefault(_urls);
@@ -30169,6 +30174,7 @@
 	    _this.state = {
 	      showDetails: false,
 	      showForm: false,
+	      showConfirm: false,
 	      raceAbilities: [],
 	      items: [],
 	      npc_name: _this.props.details.npc_name,
@@ -30262,14 +30268,40 @@
 	      });
 	    }
 	  }, {
+	    key: 'submitDelete',
+	    value: function submitDelete() {
+	      $.ajax({
+	        url: _urls2.default.deleteNPC + this.props.details.npc_id,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: { userId: _reactCookie2.default.load('userId') },
+	        success: function () {
+	          this.setState({ showForm: false });
+	          this.props.refresh();
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(this.props.url, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+	  }, {
 	    key: 'showDetails',
 	    value: function showDetails() {
-	      this.setState({ showForm: false, showDetails: !this.state.showDetails });
+	      this.setState({
+	        showForm: false,
+	        showConfirm: false,
+	        showDetails: !this.state.showDetails
+	      });
 	    }
 	  }, {
 	    key: 'showForm',
 	    value: function showForm() {
-	      this.setState({ showForm: !this.state.showForm });
+	      this.setState({ showForm: !this.state.showForm, showConfirm: false });
+	    }
+	  }, {
+	    key: 'showConfirm',
+	    value: function showConfirm() {
+	      this.setState({ showDetails: false, showConfirm: true });
 	    }
 	  }, {
 	    key: 'render',
@@ -30477,7 +30509,8 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'show-details' },
-	            _react2.default.createElement('button', { className: 'edit-button scene-edit-button', onClick: this.showForm.bind(this) }),
+	            _react2.default.createElement('button', { className: 'edit-button edit name-button', onClick: this.showForm.bind(this) }),
+	            _react2.default.createElement('button', { className: 'edit-button delete name-button', onClick: this.showConfirm.bind(this) }),
 	            _react2.default.createElement(
 	              'p',
 	              null,
@@ -30565,6 +30598,41 @@
 	              null,
 	              'XP: ',
 	              this.props.details.xp_value
+	            )
+	          )
+	        );
+	      } else if (this.state.showConfirm === true) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav-link highlight', onClick: this.showDetails.bind(this) },
+	            this.props.details.npc_name,
+	            ' >'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'show-details' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              this.props.details.npc_name
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Delete this NPC?'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.submitDelete.bind(this) },
+	              'Confirm'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'form-button', onClick: this.showDetails.bind(this) },
+	              'Cancel'
 	            )
 	          )
 	        );

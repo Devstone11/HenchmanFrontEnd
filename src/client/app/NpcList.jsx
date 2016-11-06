@@ -10,7 +10,7 @@ class NpcList extends React.Component {
     super(props);
     this.state = {
       npcs: [],
-      showForm: false,
+      showForm: false
     };
   }
 
