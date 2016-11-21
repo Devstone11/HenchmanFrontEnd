@@ -37,6 +37,10 @@
   background-image: url("../images/burningtown.jpg");
 }
 
+.underconstruction {
+  background-image: url("../images/shack.jpg");
+}
+
 h1 {
   background-color: rgba(0, 0, 0, 0.6);
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;

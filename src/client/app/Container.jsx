@@ -43,6 +43,8 @@ class Container extends React.Component {
       backgroundDiv = <div className="background-image ruins"></div>;
     } else if (this.props.params.camp_id) {
       backgroundDiv = <div className="background-image book"></div>;
+    } else if (this.props.params.construction) {
+      backgroundDiv = <div className="background-image underconstruction"></div>;
     } else {
       backgroundDiv = <div className="background-image forest"></div>;
     }

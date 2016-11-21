@@ -8,6 +8,7 @@ import Scene from './Scene.jsx';
 import Combat from './Combat.jsx';
 import Container from './Container.jsx';
 import Login from './Login.jsx';
+import UnderConstruction from './UnderConstruction.jsx';
 
 export default class App extends Component {
     render(){
@@ -20,6 +21,7 @@ export default class App extends Component {
             <Route path='/campaign/:camp_id/encounter/:encounter_id' component={Encounter} />
             <Route path='/campaign/:camp_id/encounter/:encounter_id/scene/:scene_id' component={Scene} />
             <Route path='/campaign/:camp_id/encounter/:encounter_id/combat/:scene_id/:combat' component={Combat} />
+            <Route path='/underconstruction/:construction' component={UnderConstruction} />
           </Route>
         </Router>
       )
