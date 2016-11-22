@@ -63,8 +63,8 @@ class Container extends React.Component {
       return (
         <div>
           {backgroundDiv}
-          <h1 id="welcome">Welcome to Henchman</h1>
-          <Login></Login>
+          <h1 className="welcome">Henchman is currently under construction. </h1>
+          <h1 className="welcome">Come back soon!</h1>
         </div>
       );
     }

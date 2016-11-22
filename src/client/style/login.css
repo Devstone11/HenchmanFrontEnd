@@ -1,6 +1,8 @@
-#welcome {
+.welcome {
+/*#welcome {*/
   background-color: transparent;
-  font-size: 120px;
+  /*font-size: 120px;*/
+  font-size: 60px;
   margin-top: 20vh;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   font-family: 'Booter - Five Zero';
