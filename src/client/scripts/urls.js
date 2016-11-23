@@ -14,6 +14,7 @@ module.exports = {
   getPlayers: rootUrl + 'players/',
   getRaceAbilities: rootUrl + 'race_abilities/',
   getRaces: rootUrl + 'races/',
+  getCampaignItems: rootUrl + 'all_items/',
   getItems: rootUrl + 'items/',
   newEncounter: rootUrl + 'encounters/new/',
   newScene: rootUrl + 'scenes/new/',

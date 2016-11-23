@@ -8,7 +8,9 @@ import Scene from './Scene.jsx';
 import Combat from './Combat.jsx';
 import Container from './Container.jsx';
 import Login from './Login.jsx';
-import UnderConstruction from './UnderConstruction.jsx';
+import Players from './Players.jsx';
+import Items from './Items.jsx';
+import Races from './Races.jsx';
 
 export default class App extends Component {
     render(){
@@ -18,6 +20,9 @@ export default class App extends Component {
             <IndexRoute component={User} />
             <Route path='/login' component={Login} />
             <Route path='/campaign/:camp_id' component={Campaign} />
+            <Route path='/campaign/:camp_id/players/:browse' component={Players} />
+            <Route path='/campaign/:camp_id/items/:browse' component={Items} />
+            <Route path='/campaign/:camp_id/races/:browse' component={Races} />
             <Route path='/campaign/:camp_id/encounter/:encounter_id' component={Encounter} />
             <Route path='/campaign/:camp_id/encounter/:encounter_id/scene/:scene_id' component={Scene} />
             <Route path='/campaign/:camp_id/encounter/:encounter_id/combat/:scene_id/:combat' component={Combat} />

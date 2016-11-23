@@ -41,10 +41,10 @@ class Container extends React.Component {
       backgroundDiv = <div className="background-image ships"></div>;
     } else if (this.props.params.encounter_id) {
       backgroundDiv = <div className="background-image ruins"></div>;
+    } else if (this.props.params.browse) {
+      backgroundDiv = <div className="background-image underconstruction"></div>;
     } else if (this.props.params.camp_id) {
       backgroundDiv = <div className="background-image book"></div>;
-    } else if (this.props.params.construction) {
-      backgroundDiv = <div className="background-image underconstruction"></div>;
     } else {
       backgroundDiv = <div className="background-image forest"></div>;
     }
@@ -63,8 +63,8 @@ class Container extends React.Component {
       return (
         <div>
           {backgroundDiv}
-          <h1 className="welcome">Henchman is currently under construction. </h1>
-          <h1 className="welcome">Come back soon!</h1>
+          <h1 id="welcome">Welcome to Henchman</h1>
+          <Login></Login>
         </div>
       );
     }

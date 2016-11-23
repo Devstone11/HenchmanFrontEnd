@@ -98,7 +98,8 @@ h3 {
 #logout:hover,
 .nav-back:hover,
 .nav-link:hover,
-div.form-button a:hover {
+div.form-button a:hover,
+.browse-box a:hover {
   color: #BAD19B;
 }
 
@@ -165,7 +166,7 @@ h4 {
   padding-right: 85px;
 }
 
-.page-name h2 {
+.page-name h2, .browse-box a {
   font-family: 'Booter - Five Zero';
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   display: inline-block;

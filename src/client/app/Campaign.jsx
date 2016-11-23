@@ -151,6 +151,11 @@ class Campaign extends React.Component {
               <button className="name-button delete" onClick={this.showConfirm.bind(campaignThis)}></button>
             </div>
           </div>
+          <div className="browse-box">
+            <Link to={'/campaign/' + campaignThis.props.params.camp_id + '/players/browse'}>Players &#62;</Link>
+            <Link to={'/campaign/' + campaignThis.props.params.camp_id + '/races/browse'}>Races &#62;</Link>
+            <Link to={'/campaign/' + campaignThis.props.params.camp_id + '/items/browse'}>Items &#62;</Link>
+          </div>
           <div className="left-bar">
             <div className="nav-back">
               <Link to='/'>&#60; Campaigns</Link>
